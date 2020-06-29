@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- === Konfigurasi Mutabaah === -->
+        <!-- tree view -->
+        <record id="view_cdn_mutabaah_tree" model="ir.ui.view">
+            <field name="name">cdn_mutabaah_tree</field>
+            <field name="model">cdn.mutabaah</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Mutabaah">
+                    <field name="name" />
+                    <field name="kategori" />
+                    <field name="skor"/>
+                    <field name="is_tampil"/>
+                </tree>
+            </field>
+        </record>
+        <!-- form view -->
+        <record id="view_cdn_mutabaah_form" model="ir.ui.view">
+            <field name="name">cdn_mutabaah_form</field>
+            <field name="model">cdn.mutabaah</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Mutabaah">
+                    <header>
+                        <!--button string="Confirm" type="object" name="action_confirm" states="draft" /-->
+                        <!--button string="Mark as Done" type="object" name="action_done" states="confirmed" /-->
+                        <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--button type="object" name="action_view_detail" class="oe_stat_button" icon="fa-pencil-square-o"-->
+                                <!--field name="detail_count" widget="statinfo" string="Detail(s)"/-->
+                                <!--field name="detail_ids" invisible="1"/-->
+                            <!--/button-->
+                        </div>
+                        <group>
+                            <field name="name"/>
+                            <field name="kategori" />
+                            <field name="is_tampil"/>
+                            <field name="skor"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- search -->
+        <record id="view_cdn_mutabaah_search" model="ir.ui.view">
+            <field name="name">cdn_mutabaah</field>
+            <field name="model">cdn.mutabaah</field>
+            <field name="arch" type="xml">
+                <search string="Mutabaah">
+
+                    <filter string="Name" name="filter_by_name" domain="[('name','=','')]" />
+                    <filter string="Kedisiplinan" name="filter_by_kategori" domain="[('kategori','=','disiplin')]" />
+                    <filter string="Pembiasaan Adab dan Karakter" name="filter_by_kategori" domain="[('kategori','=','adab')]" />
+                    <filter string="Pembiasaan Ibadah" name="filter_by_kategori" domain="[('kategori','=','ibadah')]" />
+                    <field name="name" select="True"/>
+                    <field name="kategori" select="True"/>
+                    <group string="Group By..">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- action window -->
+        <record id="action_cdn_mutabaah" model="ir.actions.act_window">
+            <field name="name">Mutabaah</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.mutabaah</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a new Mutabaah
+                </p><p>
+                Click the Create button to add a new Mutabaah
+                </p>
+            </field>
+        </record>
+
+        <!-- === Mutabaah Harian === -->
+        <!-- tree view -->
+        <record id="view_cdn_mutabaah_harian_tree" model="ir.ui.view">
+            <field name="name">cdn_mutabaah_harian_tree</field>
+            <field name="model">cdn.mutabaah_harian</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Mutabaah harian">
+                    <field name="name" string="No Referensi"/>
+                    <field name="tanggal" />
+                    <field name="siswa_id" />
+                    <field name="kategori"/>
+                    <field name="guru_id" />
+                </tree>
+            </field>
+        </record>
+        <!-- form view -->
+        <record id="view_cdn_mutabaah_harian_form" model="ir.ui.view">
+            <field name="name">cdn_mutabaah_harian_form</field>
+            <field name="model">cdn.mutabaah_harian</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Mutabaah harian">
+                    <header>
+                        <!--button string="Confirm" type="object" name="action_confirm" states="draft" /-->
+                        <!--button string="Mark as Done" type="object" name="action_done" states="confirmed" /-->
+                        <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--button type="object" name="action_view_detail" class="oe_stat_button" icon="fa-pencil-square-o"-->
+                                <!--field name="detail_count" widget="statinfo" string="Detail(s)"/-->
+                                <!--field name="detail_ids" invisible="1"/-->
+                            <!--/button-->
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Mutabaah harian Name"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <field name="tanggal" />
+                            <field name="siswa_id" />
+                            <field name="guru_id" />
+                            <field name="kategori"/>
+                        </group>
+                        <notebook>
+                            <page string="Mutabaah Harian">
+                                <field colspan="4" name="mutabaah_lines">
+                                    <tree string="" editable="top" class="my_class"> 
+										<field name="name" string="Aktivitas / Perbuatan" options="{'no_create_edit':True, 'no_create':True, 'no_open':True, 'readonly':True}" />
+                                        <field name="is_sudah"/>
+                                        <field name="keterangan"/>
+									</tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- search -->
+        <record id="view_cdn_mutabaah_harian_search" model="ir.ui.view">
+            <field name="name">cdn_mutabaah_harian</field>
+            <field name="model">cdn.mutabaah_harian</field>
+            <field name="arch" type="xml">
+                <search string="Mutabaah harian">
+
+                    <filter string="Kedisiplinan" name="filter_by_kategori" domain="[('kategori','=','disiplin')]" />
+                    <filter string="Pembiasaan Adab dan Karakter" name="filter_by_kategori" domain="[('kategori','=','adab')]" />
+                    <filter string="Pembiasaan Ibadah" name="filter_by_kategori" domain="[('kategori','=','ibadah')]" />
+                    <field name="name" select="True"/>
+                    <field name="tanggal" select="True"/>
+                    <field name="siswa_id" select="True"/>
+                    <field name="guru_id" select="True"/>
+                    <group string="Group By..">
+                        <filter string="Siswa" domain="[]" name="group_by_siswa_id" context="{'group_by':'siswa_id'}"/>
+                        <filter string="Guru" domain="[]" name="group_by_guru_id" context="{'group_by':'guru_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- action window -->
+        <record id="action_cdn_mutabaah_harian" model="ir.actions.act_window">
+            <field name="name">Mutabaah harian</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.mutabaah_harian</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a new Mutabaah harian
+                </p><p>
+                Click the Create button to add a new Mutabaah harian
+                </p>
+            </field>
+        </record>
+        
+        <record id="seq_mutabaah_harian_new" model="ir.sequence">
+            <field name="name">No Referensi</field>
+            <field name="code">cdn.mutabaah_harian</field>
+            <field name="prefix">MH/%(y)s.%(month)s/</field>
+            <field name="padding">4</field>
+        </record>
+
+    </data>
+</odoo>

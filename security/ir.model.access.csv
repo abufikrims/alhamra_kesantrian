@@ -1,0 +1,42 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_admin_cdn_perijinan,access_admin_cdn_perijinan,model_cdn_perijinan,base.group_system,1,1,1,1
+access_admin_cdn_pelanggaran,access_admin_cdn_pelanggaran,model_cdn_pelanggaran,base.group_system,1,1,1,1
+access_all_cdn_tindakan_hukuman,access_all_cdn_tindakan_hukuman,model_cdn_tindakan_hukuman,,1,0,0,0
+access_admin_cdn_tindakan_hukuman,access_admin_cdn_tindakan_hukuman,model_cdn_tindakan_hukuman,base.group_system,1,1,1,1
+access_admin_cdn_kesehatan,access_admin_cdn_kesehatan,model_cdn_kesehatan,base.group_system,1,1,1,1
+access_admin_cdn_prestasi_siswa,access_admin_cdn_prestasi_siswa,model_cdn_prestasi_siswa,base.group_system,1,1,1,1
+access_all_cdn_jns_prestasi,access_all_cdn_jns_prestasi,model_cdn_jns_prestasi,,1,0,0,0
+access_admin_cdn_jns_prestasi,access_admin_cdn_jns_prestasi,model_cdn_jns_prestasi,base.group_system,1,1,1,1
+access_all_cdn_lokasi_fasilitas,access_all_cdn_lokasi_fasilitas,model_cdn_lokasi_fasilitas,,1,0,0,0
+access_admin_cdn_lokasi_fasilitas,access_admin_cdn_lokasi_fasilitas,model_cdn_lokasi_fasilitas,base.group_system,1,1,1,1
+access_all_cdn_kamar,access_all_cdn_kamar,model_cdn_kamar,,1,0,0,0
+access_admin_cdn_kamar,access_admin_cdn_kamar,model_cdn_kamar,base.group_system,1,1,1,1
+
+access_all_cdn_tahfidz_quran,access_all_cdn_tahfidz_quran,model_cdn_tahfidz_quran,,1,0,0,0
+access_admin_cdn_tahfidz_quran,access_admin_cdn_tahfidz_quran,model_cdn_tahfidz_quran,base.group_system,1,1,1,1
+access_all_cdn_quran,access_all_cdn_quran,model_cdn_quran,,1,0,0,0
+access_admin_cdn_quran,access_admin_cdn_quran,model_cdn_quran,base.group_system,1,1,1,1
+access_all_cdn_nilai_tahfidz,access_all_cdn_nilai_tahfidz,model_cdn_nilai_tahfidz,,1,0,0,0
+access_admin_cdn_nilai_tahfidz,access_admin_cdn_nilai_tahfidz,model_cdn_nilai_tahfidz,base.group_system,1,1,1,1
+access_all_cdn_tahfidz_hadits,access_all_cdn_tahfidz_hadits,model_cdn_tahfidz_hadits,,1,0,0,0
+access_admin_cdn_tahfidz_hadits,access_admin_cdn_tahfidz_hadits,model_cdn_tahfidz_hadits,base.group_system,1,1,1,1
+access_all_cdn_hadits,access_all_cdn_hadits,model_cdn_hadits,,1,0,0,0
+access_admin_cdn_hadits,access_admin_cdn_hadits,model_cdn_hadits,base.group_system,1,1,1,1
+access_all_cdn_tahsin,access_all_cdn_tahsin,model_cdn_tahsin,,1,0,0,0
+access_admin_cdn_tahsin,access_admin_cdn_tahsin,model_cdn_tahsin,base.group_system,1,1,1,1
+access_all_cdn_level_tahsin,access_all_cdn_level_tahsin,model_cdn_level_tahsin,,1,0,0,0
+access_admin_cdn_level_tahsin,access_admin_cdn_level_tahsin,model_cdn_level_tahsin,base.group_system,1,1,1,1
+
+access_all_cdn_mutabaah_line,access_all_cdn_mutabaah_line,model_cdn_mutabaah_line,,1,0,0,0
+access_admin_cdn_mutabaah_line,access_admin_cdn_mutabaah_line,model_cdn_mutabaah_line,base.group_system,1,1,1,1
+access_all_cdn_mutabaah,access_all_cdn_mutabaah,model_cdn_mutabaah,,1,0,0,0
+access_admin_cdn_mutabaah,access_admin_cdn_mutabaah,model_cdn_mutabaah,base.group_system,1,1,1,1
+access_all_cdn_mutabaah_harian,access_all_cdn_mutabaah_harian,model_cdn_mutabaah_harian,,1,0,0,0
+access_admin_cdn_mutabaah_harian,access_admin_cdn_mutabaah_harian,model_cdn_mutabaah_harian,base.group_system,1,1,1,1
+
+
+access_cdn_perijinan_group_orangtua,access_cdn_perijinan group orangtua,model_cdn_perijinan,alhamra_akademik.group_sekolah_orangtua,1,0,1,0
+access_cdn_pelanggaran_group_orangtua,access_cdn_pelanggaran group orangtua,model_cdn_pelanggaran,alhamra_akademik.group_sekolah_orangtua,1,0,0,0
+access_cdn_kesehatan_group_orangtua,access_cdn_kesehatan group orangtua,model_cdn_kesehatan,alhamra_akademik.group_sekolah_orangtua,1,0,0,0
+access_cdn_prestasi_siswa_group_orangtua,access_cdn_prestasi_siswa group orangtua,model_cdn_prestasi_siswa,alhamra_akademik.group_sekolah_orangtua,1,0,0,0

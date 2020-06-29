@@ -1,0 +1,724 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- tree view -->
+        <record id="view_cdn_perijinan_tree" model="ir.ui.view">
+            <field name="name">cdn_perijinan_tree</field>
+            <field name="model">cdn.perijinan</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Perijinan">
+                    <field name="name" />
+                    <field name="tgl_ijin" />
+                    <field name="siswa_id" />
+                    <field name="kelas_id"/>
+                    <field name="keperluan" />
+                    <field name="lama_ijin" />
+                    <field name="state" string="Status"/>
+                    <field name="penjemput" />
+                    <field name="tgl_kembali" />
+                    <field name="catatan" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- form view -->
+        <record id="view_cdn_perijinan_form" model="ir.ui.view">
+            <field name="name">cdn_perijinan_form</field>
+            <field name="model">cdn.perijinan</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Perijinan">
+                    <header>
+                        <button string="Ajukan Ijin" type="object" name="action_confirm" state="Draft" attrs="{'invisible': [('state', 'in', ['Draft','Check','Approved','Rejected','Permission'])]}" />
+                        <button string="Ijin Diperiksa" type="object" name="action_checked" state="Check" attrs="{'invisible': [('state', 'not in', ['Draft'])]}" />
+                        <button string="Ijin Disetujui" type="object" name="action_approved" state="Approved" attrs="{'invisible': [('state', 'not in', ['Check'])]}" />
+                        <button string="Ijin Ditolak" type="object" name="action_rejected" state="Rejected" attrs="{'invisible': [('state', 'not in', ['Check'])]}" />
+                        <button string="Santri Status Ijin" type="object" name="action_permission" state="Permission" attrs="{'invisible': [('state', 'not in', ['Approved'])]}" />
+                        <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
+                        <!-- <button name="action_perijinan_draft" string="Ajukan Ijin" type="object" states="Draft" class="btn-primary"/>
+                        <button name="action_perijinan_tolak" id="action_tolak" string="Ijin Ditolak" class="btn-primary" type="object" attrs="{'invisible': [('state', 'not in', ['Rejected'])]}"/> -->
+                        <field name="state" widget="statusbar" statusbar_visible="Draft,Check,Approved,Permission" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--button type="object" name="action_view_detail" class="oe_stat_button" icon="fa-pencil-square-o"-->
+                                <!--field name="detail_count" widget="statinfo" string="Detail(s)"/-->
+                                <!--field name="detail_ids" invisible="1"/-->
+                            <!--/button-->
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="No Referensi (Auto)"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group string="Data Santri">
+                            <field name="tgl_ijin" />
+                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" />
+                            <field name="kelas_id"/>
+                        </group>
+                        <group string="Pengajuan Ijin" >
+                            <field name="tgl_hrs_kembali" />
+                            <field name="lama_ijin" />
+                            <field name="penjemput" /> 
+                        </group>
+                        <group>
+                            <field name="keperluan" />
+                            <field name="catatan" />
+                        </group>
+                        <notebook>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- search -->
+        <record id="view_cdn_perijinan_search" model="ir.ui.view">
+            <field name="name">cdn_perijinan</field>
+            <field name="model">cdn.perijinan</field>
+            <field name="arch" type="xml">
+                <search string="Perijinan">
+
+                    <!-- <filter string="Name" name="filter_by_name" domain="[('name','=','')]" /> -->
+                    <filter string="Perijinan Hari ini" name="filter_by_tgl_ijin" 
+                        domain="[('tgl_ijin','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('tgl_ijin','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]" />
+                    <filter string="Lama Ijin >3 hari" name="filter_by_lama_ijin" domain="[('lama_ijin','>=','3')]" /> 
+                    <filter string="Pengajuan" name="filter_by_state" domain="[('state','=','Draft')]" />
+                    <filter string="Diperiksa" name="filter_by_state" domain="[('state','=','Check')]" />
+                    <filter string="Disetujui" name="filter_by_state" domain="[('state','=','Approved')]" />
+                    <filter string="Ditolak" name="filter_by_state" domain="[('state','=','Rejected')]" />
+                    <filter string="Santri Keluar" name="filter_by_state" domain="[('state','=','Permission')]" />
+                    <filter string="Santri Kembali" name="filter_by_state" domain="[('state','=','Return')]" />
+                    <field name="tgl_ijin" select="True"/>
+                    <field name="lama_ijin" select="True"/>
+                    <field name="state" select="True"/>
+                    <group string="Group By..">
+                        <filter string="Siswa" domain="[]" name="group_by_siswa_id" context="{'group_by':'siswa_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>   
+
+        <!-- graph -->
+        <record id="view_cdn_perijinan_graph" model="ir.ui.view">
+            <field name="name">cdn_perijinan</field>
+            <field name="model">cdn.perijinan</field>
+            <field name="arch" type="xml">
+                <graph string="Perijinan" type="bar">
+                    <field name="siswa_id"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- action window -->
+        <record id="action_cdn_perijinan" model="ir.actions.act_window">
+            <field name="name">Perijinan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.perijinan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a new Perijinan
+                </p><p>
+                Click the Create button to add a new Perijinan
+                </p>
+            </field>
+        </record>
+
+       <record id="seq_perijinan_new" model="ir.sequence">
+            <field name="name">No Referensi</field>
+            <field name="code">cdn.perijinan</field>
+            <field name="prefix">KI/%(y)s.%(month)s/</field>
+            <field name="padding">4</field>
+        </record>
+
+
+
+        <!-- Modul Pelanggaran -->
+        <!-- tree view -->
+        <record id="view_cdn_pelanggaran_tree" model="ir.ui.view">
+            <field name="name">cdn_pelanggaran_tree</field>
+            <field name="model">cdn.pelanggaran</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Pelanggaran">
+                    <field name="name" />
+                    <field name="tgl_pelanggaran" />
+                    <field name="siswa_id" />
+                    <field name="kelas_id"/>
+                    <field name="deskripsi" />
+                    <field name="diperiksa_oleh" />
+                    <field name="poin" />
+                    <field name="tindakan_id" />
+                </tree>
+            </field>
+        </record>
+        <!-- form view -->
+        <record id="view_cdn_pelanggaran_form" model="ir.ui.view">
+            <field name="name">cdn_pelanggaran_form</field>
+            <field name="model">cdn.pelanggaran</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Pelanggaran">
+                    <header>
+                        <!--button string="Confirm" type="object" name="action_confirm" states="draft" /-->
+                        <!--button string="Mark as Done" type="object" name="action_done" states="confirmed" /-->
+                        <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--button type="object" name="action_view_detail" class="oe_stat_button" icon="fa-pencil-square-o"-->
+                                <!--field name="detail_count" widget="statinfo" string="Detail(s)"/-->
+                                <!--field name="detail_ids" invisible="1"/-->
+                            <!--/button-->
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="No Referensi (Auto)"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group string="Data Santri">
+                            <field name="tgl_pelanggaran" />
+                            <field name="siswa_id" />
+                            <field name="kelas_id"/>
+                        </group>
+                        <group string="Data Pelanggaran">
+                            <field name="tindakan_id" />
+                            <field name="diperiksa_oleh" options="{'no_create_edit':True, 'no_create':True}"/>
+                            <field name="poin" />
+                        </group>
+                        <group>
+                                <field name="deskripsi" />
+                        </group>
+                        
+                        <notebook>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- search -->
+        <record id="view_cdn_pelanggaran_search" model="ir.ui.view">
+            <field name="name">cdn_pelanggaran</field>
+            <field name="model">cdn.pelanggaran</field>
+            <field name="arch" type="xml">
+                <search string="Pelanggaran">
+
+                    <filter string="Name" name="filter_by_name" domain="[('name','=','')]" />
+                    <filter string="Tgl pelanggaran" name="filter_by_tgl_pelanggaran" domain="[('tgl_pelanggaran','=','')]" />
+                    <filter string="Diperiksa oleh" name="filter_by_diperiksa_oleh" domain="[('diperiksa_oleh','=','')]" />
+                    <filter string="Poin" name="filter_by_poin" domain="[('poin','=','')]" />
+                    <filter string="Deskripsi" name="filter_by_deskripsi" domain="[('deskripsi','=','')]" />
+                    <field name="name" select="True"/>
+                    <field name="tgl_pelanggaran" select="True"/>
+                    <field name="diperiksa_oleh" select="True"/>
+                    <field name="poin" select="True"/>
+                    <field name="deskripsi" select="True"/>
+                    <field name="tindakan_id" select="True"/>
+                    <field name="siswa_id" select="True"/>
+                    <group string="Group By..">
+                        <filter string="Tindakan" domain="[]" name="group_by_tindakan_id" context="{'group_by':'tindakan_id'}"/>
+                        <filter string="Siswa" domain="[]" name="group_by_siswa_id" context="{'group_by':'siswa_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="view_cdn_pelanggaran_graph" model="ir.ui.view">
+            <field name="name">cdn_pelanggaran</field>
+            <field name="model">cdn.pelanggaran</field>
+            <field name="arch" type="xml">
+                <graph string="Pelanggaran" type="bar">
+                    <field name="tindakan_id"/>
+                </graph>
+            </field>
+        </record>
+        <!-- action window -->
+        <record id="action_cdn_pelanggaran" model="ir.actions.act_window">
+            <field name="name">Pelanggaran</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.pelanggaran</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a new Pelanggaran
+                </p><p>
+                Click the Create button to add a new Pelanggaran
+                </p>
+            </field>
+        </record>
+
+        <record id="seq_pelanggaran_new" model="ir.sequence">
+            <field name="name">No Referensi</field>
+            <field name="code">cdn.pelanggaran</field>
+            <field name="prefix">KP/%(y)s.%(month)s/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <!-- Modul Kesehatan -->
+        <!-- tree view -->
+        <record id="view_cdn_kesehatan_tree" model="ir.ui.view">
+            <field name="name">cdn_kesehatan_tree</field>
+            <field name="model">cdn.kesehatan</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Kesehatan">
+                    <field name="name" />
+                    <field name="tgl_periksa" />
+                    <field name="siswa_id" />
+                    <field name="kelas_id"/>
+                    <field name="keluhan" />
+                    <field name="obat" />
+                    <field name="diperiksa_oleh" />
+                    <field name="state" />
+                    <field name="catatan" />
+                </tree>
+            </field>
+        </record>
+        <!-- form view -->
+        <record id="view_cdn_kesehatan_form" model="ir.ui.view">
+            <field name="name">cdn_kesehatan_form</field>
+            <field name="model">cdn.kesehatan</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Kesehatan">
+                    <header>
+                        <!-- <button string="Confirm" type="object" name="action_confirm" states="Periksa" /> -->
+                        <!--button string="Mark as Done" type="object" name="action_done" states="confirmed" /-->
+                        <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
+                        <!-- <button name="kesehatan_confirm" type="object" states="Periksa" string="Periksa" class="oe_highlight"/> -->
+                        <button string="Periksa" type="object" name="kesehatan_confirm" state="Periksa" attrs="{'invisible': [('state', 'in', ['Periksa','Pengobatan','Rawat','Sembuh'])]}" />
+                        <button string="Pengobatan" type="object" name="action_pengobatan" state="Pengobatan" attrs="{'invisible': [('state', 'not in', ['Periksa'])]}" />
+                        <button string="Perawatan" type="object" name="action_rawat" state="Rawat" attrs="{'invisible': [('state', 'not in', ['Periksa','Pengobatan'])]}" />
+                        <button string="Pasien Sembuh" type="object" name="action_sembuh" state="Sembuh" attrs="{'invisible': [('state', 'not in', ['Periksa','Pengobatan','Rawat'])]}" />                        
+                        
+                        <field name="state" widget="statusbar" />  
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--button type="object" name="action_view_detail" class="oe_stat_button" icon="fa-pencil-square-o"-->
+                                <!--field name="detail_count" widget="statinfo" string="Detail(s)"/-->
+                                <!--field name="detail_ids" invisible="1"/-->
+                            <!--/button-->
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="No Referensi (AUTO)"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group string="Data Santri">
+                            <field name="tgl_periksa" />
+                            <field name="siswa_id" />
+                            <field name="kelas_id" />
+                            
+                        </group>
+                        <group string="Kondisi Kesehatan">
+                            <field name="diperiksa_oleh" />
+                            <field name="keluhan" />
+                            <field name="diagnosa"/>
+                        </group>
+                        <group string="Tindakan">
+                            <field name="obat" />
+                            <field name="catatan" />
+                        </group>
+                        <group attrs="{'invisible':[('state', 'not in', ('Rawat', 'Sembuh'))]}"> 
+                            <field name="lokasi_rawat" />
+                            <field name="keterangan_rawat"/> 
+                            <field name="tgl_selesai" />
+                        </group>
+                        <notebook>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- search -->
+        <record id="view_cdn_kesehatan_search" model="ir.ui.view">
+            <field name="name">cdn_kesehatan</field>
+            <field name="model">cdn.kesehatan</field>
+            <field name="arch" type="xml">
+                <search string="Kesehatan">
+
+                    <!-- <filter string="Name" name="filter_by_name" domain="[('name','=','')]" />
+                    <filter string="Tgl periksa" name="filter_by_tgl_periksa" domain="[('tgl_periksa','=','')]" />
+                    <filter string="Keluhan" name="filter_by_keluhan" domain="[('keluhan','=','')]" />
+                    <filter string="Obat" name="filter_by_obat" domain="[('obat','=','')]" />
+                    <filter string="Diperiksa oleh" name="filter_by_diperiksa_oleh" domain="[('diperiksa_oleh','=','')]" /> -->
+                    <filter string="Pasien Baru" name="filter_by_kondisi" domain="[('state','=','Periksa')]" />
+                    <filter string="Pasien dalam Pengobatan" name="filter_by_kondisi" domain="[('state','=','Pengobatan')]" />
+                    <filter string="Pasien dirawat" name="filter_by_kondisi" domain="[('state','=','Rawat')]" />
+                    <filter string="Pasien Sembuh" name="filter_by_kondisi" domain="[('state','=','Sembuh')]" />
+                    <!-- <filter string="Tgl selesai" name="filter_by_tgl_selesai" domain="[('tgl_selesai','=','')]" />
+                    <filter string="Catatan" name="filter_by_catatan" domain="[('catatan','=','')]" /> -->
+                    <field name="name" select="True"/>
+                    <field name="tgl_periksa" select="True"/>
+                    <field name="keluhan" select="True"/>
+                    <field name="obat" select="True"/>
+                    <field name="diperiksa_oleh" select="True"/>
+                    <field name="state" select="True"/>
+                    <field name="tgl_selesai" select="True"/>
+                    <field name="catatan" select="True"/>
+                    <field name="siswa_id" select="True"/>
+                    <group string="Group By..">
+                        <filter string="Siswa" domain="[]" name="group_by_siswa_id" context="{'group_by':'siswa_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- graph -->
+        <record id="view_cdn_kesehatan_graph" model="ir.ui.view">
+            <field name="name">cdn_kesehatan</field>
+            <field name="model">cdn.kesehatan</field>
+            <field name="arch" type="xml">
+                <graph string="Kesehatan" type="bar">
+                    <field name="siswa_id"/>
+                </graph>
+            </field>
+        </record>
+        <!-- action window -->
+        <record id="action_cdn_kesehatan" model="ir.actions.act_window">
+            <field name="name">Kesehatan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.kesehatan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a new Kesehatan
+                </p><p>
+                Click the Create button to add a new Kesehatan
+                </p>
+            </field>
+        </record>
+
+        <!-- Sequence No Referensi Kesehatan -->
+        <record id="seq_kesehatan_new" model="ir.sequence">
+            <field name="name">No Referensi</field>
+            <field name="code">cdn.kesehatan</field>
+            <field name="prefix">KS/%(y)s.%(month)s/</field>
+            <field name="padding">4</field>
+        </record>           
+
+        <!-- Modul Prestasi Siswa      -->
+        <!-- tree view -->
+        <record id="view_cdn_prestasi_siswa_tree" model="ir.ui.view">
+            <field name="name">cdn_prestasi_siswa_tree</field>
+            <field name="model">cdn.prestasi_siswa</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Prestasi siswa">
+                    <field name="name" />
+                    <field name="tgl_prestasi" />
+                    <field name="siswa_id" />
+                    <field name="tingkat_prestasi" />
+                    <field name="juara_ke" />
+                    <field name="jns_prestasi_id" />
+                    <field name="keterangan" />
+                </tree>
+            </field>
+        </record>
+        <!-- form view -->
+        <record id="view_cdn_prestasi_siswa_form" model="ir.ui.view">
+            <field name="name">cdn_prestasi_siswa_form</field>
+            <field name="model">cdn.prestasi_siswa</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Prestasi siswa">
+                    <header>
+                        <!--button string="Confirm" type="object" name="action_confirm" states="draft" /-->
+                        <!--button string="Mark as Done" type="object" name="action_done" states="confirmed" /-->
+                        <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--button type="object" name="action_view_detail" class="oe_stat_button" icon="fa-pencil-square-o"-->
+                                <!--field name="detail_count" widget="statinfo" string="Detail(s)"/-->
+                                <!--field name="detail_ids" invisible="1"/-->
+                            <!--/button-->
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="No Referensi (AUTO)"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="tgl_prestasi" />
+                                <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" />
+                                <field name="tingkat_prestasi" />
+                            </group>
+                            <group>
+                                <field name="jns_prestasi_id" />
+                                <field name="juara_ke" />
+                                <field name="keterangan" />
+                            </group>
+                        </group>
+                        <notebook>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- search -->
+        <record id="view_cdn_prestasi_siswa_search" model="ir.ui.view">
+            <field name="name">cdn_prestasi_siswa</field>
+            <field name="model">cdn.prestasi_siswa</field>
+            <field name="arch" type="xml">
+                <search string="Prestasi siswa">
+                    <filter string="Tingkat Internasional" name="filter_by_tingkat_prestasi" domain="[('tingkat_prestasi','=','Internasional')]" />
+                    <filter string="Tingkat Nasional" name="filter_by_tingkat_prestasi" domain="[('tingkat_prestasi','=','Nasional')]" />
+                    <filter string="Tingkat Propinsi" name="filter_by_tingkat_prestasi" domain="[('tingkat_prestasi','=','Propinsi')]" />
+                    <filter string="Tingkat Kab/Kota" name="filter_by_tingkat_prestasi" domain="[('tingkat_prestasi','=','Kota')]" />
+                    <filter string="Tingkat Kecamatan" name="filter_by_tingkat_prestasi" domain="[('tingkat_prestasi','=','Kecamatan')]" />
+                    <filter string="Tingkat Lokal/Internal" name="filter_by_tingkat_prestasi" domain="[('tingkat_prestasi','=','Lokal')]" />
+                    <filter string="Juara ke 1,2,3" name="filter_by_juara_ke" domain="[('juara_ke','&lt;','4')]" />
+                    <field name="tingkat_prestasi" select="True"/>
+                    <field name="juara_ke" select="True"/>
+                    <group string="Group By..">
+                        <filter string="Jns prestasi" domain="[]" name="group_by_jns_prestasi_id" context="{'group_by':'jns_prestasi_id'}"/>
+                        <filter string="Siswa" domain="[]" name="group_by_siswa_id" context="{'group_by':'siswa_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>        
+        <!-- calendar if a date field exists -->
+        <record id="view_cdn_prestasi_siswa_cal" model="ir.ui.view">
+            <field name="name">cdn_prestasi_siswa_cal</field>
+            <field name="model">cdn.prestasi_siswa</field>
+            <field name="arch" type="xml">
+                <calendar string="Prestasi siswa" date_start="tgl_prestasi">
+                    <field name="name" />
+                </calendar>
+            </field>
+        </record>
+        <!-- graph -->
+        <record id="view_cdn_prestasi_siswa_graph" model="ir.ui.view">
+            <field name="name">cdn_prestasi_siswa</field>
+            <field name="model">cdn.prestasi_siswa</field>
+            <field name="arch" type="xml">
+                <graph string="Prestasi siswa" type="bar">
+                    <field name="jns_prestasi_id"/>
+                </graph>
+            </field>
+        </record>
+        <!-- action window -->
+        <record id="action_cdn_prestasi_siswa" model="ir.actions.act_window">
+            <field name="name">Prestasi siswa</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.prestasi_siswa</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a new Prestasi siswa
+                </p><p>
+                Click the Create button to add a new Prestasi siswa
+                </p>
+            </field>
+        </record>
+
+        <!-- Sequence No Referensi Prestasi -->
+        <record id="seq_prestasi_new" model="ir.sequence">
+            <field name="name">No Referensi</field>
+            <field name="code">cdn.prestasi_siswa</field>
+            <field name="prefix">PR/%(y)s.%(month)s/</field>
+            <field name="padding">4</field>
+        </record>
+
+        <!-- cdn.lokasi_fasilitas tree view -->
+        <record id="cdn_lokasi_fasilitas_view_tree" model="ir.ui.view">
+            <field name="name">cdn.lokasi_fasilitas.view.tree</field>
+            <field name="model">cdn.lokasi_fasilitas</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <field name="display_name"/>
+                    <field name="parent_id"/>
+                    <field name="jns_fasilitas"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- cdn.lokasi_fasilitas form view -->
+        <record id="cdn_lokasi_fasilitas_view_form" model="ir.ui.view">
+            <field name="name">cdn.lokasi_fasilitas.view.form</field>
+            <field name="model">cdn.lokasi_fasilitas</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <!-- Add your fields here -->
+                            <field name="name"/>
+                            <field name="parent_id" options="{'no_create_edit':True, 'no_create':True}" />
+                            <field name="jns_fasilitas"/>
+                            <field name="is_kamar_santri" attrs="{'invisible':[('jns_fasilitas', '!=', 'asrama')]}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- cdn.lokasi_fasilitas action window -->
+        <record id="cdn_lokasi_fasilitas_action" model="ir.actions.act_window">
+            <field name="name">Daftar Fasilitas Pesantren</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.lokasi_fasilitas</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                    <!-- More details about what a user can do with this object will be OK --> 
+                </p>
+            </field>
+        </record>
+
+        <!-- res.partner inherit tree view -->
+        <record id="res_partner_pesantren_tree" model="ir.ui.view">
+            <field name="name">res.partner.pesantren.inherit.view.tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="alhamra_akademik.view_murid_tree"/>
+            <field name="arch" type="xml">
+                <!-- Add your xpath here -->
+                <xpath expr="//field[@name='class_id']" position="after">
+                   <field name="fasilitas_id"/>
+                </xpath>
+            </field>
+        </record>
+        <!-- res.partner inherit form view -->
+        <record id="res_partner_pesantren" model="ir.ui.view">
+            <field name="name">res.partner.pesantren.inherit.view.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="alhamra_akademik.view_siswa_ortu"/>
+            <field name="arch" type="xml">
+                <!-- Add your xpath here -->
+                <xpath expr="//field[@name='class_id']" position="after">    
+                    <field name="fasilitas_id"/> 
+                </xpath>
+            </field>
+        </record>
+
+        <!-- cdn.kamar tree view -->
+        <record id="cdn_kamar_view_tree" model="ir.ui.view">
+            <field name="name">cdn.kamar.view.tree</field>
+            <field name="model">cdn.kamar</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <!-- Add your fields here -->
+                    <field name="kamar_id"/>
+                    <field name="musyrif_id"/>
+                    <field name="parent_id" string="Lokasi"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <!-- cdn.kamar form view -->
+        <record id="cdn_kamar_view_form" model="ir.ui.view">
+            <field name="name">cdn.kamar.view.form</field>
+            <field name="model">cdn.kamar</field>
+            <field name="arch" type="xml">
+                <form string="Pembagian Kamar Santri">
+                    <header>
+						<button name="update_room" type="object" string="Update" class="oe_highlight"/>
+					</header>
+                    <sheet>
+                        <group>
+                            <!-- Add your fields here -->
+                            <field name="kamar_id" options="{'no_create_edit':True, 'no_create':True}"/>
+                            <field name="parent_id"/>
+                            <field name="musyrif_id"/>
+                        </group>
+                        <notebook colspan="5">
+							<page string="Siswa">
+								<field colspan="4" name="siswa_ids" >
+									<tree>
+										<field name="nis"/>
+										<field name="name"/>
+										<field name="class_id"/>
+                                        <field name="orangtua_id"/>
+                                        <field name="ayah_telp"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- cdn.kamar action window -->
+        <record id="cdn_kamar_action" model="ir.actions.act_window">
+            <field name="name">Kamar Santri</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.kamar</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                    <!-- More details about what a user can do with this object will be OK --> 
+                </p>
+            </field>
+        </record>
+
+        <!-- modifikasi button siswa -->
+        <!-- model.name inherit form view -->
+        <record id="res_partner_inherit_button" model="ir.ui.view">
+            <field name="name">res.partner.inherit.button.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <!-- Add your xpath here -->
+                <xpath expr="//button[@name='toggle_active']" position="before">
+                    <!-- Add your fields here -->
+                    <button type="object" name="open_perijinan" attrs="{'invisible': [('customer', '=', False)]}" class="oe_stat_button" icon="fa-thumbs-o-up">
+                        <field name="perijinan_count" widget="statinfo" string="Perijinan"/>
+                    </button>
+                    <button type="object" name="open_kesehatan" attrs="{'invisible': [('customer', '=', False)]}" class="oe_stat_button" icon="fa-heartbeat">
+                        <field name="kesehatan_count" widget="statinfo" string="Kesehatan"/>
+                    </button>
+                    <button type="object" name="open_pelanggaran" attrs="{'invisible': [('customer', '=', False)]}" class="oe_stat_button" icon="fa-gavel">
+                        <field name="pelanggaran_count" widget="statinfo" string="Pelanggaran"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <!--  inherit form view Orangtua Siswa -->
+        <record id="view_portal_siswa_form_button_kesantrian" model="ir.ui.view">
+            <field name="name">res.partner.inherit.button.kesantrian</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="alhamra_akademik.view_portal_siswa_form"/>
+            <field name="arch" type="xml">
+                <!-- Add your xpath here -->
+                <xpath expr="//button[@name='open_uang_saku']" position="before">
+                    <!-- Add your fields here -->
+                    <button type="object" name="open_perijinan"  class="oe_stat_button" icon="fa-thumbs-o-up">
+                        <field name="perijinan_count" widget="statinfo" string="Perijinan"/>
+                    </button>
+                    <button type="object" name="open_kesehatan"  class="oe_stat_button" icon="fa-heartbeat">
+                        <field name="kesehatan_count" widget="statinfo" string="Kesehatan"/>
+                    </button>
+                    <button type="object" name="open_pelanggaran"  class="oe_stat_button" icon="fa-gavel">
+                        <field name="pelanggaran_count" widget="statinfo" string="Pelanggaran"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

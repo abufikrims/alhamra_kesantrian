@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- tree view -->
+        <record id="view_cdn_level_tahsin_tree" model="ir.ui.view">
+            <field name="name">cdn_level_tahsin_tree</field>
+            <field name="model">cdn.level_tahsin</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Level tahsin">
+                    <field name="name" />
+                    <field name="keterangan" />
+                </tree>
+            </field>
+        </record>
+        <!-- form view -->
+        <record id="view_cdn_level_tahsin_form" model="ir.ui.view">
+            <field name="name">cdn_level_tahsin_form</field>
+            <field name="model">cdn.level_tahsin</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Level tahsin">
+                    <header>
+                        <!--button string="Confirm" type="object" name="action_confirm" states="draft" /-->
+                        <!--button string="Mark as Done" type="object" name="action_done" states="confirmed" /-->
+                        <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--button type="object" name="action_view_detail" class="oe_stat_button" icon="fa-pencil-square-o"-->
+                                <!--field name="detail_count" widget="statinfo" string="Detail(s)"/-->
+                                <!--field name="detail_ids" invisible="1"/-->
+                            <!--/button-->
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Level tahsin Name"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="keterangan" />
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- search -->
+        <record id="view_cdn_level_tahsin_search" model="ir.ui.view">
+            <field name="name">cdn_level_tahsin</field>
+            <field name="model">cdn.level_tahsin</field>
+            <field name="arch" type="xml">
+                <search string="Level tahsin">
+
+                    <filter string="Name" name="filter_by_name" domain="[('name','=','')]" />
+                    <filter string="Keterangan" name="filter_by_keterangan" domain="[('keterangan','=','')]" />
+                    <field name="name" select="True"/>
+                    <field name="keterangan" select="True"/>
+                    <group string="Group By..">
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- action window -->
+        <record id="action_cdn_level_tahsin" model="ir.actions.act_window">
+            <field name="name">Level tahsin</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.level_tahsin</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a new Level tahsin
+                </p><p>
+                Click the Create button to add a new Level tahsin
+                </p>
+            </field>
+        </record>
+
+        
+    </data>
+</odoo>

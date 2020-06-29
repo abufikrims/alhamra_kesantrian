@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- tree view -->
+        <record id="view_cdn_tahfidz_quran_tree" model="ir.ui.view">
+            <field name="name">cdn_tahfidz_quran_tree</field>
+            <field name="model">cdn.tahfidz_quran</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Tahfidz quran">
+                    <field name="name" />
+                    <field name="tanggal" />
+                    <field name="siswa_id" />
+                    <field name="kelas_id"/>
+                    <field name="surah_id" />
+                    <field name="nilai" />
+                    <field name="nilai_id" />
+                    <field name="guru_id" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+        <!-- form view -->
+        <record id="view_cdn_tahfidz_quran_form" model="ir.ui.view">
+            <field name="name">cdn_tahfidz_quran_form</field>
+            <field name="model">cdn.tahfidz_quran</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Tahfidz quran">
+                    <header>
+                        <!--button string="Confirm" type="object" name="action_confirm" states="draft" /-->
+                        <!--button string="Mark as Done" type="object" name="action_done" states="confirmed" /-->
+                        <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
+                        <field name="state" widget="statusbar" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--button type="object" name="action_view_detail" class="oe_stat_button" icon="fa-pencil-square-o"-->
+                                <!--field name="detail_count" widget="statinfo" string="Detail(s)"/-->
+                                <!--field name="detail_ids" invisible="1"/-->
+                            <!--/button-->
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="No Referensi"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        
+                        <group string="Data Santri" col="4" colspan="4">
+                            <field name="tanggal" />
+                            <field name="guru_id" options="{'no_create_edit':True, 'no_create':True, 'no_open':True}"/>
+                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}"/>
+                            <field name="kelas_id"/>
+                            <field name="surah_id" options="{'no_create_edit':True, 'no_create':True}"/>
+                            <field name="jml_ayat"/>
+                        </group>
+                        <group string="Penilaian Tahfidz" col="4" colspan="4" >
+                            <field name="ayat_ke"/>
+                            <field name="halaman"/>
+                            <field name="nilai" />
+                            <field name="nilai_id" string="Kategori Penilaian" />
+                        </group>
+                        <group>
+                            <field name="keterangan" />   
+                        </group>
+                        
+                        <notebook>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- search -->
+        <record id="view_cdn_tahfidz_quran_search" model="ir.ui.view">
+            <field name="name">cdn_tahfidz_quran</field>
+            <field name="model">cdn.tahfidz_quran</field>
+            <field name="arch" type="xml">
+                <search string="Tahfidz quran">
+
+                    <filter string="Name" name="filter_by_name" domain="[('name','=','')]" />
+                    <filter string="Tanggal" name="filter_by_tanggal" domain="[('tanggal','=','')]" />
+                    <filter string="Nilai" name="filter_by_nilai" domain="[('nilai','=','')]" />
+                    <filter string="Keterangan" name="filter_by_keterangan" domain="[('keterangan','=','')]" />
+                    <filter string="State" name="filter_by_state" domain="[('state','=','')]" />
+                    <field name="name" select="True"/>
+                    <field name="tanggal" select="True"/>
+                    <field name="nilai" select="True"/>
+                    <field name="keterangan" select="True"/>
+                    <field name="state" select="True"/>
+                    <field name="siswa_id" select="True"/>
+                    <field name="surah_id" select="True"/>
+                    <field name="guru_id" select="True"/>
+                    <field name="nilai_id" select="True"/>
+                    <group string="Group By..">
+                        <filter string="Siswa" domain="[]" name="group_by_siswa_id" context="{'group_by':'siswa_id'}"/>
+                        <filter string="Surah" domain="[]" name="group_by_surah_id" context="{'group_by':'surah_id'}"/>
+                        <filter string="Guru" domain="[]" name="group_by_guru_id" context="{'group_by':'guru_id'}"/>
+                        <filter string="Nilai" domain="[]" name="group_by_nilai_id" context="{'group_by':'nilai_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- calendar if a date field exists -->
+        <record id="view_cdn_tahfidz_quran_cal" model="ir.ui.view">
+            <field name="name">cdn_tahfidz_quran_cal</field>
+            <field name="model">cdn.tahfidz_quran</field>
+            <field name="arch" type="xml">
+                <calendar string="Tahfidz quran" date_start="tanggal">
+                    <field name="name" />
+                </calendar>
+            </field>
+        </record>
+        <!-- graph -->
+        <record id="view_cdn_tahfidz_quran_graph" model="ir.ui.view">
+            <field name="name">cdn_tahfidz_quran</field>
+            <field name="model">cdn.tahfidz_quran</field>
+            <field name="arch" type="xml">
+                <graph string="Tahfidz quran" type="bar">
+                    <field name="siswa_id"/>
+                </graph>
+            </field>
+        </record>
+        <!-- action window -->
+        <record id="action_cdn_tahfidz_quran" model="ir.actions.act_window">
+            <field name="name">Tahfidz quran</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.tahfidz_quran</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a new Tahfidz quran
+                </p><p>
+                Click the Create button to add a new Tahfidz quran
+                </p>
+            </field>
+        </record>
+        <record id="seq_tahfidz_quran_new" model="ir.sequence">
+            <field name="name">No Referensi</field>
+            <field name="code">cdn.tahfidz_quran</field>
+            <field name="prefix">TQ/%(y)s.%(month)s/</field>
+            <field name="padding">4</field>
+        </record>
+
+        
+    </data>
+</odoo>

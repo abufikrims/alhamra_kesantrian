@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- tree view -->
+        <record id="view_cdn_hadits_tree" model="ir.ui.view">
+            <field name="name">cdn_hadits_tree</field>
+            <field name="model">cdn.hadits</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Hadits">
+                    <field name="name" />
+                    <field name="kode" />
+                    <field name="no_hadits" />
+                    <field name="keterangan" />
+                    <field name="matan_hadits" />
+                </tree>
+            </field>
+        </record>
+        <!-- form view -->
+        <record id="view_cdn_hadits_form" model="ir.ui.view">
+            <field name="name">cdn_hadits_form</field>
+            <field name="model">cdn.hadits</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Hadits">
+                    <header>
+                        <!--button string="Confirm" type="object" name="action_confirm" states="draft" /-->
+                        <!--button string="Mark as Done" type="object" name="action_done" states="confirmed" /-->
+                        <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--button type="object" name="action_view_detail" class="oe_stat_button" icon="fa-pencil-square-o"-->
+                                <!--field name="detail_count" widget="statinfo" string="Detail(s)"/-->
+                                <!--field name="detail_ids" invisible="1"/-->
+                            <!--/button-->
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Hadits Name"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="kode" />
+                                <field name="no_hadits" />
+                                <field name="keterangan" />
+                                <field name="matan_hadits" />
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- search -->
+        <record id="view_cdn_hadits_search" model="ir.ui.view">
+            <field name="name">cdn_hadits</field>
+            <field name="model">cdn.hadits</field>
+            <field name="arch" type="xml">
+                <search string="Hadits">
+
+                    <filter string="Name" name="filter_by_name" domain="[('name','=','')]" />
+                    <filter string="Kode" name="filter_by_kode" domain="[('kode','=','')]" />
+                    <filter string="No hadits" name="filter_by_no_hadits" domain="[('no_hadits','=','')]" />
+                    <filter string="Keterangan" name="filter_by_keterangan" domain="[('keterangan','=','')]" />
+                    <filter string="Matan hadits" name="filter_by_matan_hadits" domain="[('matan_hadits','=','')]" />
+                    <field name="name" select="True"/>
+                    <field name="kode" select="True"/>
+                    <field name="no_hadits" select="True"/>
+                    <field name="keterangan" select="True"/>
+                    <field name="matan_hadits" select="True"/>
+                    <group string="Group By..">
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- action window -->
+        <record id="action_cdn_hadits" model="ir.actions.act_window">
+            <field name="name">Hadits</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.hadits</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a new Hadits
+                </p><p>
+                Click the Create button to add a new Hadits
+                </p>
+            </field>
+        </record>
+
+        
+    </data>
+</odoo>

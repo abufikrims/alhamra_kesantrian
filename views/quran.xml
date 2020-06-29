@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- tree view -->
+        <record id="view_cdn_quran_tree" model="ir.ui.view">
+            <field name="name">cdn_quran_tree</field>
+            <field name="model">cdn.quran</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Quran">
+                    <field name="name" />
+                    <field name="surah_ke" />
+                    <field name="jml_ayat" />
+                    <field name="terjemah" />
+                    <field name="juz" />
+                </tree>
+            </field>
+        </record>
+        <!-- form view -->
+        <record id="view_cdn_quran_form" model="ir.ui.view">
+            <field name="name">cdn_quran_form</field>
+            <field name="model">cdn.quran</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Quran">
+                    <header>
+                        <!--button string="Confirm" type="object" name="action_confirm" states="draft" /-->
+                        <!--button string="Mark as Done" type="object" name="action_done" states="confirmed" /-->
+                        <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--button type="object" name="action_view_detail" class="oe_stat_button" icon="fa-pencil-square-o"-->
+                                <!--field name="detail_count" widget="statinfo" string="Detail(s)"/-->
+                                <!--field name="detail_ids" invisible="1"/-->
+                            <!--/button-->
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Quran Name"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="surah_ke" />
+                                <field name="jml_ayat" />
+                                <field name="terjemah" />
+                                <field name="juz" />
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- search -->
+        <record id="view_cdn_quran_search" model="ir.ui.view">
+            <field name="name">cdn_quran</field>
+            <field name="model">cdn.quran</field>
+            <field name="arch" type="xml">
+                <search string="Quran">
+
+                    <filter string="Name" name="filter_by_name" domain="[('name','=','')]" />
+                    <filter string="Surah ke" name="filter_by_surah_ke" domain="[('surah_ke','=','')]" />
+                    <filter string="Jml ayat" name="filter_by_jml_ayat" domain="[('jml_ayat','=','')]" />
+                    <filter string="Terjemah" name="filter_by_terjemah" domain="[('terjemah','=','')]" />
+                    <filter string="Juz" name="filter_by_juz" domain="[('juz','=','')]" />
+                    <field name="name" select="True"/>
+                    <field name="surah_ke" select="True"/>
+                    <field name="jml_ayat" select="True"/>
+                    <field name="terjemah" select="True"/>
+                    <field name="juz" select="True"/>
+                    <group string="Group By..">
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- action window -->
+        <record id="action_cdn_quran" model="ir.actions.act_window">
+            <field name="name">Daftar Surah Al Quran</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.quran</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a new Quran
+                </p><p>
+                Click the Create button to add a new Quran
+                </p>
+            </field>
+        </record>
+
+        
+    </data>
+</odoo>

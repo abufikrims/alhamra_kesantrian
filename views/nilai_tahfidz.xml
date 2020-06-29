@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- tree view -->
+        <record id="view_cdn_nilai_tahfidz_tree" model="ir.ui.view">
+            <field name="name">cdn_nilai_tahfidz_tree</field>
+            <field name="model">cdn.nilai_tahfidz</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Nilai tahfidz">
+                    <field name="name" />
+                    <field name="lulus" />
+                </tree>
+            </field>
+        </record>
+        <!-- form view -->
+        <record id="view_cdn_nilai_tahfidz_form" model="ir.ui.view">
+            <field name="name">cdn_nilai_tahfidz_form</field>
+            <field name="model">cdn.nilai_tahfidz</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Nilai tahfidz">
+                    <header>
+                        <!--button string="Confirm" type="object" name="action_confirm" states="draft" /-->
+                        <!--button string="Mark as Done" type="object" name="action_done" states="confirmed" /-->
+                        <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--button type="object" name="action_view_detail" class="oe_stat_button" icon="fa-pencil-square-o"-->
+                                <!--field name="detail_count" widget="statinfo" string="Detail(s)"/-->
+                                <!--field name="detail_ids" invisible="1"/-->
+                            <!--/button-->
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="Nilai tahfidz Name"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="lulus" />
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- search -->
+        <record id="view_cdn_nilai_tahfidz_search" model="ir.ui.view">
+            <field name="name">cdn_nilai_tahfidz</field>
+            <field name="model">cdn.nilai_tahfidz</field>
+            <field name="arch" type="xml">
+                <search string="Nilai tahfidz">
+
+                    <filter string="Name" name="filter_by_name" domain="[('name','=','')]" />
+                    <filter string="Lulus" name="filter_by_lulus" domain="[('lulus','=','')]" />
+                    <field name="name" select="True"/>
+                    <field name="lulus" select="True"/>
+                    <group string="Group By..">
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- action window -->
+        <record id="action_cdn_nilai_tahfidz" model="ir.actions.act_window">
+            <field name="name">Nilai tahfidz</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.nilai_tahfidz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a new Nilai tahfidz
+                </p><p>
+                Click the Create button to add a new Nilai tahfidz
+                </p>
+            </field>
+        </record>
+
+        
+    </data>
+</odoo>
