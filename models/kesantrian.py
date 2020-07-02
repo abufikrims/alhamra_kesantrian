@@ -210,7 +210,8 @@ class siswa_kamar(models.Model):
     _inherit = "res.partner"
 
     fasilitas_id = fields.Many2one(comodel_name='cdn.lokasi_fasilitas', string='Kamar Santri', readonly=True)
-
+    tahfidz_surah = fields.Char(string='Tahfidz Surah', readonly=True)
+    
     @api.multi
     def open_perijinan(self):
         return {
@@ -284,6 +285,7 @@ class siswa_kamar(models.Model):
         # else:
         #     recs = self.search([] + args, limit=limit)
         # return recs.name_get()
+
 
 
     

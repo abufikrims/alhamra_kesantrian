@@ -1,7 +1,7 @@
 #!/usr/bin/python
 #-*- coding: utf-8 -*-
 
-from odoo import models, fields, api, _
+from odoo import models, fields, api, exceptions, _
 
 class tahfidz_quran(models.Model):
 
@@ -20,14 +20,42 @@ class tahfidz_quran(models.Model):
     #class_id = fields.Char(string="Kelas", related="siswa_id.class_id")
     surah_id = fields.Many2one(comodel_name="cdn.quran",  string="Surah",  help="")
     jml_ayat = fields.Integer(string="Jumlah Ayat", related="surah_id.jml_ayat")
-    ayat_ke = fields.Integer(string="Ayat ke", help="")
-    halaman = fields.Integer(string="Halaman", help="")
+    ayat_awal = fields.Integer(string="Ayat Awal", help="")
+    ayat_akhir = fields.Integer(string="Ayat Akhir", help="")
 
+    halaman = fields.Integer(string="Halaman", help="")
+    jml_baris = fields.Integer(string="Jumlah Baris", help="")
+    sesi_tahfidz_id = fields.Many2one(comodel_name='cdn.sesi_tahfidz', string='Sesi Tahfidz')
     
-    guru_id = fields.Many2one(comodel_name="hr.employee",  string="Guru",  help="")
+    guru_id = fields.Many2one('res.users', 'Guru', required=True, default=lambda self: self.env.user)
     nilai_id = fields.Many2one(comodel_name="cdn.nilai_tahfidz",  string="Kategori",  help="")
 
     @api.model
     def create(self, vals):
         vals['name'] = self.env['ir.sequence'].next_by_code('cdn.tahfidz_quran')
-        return super(tahfidz_quran, self).create(vals)
+        record = super(tahfidz_quran, self).create(vals)
+        i_partner = self.env['res.partner'].search([('id', '=', vals['siswa_id'])])
+        if i_partner:
+            i_partner.write({'tahfidz_surah': record.surah_id.name+' # '+str(record.ayat_awal)+' - '+str(record.ayat_akhir)})
+            # '+str(self.ayat_awal)+' - '+str(self.ayat_akhir)})
+        return record
+
+    def write(self,values):
+        i_partner = self.env['res.partner'].search([('id', '=', self.siswa_id.id)])
+        if i_partner:
+            i_partner.write({'tahfidz_surah': self.surah_id.name+' # '+str(self.ayat_awal)+' - '+str(self.ayat_akhir)})
+        return super(tahfidz_quran,self).write(values)
+
+    @api.constrains('ayat_awal','ayat_akhir','jml_ayat')
+    def _check_ayat(self):
+        if self.ayat_awal>self.ayat_akhir or self.ayat_awal>self.jml_ayat or self.ayat_akhir>self.jml_ayat:
+            raise exceptions.ValidationError('Penulisan Ayat Awal dan Ayat Akhir Salah ! Tidak boleh melebihi Jumlah Ayat dalam Surah tsb !')
+    
+
+class sesi_tahfidz(models.Model):
+
+    _name = "cdn.sesi_tahfidz"
+    _description = 'Model untuk Sesi Tahfidz'
+    name = fields.Char( required=True, string="Nama Sesi",  help="")
+    keterangan = fields.Char(string="Keterangan")
+    

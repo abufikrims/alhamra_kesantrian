@@ -9,15 +9,16 @@
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <tree string="Tahfidz quran">
-                    <field name="name" />
                     <field name="tanggal" />
                     <field name="siswa_id" />
                     <field name="kelas_id"/>
                     <field name="surah_id" />
+                    <field name="ayat_awal"/>
+                    <field name="ayat_akhir"/>
+                    <field name="jml_baris"/>
                     <field name="nilai" />
                     <field name="nilai_id" />
                     <field name="guru_id" />
-                    <field name="state" />
                 </tree>
             </field>
         </record>
@@ -52,12 +53,15 @@
                             <field name="guru_id" options="{'no_create_edit':True, 'no_create':True, 'no_open':True}"/>
                             <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}"/>
                             <field name="kelas_id"/>
+                            <field name="sesi_tahfidz_id" options="{'no_create_edit':True, 'no_create':True, 'no_open':True}"/>
                             <field name="surah_id" options="{'no_create_edit':True, 'no_create':True}"/>
                             <field name="jml_ayat"/>
                         </group>
                         <group string="Penilaian Tahfidz" col="4" colspan="4" >
-                            <field name="ayat_ke"/>
+                            <field name="ayat_awal"/>
+                            <field name="ayat_akhir"/>
                             <field name="halaman"/>
+                            <field name="jml_baris"/>
                             <field name="nilai" />
                             <field name="nilai_id" string="Kategori Penilaian" />
                         </group>
@@ -78,12 +82,14 @@
             <field name="arch" type="xml">
                 <search string="Tahfidz quran">
 
-                    <filter string="Name" name="filter_by_name" domain="[('name','=','')]" />
-                    <filter string="Tanggal" name="filter_by_tanggal" domain="[('tanggal','=','')]" />
+                    <!-- <filter string="Name" name="filter_by_name" domain="[('name','=','')]" /> -->
+                    <filter string="Tahfidz Hari ini" name="filter_by_tgl_aktivitas" 
+                        domain="[('tanggal','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('tanggal','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]" />
+                    <filter string="Kategori Mumtaz" name="filter_by_kategori" domain="[('nilai_id','=','Mumtaz')]" />
                     <filter string="Nilai" name="filter_by_nilai" domain="[('nilai','=','')]" />
                     <filter string="Keterangan" name="filter_by_keterangan" domain="[('keterangan','=','')]" />
                     <filter string="State" name="filter_by_state" domain="[('state','=','')]" />
-                    <field name="name" select="True"/>
+                    <!-- <field name="name" select="True"/>
                     <field name="tanggal" select="True"/>
                     <field name="nilai" select="True"/>
                     <field name="keterangan" select="True"/>
@@ -91,7 +97,7 @@
                     <field name="siswa_id" select="True"/>
                     <field name="surah_id" select="True"/>
                     <field name="guru_id" select="True"/>
-                    <field name="nilai_id" select="True"/>
+                    <field name="nilai_id" select="True"/> -->
                     <group string="Group By..">
                         <filter string="Siswa" domain="[]" name="group_by_siswa_id" context="{'group_by':'siswa_id'}"/>
                         <filter string="Surah" domain="[]" name="group_by_surah_id" context="{'group_by':'surah_id'}"/>

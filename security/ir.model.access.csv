@@ -27,6 +27,9 @@ access_all_cdn_tahsin,access_all_cdn_tahsin,model_cdn_tahsin,,1,0,0,0
 access_admin_cdn_tahsin,access_admin_cdn_tahsin,model_cdn_tahsin,base.group_system,1,1,1,1
 access_all_cdn_level_tahsin,access_all_cdn_level_tahsin,model_cdn_level_tahsin,,1,0,0,0
 access_admin_cdn_level_tahsin,access_admin_cdn_level_tahsin,model_cdn_level_tahsin,base.group_system,1,1,1,1
+access_admin_cdn_sesi_tahfidz,access_admin_cdn_sesi_tahfidz,model_cdn_sesi_tahfidz,base.group_system,1,1,1,1
+access_all_cdn_sesi_tahfidz,access_all_cdn_sesi_tahfidz,model_cdn_sesi_tahfidz,,1,0,0,0
+
 
 access_all_cdn_mutabaah_line,access_all_cdn_mutabaah_line,model_cdn_mutabaah_line,,1,0,0,0
 access_admin_cdn_mutabaah_line,access_admin_cdn_mutabaah_line,model_cdn_mutabaah_line,base.group_system,1,1,1,1
