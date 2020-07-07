@@ -689,13 +689,13 @@
                 <!-- Add your xpath here -->
                 <xpath expr="//button[@name='toggle_active']" position="before">
                     <!-- Add your fields here -->
-                    <button type="object" name="open_perijinan" attrs="{'invisible': [('customer', '=', False)]}" class="oe_stat_button" icon="fa-thumbs-o-up">
+                    <button type="object" name="open_perijinan" attrs="{'invisible': [('student', '=', False)]}" class="oe_stat_button" icon="fa-thumbs-o-up">
                         <field name="perijinan_count" widget="statinfo" string="Perijinan"/>
                     </button>
-                    <button type="object" name="open_kesehatan" attrs="{'invisible': [('customer', '=', False)]}" class="oe_stat_button" icon="fa-heartbeat">
+                    <button type="object" name="open_kesehatan" attrs="{'invisible': [('student', '=', False)]}" class="oe_stat_button" icon="fa-heartbeat">
                         <field name="kesehatan_count" widget="statinfo" string="Kesehatan"/>
                     </button>
-                    <button type="object" name="open_pelanggaran" attrs="{'invisible': [('customer', '=', False)]}" class="oe_stat_button" icon="fa-gavel">
+                    <button type="object" name="open_pelanggaran" attrs="{'invisible': [('student', '=', False)]}" class="oe_stat_button" icon="fa-gavel">
                         <field name="pelanggaran_count" widget="statinfo" string="Pelanggaran"/>
                     </button>
                 </xpath>
