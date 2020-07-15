@@ -32,10 +32,10 @@
             <field name="arch" type="xml">
                 <form string="Perijinan">
                     <header>
-                        <button string="Ajukan Ijin" type="object" name="action_confirm" state="Draft" attrs="{'invisible': [('state', 'in', ['Draft','Check','Approved','Rejected','Permission'])]}" />
-                        <button string="Ijin Diperiksa" type="object" name="action_checked" state="Check" attrs="{'invisible': [('state', 'not in', ['Draft'])]}" />
-                        <button string="Ijin Disetujui" type="object" name="action_approved" state="Approved" attrs="{'invisible': [('state', 'not in', ['Check'])]}" />
-                        <button string="Ijin Ditolak" type="object" name="action_rejected" state="Rejected" attrs="{'invisible': [('state', 'not in', ['Check'])]}" />
+                        <button string="Ajukan Ijin" type="object" name="action_confirm" groups="alhamra_akademik.group_sekolah_orangtua" state="Draft" attrs="{'invisible': [('state', 'in', ['Draft','Check','Approved','Rejected','Permission'])]}" />
+                        <button string="Ijin Diperiksa" type="object" name="action_checked" groups="alhamra_kesantrian.group_kesantrian_musyrif" state="Check" attrs="{'invisible': [('state', 'not in', ['Draft'])]}" />
+                        <button string="Ijin Disetujui" type="object" name="action_approved" groups="alhamra_kesantrian.group_kesantrian_admin" state="Approved" attrs="{'invisible': [('state', 'not in', ['Check'])]}" />
+                        <button string="Ijin Ditolak" type="object" name="action_rejected" groups="alhamra_kesantrian.group_kesantrian_admin" state="Rejected" attrs="{'invisible': [('state', 'not in', ['Check'])]}" />
                         <button string="Santri Status Ijin" type="object" name="action_permission" state="Permission" attrs="{'invisible': [('state', 'not in', ['Approved'])]}" />
                         <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
                         <!-- <button name="action_perijinan_draft" string="Ajukan Ijin" type="object" states="Draft" class="btn-primary"/>
@@ -55,7 +55,7 @@
                         </div>
                         <group string="Data Santri">
                             <field name="tgl_ijin" />
-                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" />
+                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" domain="[('orangtua_id.user_id','=',uid)]"/>
                             <field name="kelas_id"/>
                         </group>
                         <group string="Pengajuan Ijin" >
@@ -70,6 +70,10 @@
                         <notebook>
                         </notebook>
                     </sheet>
+                    <!-- <div class="oe_chatter" groups="alhamra_kesantrian.group_kesantrian_musyrif">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div> -->
                 </form>
             </field>
         </record>

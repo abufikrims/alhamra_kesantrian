@@ -5,7 +5,8 @@ from odoo.exceptions import UserError
 
 class perijinan(models.Model):
     _name = 'cdn.perijinan'
-    _description = 'Model untuk Perijinan'
+    _inherit = 'mail.thread'
+    _description = 'Data Perijinan Santri'
 
     name = fields.Char(string="No. Referensi",  help="", readonly=True, default='Auto')
     tgl_ijin = fields.Date( string="Tanggal Ijin", default=fields.Date.context_today, required=True, help="")
