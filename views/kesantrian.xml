@@ -36,7 +36,7 @@
                         <button string="Ijin Diperiksa" type="object" name="action_checked" groups="alhamra_kesantrian.group_kesantrian_musyrif" state="Check" attrs="{'invisible': [('state', 'not in', ['Draft'])]}" />
                         <button string="Ijin Disetujui" type="object" name="action_approved" groups="alhamra_kesantrian.group_kesantrian_admin" state="Approved" attrs="{'invisible': [('state', 'not in', ['Check'])]}" />
                         <button string="Ijin Ditolak" type="object" name="action_rejected" groups="alhamra_kesantrian.group_kesantrian_admin" state="Rejected" attrs="{'invisible': [('state', 'not in', ['Check'])]}" />
-                        <button string="Santri Status Ijin" type="object" name="action_permission" state="Permission" attrs="{'invisible': [('state', 'not in', ['Approved'])]}" />
+                        <button string="Santri Status Ijin" type="object" name="action_permission" groups="alhamra_kesantrian.group_kesantrian_satpam" state="Permission" attrs="{'invisible': [('state', 'not in', ['Approved'])]}" />
                         <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
                         <!-- <button name="action_perijinan_draft" string="Ajukan Ijin" type="object" states="Draft" class="btn-primary"/>
                         <button name="action_perijinan_tolak" id="action_tolak" string="Ijin Ditolak" class="btn-primary" type="object" attrs="{'invisible': [('state', 'not in', ['Rejected'])]}"/> -->
@@ -727,6 +727,8 @@
                 </xpath>
             </field>
         </record>
+
+        
 
     </data>
 </odoo>
