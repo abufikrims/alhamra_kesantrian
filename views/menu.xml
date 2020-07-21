@@ -39,19 +39,19 @@
         <menuitem id="cdn_pesantren_sub_konfigurasi" name="Konfigurasi" parent="cdn_pesantren_top_menu" sequence="40"/>
        
         <!-- Konfigurasi - Pesantren -->
-        <menuitem id="cdn_pesantren_konfig_pesantren" name="Pesantren" parent="cdn_pesantren_sub_konfigurasi" sequence="10"/>
-        <menuitem id="menu_cdn_lokasi_fasilitas" name="Fasilitas Pesantren" parent="cdn_pesantren_konfig_pesantren" action="cdn_lokasi_fasilitas_action" sequence="10"/>
-        <menuitem id="menu_cdn_kamar" name="Kamar Santri" parent="cdn_pesantren_konfig_pesantren" action="cdn_kamar_action" sequence="20"/>
+        <menuitem id="cdn_pesantren_konfig_pesantren" name="Pesantren" parent="cdn_pesantren_sub_konfigurasi"  sequence="10"/>
+        <menuitem id="menu_cdn_lokasi_fasilitas" name="Fasilitas Pesantren" parent="cdn_pesantren_konfig_pesantren" action="cdn_lokasi_fasilitas_action" groups="group_kesantrian_manager" sequence="10"/>
+        <menuitem id="menu_cdn_kamar" name="Kamar Santri" parent="cdn_pesantren_konfig_pesantren" action="cdn_kamar_action" groups="group_kesantrian_admin" sequence="20"/>
 
         <!-- Konfigurasi - Tahfidz -->
-        <menuitem id="cdn_pesantren_konfig_tahfidz" name="Tahfidz" parent="cdn_pesantren_sub_konfigurasi" sequence="20"/>
-        <menuitem id="menu_cdn_quran" name="Al Quran" parent="cdn_pesantren_konfig_tahfidz" action="action_cdn_quran" sequence="10"/>
-        <menuitem id="menu_cdn_hadits" name="Daftar Hadits" parent="cdn_pesantren_konfig_tahfidz" action="action_cdn_hadits" sequence="20"/>
-        <menuitem id="menu_cdn_nilai_tahfidz" name="Nilai tahfidz" parent="cdn_pesantren_konfig_tahfidz" action="action_cdn_nilai_tahfidz" sequence="30"/>
-        <menuitem id="menu_cdn_level_tahsin" name="Level Tahsin" parent="cdn_pesantren_konfig_tahfidz" action="action_cdn_level_tahsin" sequence="40"/>
-        <menuitem id="menu_cdn_sesi_tahfidz" name="Sesi Tahfidz" parent="cdn_pesantren_konfig_tahfidz" action="action_cdn_sesi_tahfidz" sequence="50"/>
+        <menuitem id="cdn_pesantren_konfig_tahfidz" name="Tahfidz" parent="cdn_pesantren_sub_konfigurasi"  sequence="20"/>
+        <menuitem id="menu_cdn_quran" name="Al Quran" parent="cdn_pesantren_konfig_tahfidz" action="action_cdn_quran" groups="group_kesantrian_manager" sequence="10"/>
+        <menuitem id="menu_cdn_hadits" name="Daftar Hadits" parent="cdn_pesantren_konfig_tahfidz" action="action_cdn_hadits" groups="group_kesantrian_manager" sequence="20"/>
+        <menuitem id="menu_cdn_nilai_tahfidz" name="Nilai tahfidz" parent="cdn_pesantren_konfig_tahfidz" action="action_cdn_nilai_tahfidz" groups="group_kesantrian_admin" sequence="30"/>
+        <menuitem id="menu_cdn_level_tahsin" name="Level Tahsin" parent="cdn_pesantren_konfig_tahfidz" action="action_cdn_level_tahsin" groups="group_kesantrian_admin" sequence="40"/>
+        <menuitem id="menu_cdn_sesi_tahfidz" name="Sesi Tahfidz" parent="cdn_pesantren_konfig_tahfidz" action="action_cdn_sesi_tahfidz" groups="group_kesantrian_admin" sequence="50"/>
         
         <!-- Konfigurasi - Mutabaah -->
-         <menuitem id="menu_cdn_mutabaah" name="Mutabaah" parent="cdn_pesantren_sub_konfigurasi" action="action_cdn_mutabaah" sequence="20"/>
+         <menuitem id="menu_cdn_mutabaah" name="Mutabaah" parent="cdn_pesantren_sub_konfigurasi" action="action_cdn_mutabaah" groups="group_kesantrian_admin" sequence="20"/>
     </data>
 </odoo>

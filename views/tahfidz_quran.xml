@@ -53,6 +53,7 @@
                             <field name="guru_id" options="{'no_create_edit':True, 'no_create':True, 'no_open':True}"/>
                             <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}"/>
                             <field name="kelas_id"/>
+                            <field name="last_tahfidz"/>
                             <field name="sesi_tahfidz_id" options="{'no_create_edit':True, 'no_create':True, 'no_open':True}"/>
                             <field name="surah_id" options="{'no_create_edit':True, 'no_create':True}"/>
                             <field name="jml_ayat"/>

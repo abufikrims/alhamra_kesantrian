@@ -17,6 +17,7 @@ class tahfidz_quran(models.Model):
 
     siswa_id = fields.Many2one(comodel_name="res.partner",  string="Siswa", required=True, domain=[('student', '=', True)], help="")
     kelas_id = fields.Many2one('master.kelas', 'Kelas', related='siswa_id.class_id', readonly=True)
+    last_tahfidz = fields.Char(string="Tahfidz Terakhir", related="siswa_id.tahfidz_surah")
     #class_id = fields.Char(string="Kelas", related="siswa_id.class_id")
     surah_id = fields.Many2one(comodel_name="cdn.quran",  string="Surah",  help="")
     jml_ayat = fields.Integer(string="Jumlah Ayat", related="surah_id.jml_ayat")
@@ -36,14 +37,14 @@ class tahfidz_quran(models.Model):
         record = super(tahfidz_quran, self).create(vals)
         i_partner = self.env['res.partner'].search([('id', '=', vals['siswa_id'])])
         if i_partner:
-            i_partner.write({'tahfidz_surah': record.surah_id.name+' # '+str(record.ayat_awal)+' - '+str(record.ayat_akhir)})
+            i_partner.write({'tahfidz_surah': record.surah_id.name+' # '+str(record.ayat_awal)+' - '+str(record.ayat_akhir)+' # '+str(record.jml_baris)+' baris # Nilai: '+str(record.nilai)})
             # '+str(self.ayat_awal)+' - '+str(self.ayat_akhir)})
         return record
 
     def write(self,values):
         i_partner = self.env['res.partner'].search([('id', '=', self.siswa_id.id)])
         if i_partner:
-            i_partner.write({'tahfidz_surah': self.surah_id.name+' # '+str(self.ayat_awal)+' - '+str(self.ayat_akhir)})
+            i_partner.write({'tahfidz_surah': self.surah_id.name+' # '+str(self.ayat_awal)+' - '+str(self.ayat_akhir)+' # '+str(self.jml_baris)+' baris # Nilai: '+str(self.nilai)})
         return super(tahfidz_quran,self).write(values)
 
     @api.constrains('ayat_awal','ayat_akhir','jml_ayat')
