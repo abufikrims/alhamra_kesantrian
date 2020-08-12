@@ -299,10 +299,10 @@
                         <!--button string="Mark as Done" type="object" name="action_done" states="confirmed" /-->
                         <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
                         <!-- <button name="kesehatan_confirm" type="object" states="Periksa" string="Periksa" class="oe_highlight"/> -->
-                        <button string="Periksa" type="object" name="kesehatan_confirm" state="Periksa" attrs="{'invisible': [('state', 'in', ['Periksa','Pengobatan','Rawat','Sembuh'])]}" />
-                        <button string="Pengobatan" type="object" name="action_pengobatan" state="Pengobatan" attrs="{'invisible': [('state', 'not in', ['Periksa'])]}" />
-                        <button string="Perawatan" type="object" name="action_rawat" state="Rawat" attrs="{'invisible': [('state', 'not in', ['Periksa','Pengobatan'])]}" />
-                        <button string="Pasien Sembuh" type="object" name="action_sembuh" state="Sembuh" attrs="{'invisible': [('state', 'not in', ['Periksa','Pengobatan','Rawat'])]}" />                        
+                        <button string="Periksa" type="object" name="kesehatan_confirm" state="Periksa" groups="alhamra_kesantrian.group_kesantrian_kesehatan" attrs="{'invisible': [('state', 'in', ['Periksa','Pengobatan','Rawat','Sembuh'])]}" />
+                        <button string="Pengobatan" type="object" name="action_pengobatan" state="Pengobatan" groups="alhamra_kesantrian.group_kesantrian_kesehatan" attrs="{'invisible': [('state', 'not in', ['Periksa'])]}" />
+                        <button string="Perawatan" type="object" name="action_rawat" state="Rawat" groups="alhamra_kesantrian.group_kesantrian_kesehatan" attrs="{'invisible': [('state', 'not in', ['Periksa','Pengobatan'])]}" />
+                        <button string="Pasien Sembuh" type="object" name="action_sembuh" state="Sembuh" groups="alhamra_kesantrian.group_kesantrian_kesehatan" attrs="{'invisible': [('state', 'not in', ['Periksa','Pengobatan','Rawat'])]}" />                        
                         
                         <field name="state" widget="statusbar" />  
                     </header>

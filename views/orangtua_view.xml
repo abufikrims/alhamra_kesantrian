@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- Action Perijinan Siswa -->
+
+		<record model="ir.actions.act_window" id="action_ortu_perijinan_form">
+			<field name="name">Perijinan Siswa</field>
+			<field name="res_model">cdn.perijinan</field>
+			<field name="view_id" ref="view_cdn_perijinan_tree"/>
+			<field name="domain">[('siswa_id.orangtua_id.user_id', '=', uid)]</field>
+			<!-- <field name="context">{"default_student":1}</field> -->
+			<field name="search_view_id" ref="alhamra_kesantrian.view_cdn_perijinan_search"/>
+		</record>
+
+
+		<record id="action_tree_view_portal_siswa" model="ir.actions.act_window.view">
+			<field name="sequence" eval="1"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_cdn_perijinan_tree"/>
+			<field name="act_window_id" ref="action_ortu_perijinan_form"/>
+		</record>
+
+		<record id="action_form_view_portal_siswa" model="ir.actions.act_window.view">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_cdn_perijinan_form"/>
+			<field name="act_window_id" ref="action_ortu_perijinan_form"/>
+		</record>   
+
+        <!-- Action Kesehatan Siswa -->
+        <record model="ir.actions.act_window" id="action_ortu_kesehatan_form">
+			<field name="name">Kesehatan Siswa</field>
+			<field name="res_model">cdn.kesehatan</field>
+			<field name="view_id" ref="view_cdn_kesehatan_tree"/>
+			<field name="domain">[('siswa_id.orangtua_id.user_id', '=', uid)]</field>
+			<!-- <field name="context">{"default_student":1}</field> -->
+			<field name="search_view_id" ref="alhamra_kesantrian.view_cdn_kesehatan_search"/>
+		</record>
+
+
+		<record id="action_tree_view_portal_siswa" model="ir.actions.act_window.view">
+			<field name="sequence" eval="1"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_cdn_kesehatan_tree"/>
+			<field name="act_window_id" ref="action_ortu_kesehatan_form"/>
+		</record>
+
+		<record id="action_form_view_portal_siswa" model="ir.actions.act_window.view">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_cdn_kesehatan_form"/>
+			<field name="act_window_id" ref="action_ortu_kesehatan_form"/>
+		</record>
+
+        <!-- Action Pelanggaran Siswa -->
+        <record model="ir.actions.act_window" id="action_ortu_pelanggaran_form">
+			<field name="name">Pelanggaran Siswa</field>
+			<field name="res_model">cdn.pelanggaran</field>
+			<field name="view_id" ref="view_cdn_pelanggaran_tree"/>
+			<field name="domain">[('siswa_id.orangtua_id.user_id', '=', uid)]</field>
+			<!-- <field name="context">{"default_student":1}</field> -->
+			<field name="search_view_id" ref="alhamra_kesantrian.view_cdn_pelanggaran_search"/>
+		</record>
+
+
+		<record id="action_tree_view_portal_siswa" model="ir.actions.act_window.view">
+			<field name="sequence" eval="1"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_cdn_pelanggaran_tree"/>
+			<field name="act_window_id" ref="action_ortu_pelanggaran_form"/>
+		</record>
+
+		<record id="action_form_view_portal_siswa" model="ir.actions.act_window.view">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_cdn_pelanggaran_form"/>
+			<field name="act_window_id" ref="action_ortu_pelanggaran_form"/>
+		</record>
+
+        <!-- Action Prestasi Siswa -->
+        <record model="ir.actions.act_window" id="action_ortu_prestasi_siswa_form">
+			<field name="name">Prestasi Siswa</field>
+			<field name="res_model">cdn.prestasi_siswa</field>
+			<field name="view_id" ref="view_cdn_prestasi_siswa_tree"/>
+			<field name="domain">[('siswa_id.orangtua_id.user_id', '=', uid)]</field>
+			<!-- <field name="context">{"default_student":1}</field> -->
+			<field name="search_view_id" ref="alhamra_kesantrian.view_cdn_prestasi_siswa_search"/>
+		</record>
+
+
+		<record id="action_tree_view_portal_siswa" model="ir.actions.act_window.view">
+			<field name="sequence" eval="1"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_cdn_prestasi_siswa_tree"/>
+			<field name="act_window_id" ref="action_ortu_prestasi_siswa_form"/>
+		</record>
+
+		<record id="action_form_view_portal_siswa" model="ir.actions.act_window.view">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_cdn_prestasi_siswa_form"/>
+			<field name="act_window_id" ref="action_ortu_prestasi_siswa_form"/>
+		</record>
+
+        <!-- Action Tahfidz Quran Siswa -->
+        <record model="ir.actions.act_window" id="action_ortu_tahfidz_quran_form">
+			<field name="name">Tahfidz Quran Siswa</field>
+			<field name="res_model">cdn.tahfidz_quran</field>
+			<field name="view_id" ref="view_cdn_tahfidz_quran_tree"/>
+			<field name="domain">[('siswa_id.orangtua_id.user_id', '=', uid)]</field>
+			<!-- <field name="context">{"default_student":1}</field> -->
+			<field name="search_view_id" ref="alhamra_kesantrian.view_cdn_tahfidz_quran_search"/>
+		</record>
+
+
+		<record id="action_tree_view_portal_siswa" model="ir.actions.act_window.view">
+			<field name="sequence" eval="1"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_cdn_tahfidz_quran_tree"/>
+			<field name="act_window_id" ref="action_ortu_tahfidz_quran_form"/>
+		</record>
+
+		<record id="action_form_view_portal_siswa" model="ir.actions.act_window.view">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_cdn_tahfidz_quran_form"/>
+			<field name="act_window_id" ref="action_ortu_tahfidz_quran_form"/>
+		</record>
+
+        <!-- Action Tahfidz Hadits Siswa -->
+        <record model="ir.actions.act_window" id="action_ortu_tahfidz_hadits_form">
+			<field name="name">Tahfidz Hadits Siswa</field>
+			<field name="res_model">cdn.tahfidz_hadits</field>
+			<field name="view_id" ref="view_cdn_tahfidz_hadits_tree"/>
+			<field name="domain">[('siswa_id.orangtua_id.user_id', '=', uid)]</field>
+			<!-- <field name="context">{"default_student":1}</field> -->
+			<field name="search_view_id" ref="alhamra_kesantrian.view_cdn_tahfidz_hadits_search"/>
+		</record>
+
+		<record id="action_tree_view_portal_siswa" model="ir.actions.act_window.view">
+			<field name="sequence" eval="1"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_cdn_tahfidz_hadits_tree"/>
+			<field name="act_window_id" ref="action_ortu_tahfidz_hadits_form"/>
+		</record>
+
+		<record id="action_form_view_portal_siswa" model="ir.actions.act_window.view">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_cdn_tahfidz_hadits_form"/>
+			<field name="act_window_id" ref="action_ortu_tahfidz_hadits_form"/>
+		</record>
+
+        <!-- Action Tahsin Siswa -->
+        <record model="ir.actions.act_window" id="action_ortu_tahsin_form">
+			<field name="name">Tahsin Siswa</field>
+			<field name="res_model">cdn.tahsin</field>
+			<field name="view_id" ref="view_cdn_tahsin_tree"/>
+			<field name="domain">[('siswa_id.orangtua_id.user_id', '=', uid)]</field>
+			<!-- <field name="context">{"default_student":1}</field> -->
+			<field name="search_view_id" ref="alhamra_kesantrian.view_cdn_tahsin_search"/>
+		</record>
+
+		<record id="action_tree_view_portal_siswa" model="ir.actions.act_window.view">
+			<field name="sequence" eval="1"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_cdn_tahsin_tree"/>
+			<field name="act_window_id" ref="action_ortu_tahsin_form"/>
+		</record>
+
+		<record id="action_form_view_portal_siswa" model="ir.actions.act_window.view">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_cdn_tahsin_form"/>
+			<field name="act_window_id" ref="action_ortu_tahsin_form"/>
+		</record>
+
+        <menuitem id="menubar_portal_kesantrian" name="Kesantrian" parent="alhamra_akademik.menubar_portal" sequence="20"/> 
+        <menuitem id="menuitem_portal_perijinan" name="Perijinan" parent="menubar_portal_kesantrian" action="action_ortu_perijinan_form" sequence="10"/>
+        <menuitem id="menuitem_portal_tahfidz" name="Tahfidz" parent="menubar_portal_kesantrian" sequence="20"/>
+        <menuitem id="menuitem_portal_tahfidz_quran" name="Tahfidz Al Quran" parent="menuitem_portal_tahfidz" action="action_ortu_tahfidz_quran_form" sequence="10"/>
+        <menuitem id="menuitem_portal_tahfidz_hadits" name="Tahfidz Hadits" parent="menuitem_portal_tahfidz" action="action_ortu_tahfidz_hadits_form" sequence="20"/>
+        <menuitem id="menuitem_portal_tahsin" name="Tahsin Al Quran" parent="menuitem_portal_tahfidz" action="action_ortu_tahsin_form" sequence="30"/>
+
+
+        <menuitem id="menuitem_portal_aktivitas" name="Aktivitas" parent="alhamra_akademik.menubar_portal" sequence="30"/>
+        <menuitem id="menuitem_portal_pelanggaran" name="Pelanggaran" parent="menuitem_portal_aktivitas" action="action_ortu_pelanggaran_form" sequence="10"/>
+        <menuitem id="menuitem_portal_kesehatan" name="Kesehatan Siswa" parent="menuitem_portal_aktivitas" action="action_ortu_kesehatan_form" sequence="20"/>
+        <menuitem id="menuitem_portal_prestasi" name="Prestasi Siswa" parent="menuitem_portal_aktivitas" action="action_ortu_prestasi_siswa_form" sequence="30"/>
+
+    </data>
+</odoo>
