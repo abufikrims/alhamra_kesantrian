@@ -52,6 +52,8 @@
         <menuitem id="menu_cdn_sesi_tahfidz" name="Sesi Tahfidz" parent="cdn_pesantren_konfig_tahfidz" action="action_cdn_sesi_tahfidz" groups="group_kesantrian_admin" sequence="50"/>
         
         <!-- Konfigurasi - Mutabaah -->
-         <menuitem id="menu_cdn_mutabaah" name="Mutabaah" parent="cdn_pesantren_sub_konfigurasi" action="action_cdn_mutabaah" groups="group_kesantrian_admin" sequence="20"/>
+        <menuitem id="menu_cdn_mutabaah" name="Mutabaah" parent="cdn_pesantren_sub_konfigurasi" action="action_cdn_mutabaah" groups="group_kesantrian_admin" sequence="20"/>
+        <menuitem id="menu_cdn_tindakan_hukuman" name="Tindakan Hukuman" parent="cdn_pesantren_sub_konfigurasi" action="action_cdn_tindakan_hukuman" groups="group_kesantrian_admin" sequence="40"/>
+
     </data>
 </odoo>
