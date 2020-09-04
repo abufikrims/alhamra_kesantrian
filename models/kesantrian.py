@@ -180,6 +180,7 @@ class lokasi_fasilitas(models.Model):
 class pembagian_kamar(models.Model):
     _name = "cdn.kamar"
     _description = "Model untuk mencatat pembagian kamar"
+    _rec_name = 'kamar_id'
 
     kamar_id = fields.Many2one(comodel_name='cdn.lokasi_fasilitas', string='Nama Kamar', domain=[('jns_fasilitas','=','asrama'),('is_kamar_santri','=', True)])
     parent_id = fields.Many2one(comodel_name='cdn.lokasi_fasilitas', string='Lokasi', related='kamar_id.parent_id')

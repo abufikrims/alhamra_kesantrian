@@ -60,3 +60,19 @@ class sesi_tahfidz(models.Model):
     name = fields.Char( required=True, string="Nama Sesi",  help="")
     keterangan = fields.Char(string="Keterangan")
     
+class halaqoh(models.Model):
+    _name = "cdn.halaqoh"
+    _description = "Model untuk Pembagian Kelas Halaqoh"
+
+    name = fields.Char( required=True, string="No Referensi",  help="")
+    fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
+    ustadz_halaqoh = fields.Many2one(comodel_name='hr.employee', string='Ustadz Pembimbing')
+    # siswa_ids = fields.One2many(comodel_name='cdn.halaqoh_lines', inverse_name='', string='Siswa')
+    siswa_ids = fields.Many2many('res.partner', 'siswa_halaqoh', 'siswa_id', 'partner_id', 'Siswa', domain=[('student', '=', True)])
+    keterangan = fields.Char(string="Keterangan")
+
+    _sql_constraints = [('halaqoh_uniq', 'unique(name, fiscalyear_id)', 'Halaqah tersebut sudah ada !')]
+
+    
+
+    
