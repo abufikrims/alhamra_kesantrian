@@ -73,6 +73,12 @@ class halaqoh(models.Model):
 
     _sql_constraints = [('halaqoh_uniq', 'unique(name, fiscalyear_id)', 'Halaqah tersebut sudah ada !')]
 
+    @api.one
+    def update_halaqoh(self):
+        for x in self.siswa_ids:
+            x.write({'halaqoh_id': self.id})
+        return True
+
     
 
     
