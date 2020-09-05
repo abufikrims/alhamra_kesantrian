@@ -275,7 +275,7 @@
                             <!--/button-->
                         </div>
                         <div class="oe_title">
-                            <label for="name" class="oe_edit_only" string="No Referensi (Auto)"/>
+                            <label for="name" class="oe_edit_only" string="Nama Halaqoh"/>
                             <h1><field name="name"/></h1>
                         </div>
                         <group string="Halaqoh">
