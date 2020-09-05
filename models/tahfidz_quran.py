@@ -64,7 +64,7 @@ class halaqoh(models.Model):
     _name = "cdn.halaqoh"
     _description = "Model untuk Pembagian Kelas Halaqoh"
 
-    name = fields.Char( required=True, string="No Referensi",  help="")
+    name = fields.Char( required=True, string="Nama Halaqoh",  help="")
     fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
     ustadz_halaqoh = fields.Many2one(comodel_name='hr.employee', string='Ustadz Pembimbing')
     # siswa_ids = fields.One2many(comodel_name='cdn.halaqoh_lines', inverse_name='', string='Siswa')
