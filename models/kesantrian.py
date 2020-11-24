@@ -2,6 +2,13 @@ from datetime import date
 from odoo import api, fields, models,_
 from odoo.exceptions import UserError
 
+from odoo import api, fields, models
+
+
+class company_inherit(models.Model):
+    _inherit = 'res.company'
+
+    fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran')
 
 class perijinan(models.Model):
     _name = 'cdn.perijinan'

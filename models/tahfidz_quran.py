@@ -37,14 +37,14 @@ class tahfidz_quran(models.Model):
         record = super(tahfidz_quran, self).create(vals)
         i_partner = self.env['res.partner'].search([('id', '=', vals['siswa_id'])])
         if i_partner:
-            i_partner.write({'tahfidz_surah': record.surah_id.name+' # '+str(record.ayat_awal)+' - '+str(record.ayat_akhir)+' # '+str(record.jml_baris)+' baris # Nilai: '+str(record.nilai)})
+            i_partner.write({'tahfidz_surah': record.surah_id.name+' # '+str(record.ayat_awal)+' - '+str(record.ayat_akhir)+' # '+str(record.jml_baris)+' baris # '+record.nilai_id.name})
             # '+str(self.ayat_awal)+' - '+str(self.ayat_akhir)})
         return record
 
     def write(self,values):
         i_partner = self.env['res.partner'].search([('id', '=', self.siswa_id.id)])
         if i_partner:
-            i_partner.write({'tahfidz_surah': self.surah_id.name+' # '+str(self.ayat_awal)+' - '+str(self.ayat_akhir)+' # '+str(self.jml_baris)+' baris # Nilai: '+str(self.nilai)})
+            i_partner.write({'tahfidz_surah': self.surah_id.name+' # '+str(self.ayat_awal)+' - '+str(self.ayat_akhir)+' # '+str(self.jml_baris)+' baris # '+self.nilai_id.name})
         return super(tahfidz_quran,self).write(values)
 
     @api.constrains('ayat_awal','ayat_akhir','jml_ayat')
@@ -78,6 +78,46 @@ class halaqoh(models.Model):
         for x in self.siswa_ids:
             x.write({'halaqoh_id': self.id})
         return True
+
+class absen_quran(models.Model):
+    _name = "cdn.absen_quran"
+    _description = "Model untuk Absensi Halaqoh Quran"
+
+    name = fields.Date('Tanggal', required=True, default=fields.Date.context_today)
+
+    def _default_fiscalyear(self):
+        return self.env['res.company'].search([('id','=',1)]).fiscalyear_id
+
+    #fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran', required=True)
+    fiscalyear_id = fields.Many2one('account.fiscalyear', 'Tahun Ajaran',  default=_default_fiscalyear)
+    halaqoh_id = fields.Many2one('cdn.halaqoh', 'Nama Halaqoh', required=True, domain="[('fiscalyear_id', '=', fiscalyear_id)]")
+    sesi_id = fields.Many2one('cdn.sesi_tahfidz', 'Sesi Tahfidz', required=True)
+    absen_quran_line = fields.One2many('absen_quran.line', 'absen_line_id', 'Daftar Kehadiran')
+
+    _sql_constraints = [('absen_quran_uniq', 'unique(name, sesi_id, halaqoh_id, fiscalyear_id)', 'Data harus unik !')]
+
+    @api.onchange('halaqoh_id')
+    def onchange_halaqoh_id(self):
+        if self.halaqoh_id:
+
+            siswa = []
+            for x in self.halaqoh_id.siswa_ids:
+                siswa.append({'name': x.id, 'kehadiran': 'hadir'})
+
+            data = {'absen_quran_line': siswa}
+            self.update(data)
+
+class absen_quran_line(models.Model):
+    _name = 'absen_quran.line'
+
+    absen_line_id = fields.Many2one('cdn.absen_quran', 'Penilaian Kehadiran', required=True, ondelete='cascade')
+    name = fields.Many2one('res.partner', 'Siswa', required=True, domain=[('student', '=', True)])
+    nis = fields.Char(string='NIS', related='name.nis')
+    kehadiran = fields.Selection(string='Kehadiran', selection=[('hadir', 'Hadir'), ('sakit', 'Sakit'),  ('ijin', 'Ijin'),  ('alpa', 'Alpa'), ])
+    
+
+
+    
 
     
 

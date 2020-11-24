@@ -19,6 +19,7 @@
         <menuitem id="menu_cdn_tahfidz_quran" name="Tahfidz Al Quran" parent="cdn_pesantren_menu_tahfidz" action="action_cdn_tahfidz_quran" sequence="10"/>
         <menuitem id="menu_cdn_tahfidz_hadits" name="Tahfidz Hadits" parent="cdn_pesantren_menu_tahfidz" action="action_cdn_tahfidz_hadits" sequence="20"/>
         <menuitem id="menu_cdn_tahsin" name="Tahsin Al Quran" parent="cdn_pesantren_menu_tahfidz" action="action_cdn_tahsin" sequence="30"/>
+        <menuitem id="menu_absen_quran" name="Absen Al Quran" parent="cdn_pesantren_menu_tahfidz" action="action_absen_quran_form" sequence="40"/>
         
          <!-- Menu Kepengasuhan -->
         <menuitem id="cdn_pesantren_menu_kepengasuhan" name="Kepengasuhan" parent="cdn_pesantren_sub_kepesantrenan" sequence="30" />

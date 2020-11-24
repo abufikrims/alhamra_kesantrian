@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+
+        <!-- Inherit Companies -->
+        <!-- res.company inherit form view -->
+        <record id="view_company_inherit" model="ir.ui.view">
+            <field name="name">res.company.inherit.view.form</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <!-- Add your xpath here -->
+                <!-- Add your xpath here -->
+                <xpath expr="//field[@name='website']" position="before">
+                   <field name="fiscalyear_id"/>
+                </xpath>
+                
+            </field>
+        </record>
         <!-- tree view -->
         <record id="view_cdn_perijinan_tree" model="ir.ui.view">
             <field name="name">cdn_perijinan_tree</field>
