@@ -78,6 +78,8 @@
                             <field name="tgl_hrs_kembali" />
                             <field name="lama_ijin" />
                             <field name="penjemput" /> 
+                            <field name="waktu_keluar"/>
+                            <field name="waktu_kembali"/>
                         </group>
                         <group>
                             <field name="keperluan" />
