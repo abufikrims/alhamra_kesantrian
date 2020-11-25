@@ -38,6 +38,7 @@
         'views/level_tahsin.xml',
         'views/mutabaah.xml',
         'views/orangtua_view.xml',
+        'views/satpam_view.xml',
         'views/menu.xml',
     ],
     'css': ['static/src/css/my_css.css'],
