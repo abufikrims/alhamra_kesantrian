@@ -40,21 +40,32 @@
         <field name="users" eval="[(4, ref('base.user_admin'))]"/>
     </record>
 
-    <record id="group_tahfidz_ortu" model="res.groups">
-        <field name="name">Tahfidz / Orang Tua</field>
-       
+    <record id="group_kesantrian_ortu" model="res.groups">
+        <field name="name">Kesantrian : Hanya Akses Orang Tua</field>
     </record>
 
     <record id="tahfidz_quran_by_ortu" model="ir.rule">
-        <field name="name">Orang tua hanya bisa melihat data anaknya</field>
+        <field name="name">Orang tua hanya bisa melihat data Tahfidz anaknya</field>
         <field name="model_id" ref="model_cdn_tahfidz_quran"/>
-        <field name="groups" eval="[(4, ref('alhamra_kesantrian.group_tahfidz_ortu'))]"/>
+        <field name="groups" eval="[(4, ref('alhamra_kesantrian.group_kesantrian_ortu'))]"/>
         <field name="perm_read" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_create" eval="False"/>
         <field name="perm_unlink" eval="False"/>
         <field name="domain_force">[('siswa_id.orangtua_id.id','=',user.partner_id.id)]</field>
     </record>
+
+    <record id="perijinan_by_ortu" model="ir.rule">
+        <field name="name">Orang tua hanya bisa melihat data Perijinan anaknya</field>
+        <field name="model_id" ref="model_cdn_perijinan"/>
+        <field name="groups" eval="[(4, ref('alhamra_kesantrian.group_kesantrian_ortu'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="False"/>
+        <field name="domain_force">[('siswa_id.orangtua_id.id','=',user.partner_id.id)]</field>
+    </record>
+
 
    <record id="group_kesantrian_satpam" model="res.groups">
         <field name="name">Akses Fitur Satpam</field>
