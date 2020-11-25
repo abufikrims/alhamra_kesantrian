@@ -19,7 +19,7 @@ class perijinan(models.Model):
     tgl_ijin = fields.Date( string="Tanggal Ijin", default=fields.Date.context_today, required=True, help="")
     tgl_hrs_kembali = fields.Date( string="Tanggal kembali", required=True,  help="")
     lama_ijin = fields.Integer('Lama Ijin', readonly=True, compute='compute_day',  store=True)
-    state = fields.Selection(selection=[('Draft','Pengajuan'),('Check','Diperiksa'),('Approved','Disetujui'),('Rejected','Ditolak'),('Permission','Ijin Keluar'),('Return','Kembali')],  string="State", default="Draft", help="")
+    state = fields.Selection(selection=[('Draft','Pengajuan'),('Check','Diperiksa'),('Approved','Disetujui'),('Rejected','Ditolak'),('Permission','Ijin Keluar'),('Return','Kembali')],  string="State", default="Draft", help="", track_visibility="always")
     penjemput = fields.Char( string="Penjemput",  help="")
     keperluan = fields.Text( string="Keperluan",  help="")
     tgl_kembali = fields.Date( string="Tanggal Masuk",  help="")
