@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data>
+        <!-- search -->
+        <record id="view_satpam_search" model="ir.ui.view">
+            <field name="name">Satpam Search</field>
+            <field name="model">cdn.perijinan</field>
+            <field name="arch" type="xml">
+                <search string="Perijinan">
+
+                    <filter string="NIS" name="filter_by_nis" domain="[('siswa_id.nis','=','')]" />
+                    <filter string="Nama Siswa" name="filter_by_siswa" domain="[('siswa_id.name','=','')]" />
+                    <field name="siswa_id" select="True"/>
+
+                    <!-- <filter string="Perijinan Hari ini" name="filter_by_tgl_ijin" 
+                        domain="[('tgl_ijin','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('tgl_ijin','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]" />
+                    <filter string="Lama Ijin >3 hari" name="filter_by_lama_ijin" domain="[('lama_ijin','>=','3')]" /> 
+                    <filter string="Pengajuan" name="filter_by_state" domain="[('state','=','Draft')]" />
+                    <filter string="Diperiksa" name="filter_by_state" domain="[('state','=','Check')]" />
+                    <filter string="Disetujui" name="filter_by_state" domain="[('state','=','Approved')]" />
+                    <filter string="Ditolak" name="filter_by_state" domain="[('state','=','Rejected')]" />
+                    <filter string="Santri Keluar" name="filter_by_state" domain="[('state','=','Permission')]" />
+                    <filter string="Santri Kembali" name="filter_by_state" domain="[('state','=','Return')]" />
+                    <field name="tgl_ijin" select="True"/>
+                    <field name="lama_ijin" select="True"/>
+                    <field name="state" select="True"/>
+                    <group string="Group By..">
+                        <filter string="Siswa" domain="[]" name="group_by_siswa_id" context="{'group_by':'siswa_id'}"/>
+                    </group> -->
+                </search>
+            </field>
+        </record>   
+       <record model="ir.actions.act_window" id="action_satpam_form">
+			<field name="name">Petugas Keamanan</field>
+			<field name="res_model">cdn.perijinan</field>
+			<field name="view_id" ref="view_cdn_perijinan_tree"/>
+			<!-- <field name="domain">[('siswa_id.orangtua_id.user_id', '=', uid)]</field> -->
+			<!-- <field name="context">{"default_student":1}</field> -->
+			<field name="search_view_id" ref="alhamra_kesantrian.view_satpam_search"/>
+		</record>
+        <menuitem id="menubar_satpam" name="Petugas Keamanan"  web_icon="alhamra_kesantrian,static/description/security96.png"/>
+        <menuitem id="menuitem_satpam_perijinan" name="Perijinan" parent="menubar_satpam" action="action_satpam_form"/>
+    </data>
+</odoo>
