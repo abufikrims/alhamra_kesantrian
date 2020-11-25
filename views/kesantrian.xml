@@ -86,10 +86,10 @@
                         <notebook>
                         </notebook>
                     </sheet>
-                    <!-- <div class="oe_chatter" groups="alhamra_kesantrian.group_kesantrian_musyrif">
+                    <div class="oe_chatter" groups="alhamra_kesantrian.group_kesantrian_musyrif">
                         <field name="message_follower_ids" widget="mail_followers"/>
                         <field name="message_ids" widget="mail_thread"/>
-                    </div> -->
+                    </div>
                 </form>
             </field>
         </record>

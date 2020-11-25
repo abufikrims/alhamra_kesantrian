@@ -61,6 +61,7 @@ class perijinan(models.Model):
             tgl_hrs_kembali = fields.Datetime.from_string(self.tgl_hrs_kembali)
             self.lama_ijin = abs((tgl_hrs_kembali - tgl_ijin).days) + 1
 
+
 class pelanggaran(models.Model):
 
     _name = "cdn.pelanggaran"
