@@ -79,11 +79,13 @@
                             <field name="lama_ijin" />
                             <field name="penjemput" /> 
                             <field name="keperluan" />
-                            <field name="waktu_keluar"/>
-                            <field name="waktu_kembali"/>
                         </group>
                         <group>
                             <field name="catatan" />
+                        </group>
+                        <group string="Akses Keamanan" col="4" colspan="4" >
+                            <field name="waktu_keluar"/>
+                            <field name="waktu_kembali"/>
                         </group>
                         <notebook>
                         </notebook>
