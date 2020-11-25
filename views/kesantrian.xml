@@ -46,7 +46,7 @@
             <field name="type">form</field>
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
-                <form string="Perijinan">
+                <form string="Perijinan" duplicate="0"> 
                     <header>
                         <button string="Ajukan Ijin" type="object" name="action_confirm" groups="alhamra_akademik.group_sekolah_orangtua" state="Draft" attrs="{'invisible': [('state', 'in', ['Draft','Check','Approved','Rejected','Permission'])]}" />
                         <button string="Ijin Diperiksa" type="object" name="action_checked" groups="alhamra_kesantrian.group_kesantrian_musyrif" state="Check" attrs="{'invisible': [('state', 'not in', ['Draft'])]}" />
