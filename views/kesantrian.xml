@@ -74,7 +74,7 @@
                             <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" domain="[('orangtua_id.user_id','=',uid)]"/>
                             <field name="kelas_id"/>
                         </group>
-                        <group string="Pengajuan Ijin" >
+                        <group string="Pengajuan Ijin" col="4" colspan="4" >
                             <field name="tgl_hrs_kembali" />
                             <field name="lama_ijin" />
                             <field name="penjemput" /> 

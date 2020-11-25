@@ -24,8 +24,8 @@ class perijinan(models.Model):
     keperluan = fields.Text( string="Keperluan",  help="")
     tgl_kembali = fields.Date( string="Tanggal Masuk",  help="")
     jam_kembali = fields.Char(string="Jam Kembali", help="")
-    waktu_keluar = fields.Datetime(string="Santri Keluar Pondok", readonly=True)
-    waktu_kembali = fields.Datetime(string="Santri Kembali ke Pondok", readonly=True)
+    waktu_keluar = fields.Datetime(string="Keluar Pondok", readonly=True)
+    waktu_kembali = fields.Datetime(string="Kembali ke Pondok", readonly=True)
     catatan = fields.Text( string="Catatan",  help="")
 
 
