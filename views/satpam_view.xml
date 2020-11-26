@@ -37,7 +37,7 @@
                 </search>
             </field>
         </record>   
-       <record model="ir.actions.act_window" id="action_satpam_form">
+        <record model="ir.actions.act_window" id="action_satpam_form">
 			<field name="name">Petugas Keamanan</field>
 			<field name="res_model">cdn.perijinan</field>
 			<field name="view_id" ref="view_cdn_perijinan_tree"/>
@@ -46,7 +46,108 @@
             <field name="context">{'search_default_state_approved': 1}</field>
 			<field name="search_view_id" ref="alhamra_kesantrian.view_satpam_search"/>
 		</record>
+
+        <!-- Perijinan Check IN -->
+        <!-- cdn.perijinan tree view -->
+        <record id="chekin_satpam_view_tree" model="ir.ui.view">
+            <field name="name">Checkin Tree View Satpam</field>
+            <field name="model">cdn.perijinan</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name" />
+                    <field name="tgl_hrs_kembali" />
+                    <field name="siswa_id" />
+                    <field name="kelas_id"/>
+                    <field name="keperluan" />
+                    <field name="tgl_ijin"/>
+                    <field name="lama_ijin" />
+                    <field name="state" string="Status"/>
+                    <field name="penjemput" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- cdn.perijinan form view -->
+        <record id="chekin_satpam_view_form" model="ir.ui.view">
+            <field name="name">Checkin Form View Satpam</field>
+            <field name="model">cdn.perijinan</field>
+            <field name="arch" type="xml">
+                <form string="Chek IN Santri" duplicate="0">
+                    <header>
+                        <button string="Santri Check IN" type="object" name="action_return" groups="alhamra_kesantrian.group_kesantrian_satpam" state="Return" attrs="{'invisible': [('state', 'not in', ['Permission'])]}" />
+                        <field name="state" widget="statusbar" statusbar_visible="Draft,Check,Approved,Permission,Return" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--button type="object" name="action_view_detail" class="oe_stat_button" icon="fa-pencil-square-o"-->
+                                <!--field name="detail_count" widget="statinfo" string="Detail(s)"/-->
+                                <!--field name="detail_ids" invisible="1"/-->
+                            <!--/button-->
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="No Referensi (Auto)"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group string="Data Santri">
+                            <field name="tgl_ijin" />
+                            <field name="siswa_id"/>
+                            <field name="kelas_id"/>
+                        </group>
+                        <group string="Pengajuan Ijin" col="4" colspan="4" >
+                            <field name="tgl_hrs_kembali" />
+                            <field name="lama_ijin" />
+                            <field name="penjemput" /> 
+                            <field name="keperluan" />
+                        </group>
+                        <group>
+                            <field name="catatan" />
+                        </group>
+                        <group string="Akses Keamanan" col="4" colspan="4" >
+                            <field name="waktu_keluar"/>
+                            <field name="waktu_kembali"/>
+                        </group>                         
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- search -->
+        <record id="view_satpam_chekin_search" model="ir.ui.view">
+            <field name="name">Satpam Search Chekin</field>
+            <field name="model">cdn.perijinan</field>
+            <field name="arch" type="xml">
+                <search string="Perijinan">
+                    <filter string="Santri Check OUT" name="state_permission" domain="[('state','=','Permission')]" />
+                    <filter string="Santri Check IN" name="state_return" domain="[('state','=','Return')]" />
+                    <field name="siswa_id" select="True"/>
+                    <group string="Group By.." expand="0">
+                        <filter string="Status Ijin" domain="[]" name="group_by_state" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>   
+        
+        <!-- action window -->
+        <record id="action_satpam_Chekin" model="ir.actions.act_window">
+            <field name="name">Checkin</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cdn.perijinan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="context">{"search_default_fieldname":1}</field> -->
+            <field name="context">{'search_default_state_permission': 1}</field>
+            <field name="search_view_id" ref="alhamra_kesantrian.view_satpam_chekin_search"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                TIDAK ADA SANTRI YANG HARUS CHEK IN
+                </p><p>
+                Data tidak ada
+                </p>
+            </field>
+        </record>
+    
         <menuitem id="menubar_satpam" name="Petugas Keamanan" groups="group_kesantrian_satpam"  web_icon="alhamra_kesantrian,static/description/security96.png"/>
         <menuitem id="menuitem_satpam_perijinan" name="Perijinan" parent="menubar_satpam" action="action_satpam_form"/>
+        <menuitem id="menuitem_satpam_chekin" name="Check IN Santri" parent="menubar_satpam" action="action_satpam_Chekin"/>
     </data>
 </odoo>

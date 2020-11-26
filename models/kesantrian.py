@@ -55,6 +55,12 @@ class perijinan(models.Model):
         return self.write({'state': 'Permission',
             'waktu_keluar': fields.Datetime.now()
         }) 
+    
+    def action_return(self):
+        return self.write({
+            'state': 'Return',
+            'waktu_kembali': fields.Datetime.now()
+        }) 
 
 
     @api.one

@@ -86,8 +86,6 @@
                             <field name="waktu_keluar"/>
                             <field name="waktu_kembali"/>
                         </group>
-                        <notebook>
-                        </notebook>
                     </sheet>
                     <div class="oe_chatter" groups="alhamra_kesantrian.group_kesantrian_musyrif">
                         <field name="message_follower_ids" widget="mail_followers"/>
