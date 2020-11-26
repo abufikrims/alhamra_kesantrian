@@ -108,15 +108,16 @@
                     <filter string="Perijinan Hari ini" name="filter_by_tgl_ijin" 
                         domain="[('tgl_ijin','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('tgl_ijin','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]" />
                     <filter string="Lama Ijin >3 hari" name="filter_by_lama_ijin" domain="[('lama_ijin','>=','3')]" /> 
-                    <filter string="Pengajuan" name="filter_by_state" domain="[('state','=','Draft')]" />
-                    <filter string="Diperiksa" name="filter_by_state" domain="[('state','=','Check')]" />
-                    <filter string="Disetujui" name="filter_by_state" domain="[('state','=','Approved')]" />
-                    <filter string="Ditolak" name="filter_by_state" domain="[('state','=','Rejected')]" />
-                    <filter string="Santri Keluar" name="filter_by_state" domain="[('state','=','Permission')]" />
-                    <filter string="Santri Kembali" name="filter_by_state" domain="[('state','=','Return')]" />
-                    <field name="tgl_ijin" select="True"/>
+                    <filter string="Pengajuan" name="filter_by_state_draft" domain="[('state','=','Draft')]" />
+                    <filter string="Diperiksa" name="filter_by_state_check" domain="[('state','=','Check')]" />
+                    <filter string="Disetujui" name="filter_by_state_approved" domain="[('state','=','Approved')]" />
+                    <filter string="Ditolak" name="filter_by_state_reject" domain="[('state','=','Rejected')]" />
+                    <filter string="Santri Keluar" name="filter_by_state_permission" domain="[('state','=','Permission')]" />
+                    <filter string="Santri Kembali" name="filter_by_state_return" domain="[('state','=','Return')]" />
+                    <!-- <field name="tgl_ijin" select="True"/>
                     <field name="lama_ijin" select="True"/>
-                    <field name="state" select="True"/>
+                    <field name="state" select="True"/> -->
+                    <field name="siswa_id" select="True"/>
                     <group string="Group By..">
                         <filter string="Siswa" domain="[]" name="group_by_siswa_id" context="{'group_by':'siswa_id'}"/>
                     </group>
