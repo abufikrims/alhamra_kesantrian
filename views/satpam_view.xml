@@ -8,9 +8,16 @@
             <field name="arch" type="xml">
                 <search string="Perijinan">
 
-                    <filter string="NIS" name="filter_by_nis" domain="[('siswa_id.nis','=','')]" />
-                    <filter string="Nama Siswa" name="filter_by_siswa" domain="[('siswa_id.name','=','')]" />
+                    <filter string="Pengajuan" name="state_draft" domain="[('state','=','Draft')]" />
+                    <filter string="Ijin Diperiksa" name="state_checked" domain="[('state','=','Check')]" />
+                    <filter string="Ijin Disetujui" name="state_approved" domain="[('state','=','Approved')]" />
+                    <filter string="Ijin Ditolak" name="state_rejected" domain="[('state','=','Rejected')]" />
+                    <filter string="Santri Check OUT" name="state_permission" domain="[('state','=','Permission')]" />
+                    <filter string="Santri Check IN" name="state_return" domain="[('state','=','Return')]" />
                     <field name="siswa_id" select="True"/>
+                    <group string="Group By.." expand="0">
+                        <filter string="Status Ijin" domain="[]" name="group_by_state" context="{'group_by':'state'}"/>
+                    </group> -->
 
                     <!-- <filter string="Perijinan Hari ini" name="filter_by_tgl_ijin" 
                         domain="[('tgl_ijin','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('tgl_ijin','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]" />
