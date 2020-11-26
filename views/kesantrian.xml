@@ -70,7 +70,7 @@
                         </div>
                         <group string="Data Santri">
                             <field name="tgl_ijin" />
-                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" domain="[('orangtua_id.user_id','=',uid)]"/>
+                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" />
                             <field name="kelas_id"/>
                         </group>
                         <group string="Pengajuan Ijin" col="4" colspan="4" >
