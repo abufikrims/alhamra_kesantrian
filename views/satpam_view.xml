@@ -102,7 +102,7 @@
             <field name="arch" type="xml">
                 <search string="Perijinan">
                     <filter string="Kembali Hari ini" name="tgl_kembali_today" domain="[('tgl_hrs_kembali','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('tgl_hrs_kembali','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]" />
-                    <filter string="Terlambat Kembali" name="tgl_kembali_late" domain="[('tgl_hrs_kembali','&lt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))" />
+                    <filter string="Terlambat Kembali" name="tgl_kembali_late" domain="[('tgl_hrs_kembali','&lt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0)))]" />
                     <field name="siswa_id" select="True"/>
                     <group string="Group By.." expand="0">
                         <filter string="Lama Ijin" domain="[]" name="group_by_state" context="{'group_by':'lama_ijin'}"/>
