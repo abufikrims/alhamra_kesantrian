@@ -17,7 +17,7 @@
                     <field name="siswa_id" select="True"/>
                     <group string="Group By.." expand="0">
                         <filter string="Status Ijin" domain="[]" name="group_by_state" context="{'group_by':'state'}"/>
-                    </group> -->
+                    </group>
 
                     <!-- <filter string="Perijinan Hari ini" name="filter_by_tgl_ijin" 
                         domain="[('tgl_ijin','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('tgl_ijin','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]" />
