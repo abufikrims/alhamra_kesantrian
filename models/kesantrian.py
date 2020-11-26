@@ -52,7 +52,9 @@ class perijinan(models.Model):
         return self.write({'state': 'Rejected'}) 
 
     def action_permission(self):
-        return self.write({'state': 'Permission'}) 
+        return self.write({'state': 'Permission',
+            'waktu_keluar': fields.Datetime.now()
+        }) 
 
 
     @api.one
