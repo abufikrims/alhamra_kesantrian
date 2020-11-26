@@ -27,7 +27,7 @@
                 <tree string="Perijinan">
                     <field name="name" />
                     <field name="tgl_ijin" />
-                    <field name="siswa_id.nis"/>
+                    <!-- <field name="siswa_id"."nis"/> -->
                     <field name="siswa_id" />
                     <field name="kelas_id"/>
                     <field name="keperluan" />
