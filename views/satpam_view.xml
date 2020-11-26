@@ -72,7 +72,7 @@
             <field name="name">Checkin Form View Satpam</field>
             <field name="model">cdn.perijinan</field>
             <field name="arch" type="xml">
-                <form string="Chek IN Santri" duplicate="0">
+                <form string="Chek IN Santri" duplicate="0 edit="false"">
                     <header>
                         <button string="Santri Check IN" type="object" name="action_return" groups="alhamra_kesantrian.group_kesantrian_satpam" state="Return" attrs="{'invisible': [('state', 'not in', ['Permission'])]}" />
                         <field name="state" widget="statusbar" statusbar_visible="Draft,Check,Approved,Permission,Return" />
