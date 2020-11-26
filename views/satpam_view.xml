@@ -117,7 +117,7 @@
             <field name="model">cdn.perijinan</field>
             <field name="arch" type="xml">
                 <search string="Perijinan">
-                    <filter string="Santri Check OUT" name="state_permission" domain="[('state','=','Permission')]" context="{'state' : 'Permission'}" />
+                    <filter string="Santri Check OUT" name="state_permission" domain="[('state','=','Permission')]" />
                     <filter string="Santri Check IN" name="state_return" domain="[('state','=','Return')]" />
                     <field name="siswa_id" select="True"/>
                     <group string="Group By.." expand="0">
@@ -136,6 +136,7 @@
             <field name="view_mode">tree,form</field>
             <!-- <field name="context">{"search_default_fieldname":1}</field> -->
             <field name="context">{'search_default_state_permission': 1}</field>
+            <field name="domain">[('state','=','Permission')] </field>
             <field name="search_view_id" ref="alhamra_kesantrian.view_satpam_chekin_search"/>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
