@@ -142,7 +142,8 @@
             <field name="res_model">cdn.perijinan</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,graph</field>
-            <field name="context">{"search_default_fieldname":1}</field>
+            <!-- <field name="context">{"search_default_fieldname":1}</field> -->
+            <field name="search_view_id" ref="alhamra_kesantrian.view_cdn_perijinan_search"/>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                 Click to add a new Perijinan
