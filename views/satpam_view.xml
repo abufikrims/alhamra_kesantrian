@@ -128,7 +128,7 @@
         </record>   
         
         <!-- action window -->
-        <record id="action_satpam_Chekin" model="ir.actions.act_window">
+        <record id="action_satpam_chekin" model="ir.actions.act_window">
             <field name="name">Checkin</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">cdn.perijinan</field>
@@ -145,9 +145,23 @@
                 </p>
             </field>
         </record>
+
+        <record id="action_satpam_chekin_tree" model="ir.actions.act_window.view">
+			<field name="sequence" eval="1"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="chekin_satpam_view_tree"/>
+			<field name="act_window_id" ref="action_satpam_chekin"/>
+		</record>
+
+		<record id="action_satpam_chekin_form" model="ir.actions.act_window.view">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="chekin_satpam_view_form"/>
+			<field name="act_window_id" ref="action_satpam_chekin"/>
+		</record>
     
         <menuitem id="menubar_satpam" name="Petugas Keamanan" groups="group_kesantrian_satpam"  web_icon="alhamra_kesantrian,static/description/security96.png"/>
         <menuitem id="menuitem_satpam_perijinan" name="Perijinan" parent="menubar_satpam" action="action_satpam_form"/>
-        <menuitem id="menuitem_satpam_chekin" name="Check IN Santri" parent="menubar_satpam" action="action_satpam_Chekin"/>
+        <menuitem id="menuitem_satpam_chekin" name="Check IN Santri" parent="menubar_satpam" action="action_satpam_chekin"/>
     </data>
 </odoo>
