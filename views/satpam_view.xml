@@ -27,7 +27,7 @@
 			<field name="view_id" ref="view_cdn_perijinan_tree"/>
 			<!-- <field name="domain">[('siswa_id.orangtua_id.user_id', '=', uid)]</field> -->
 			<!-- <field name="context">{"default_student":1}</field> -->
-            <field name="context">{'search_default_state_approved': 1}</field>
+            <field name="context">{'search_default_state_approved': 1, 'form_no_edit': 'true'}</field>
 			<field name="search_view_id" ref="alhamra_kesantrian.view_satpam_search"/>
 		</record>
 
