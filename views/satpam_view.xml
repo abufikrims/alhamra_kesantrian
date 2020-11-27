@@ -1,9 +1,87 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
     <data>
+        <!--  Perijinan Check OUT tree view -->
+        <record id="chekout_satpam_view_tree" model="ir.ui.view">
+            <field name="name">CheckOut Satpam View Tree</field>
+            <field name="model">cdn.perijinan</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Perijinan">
+                    <field name="name" />
+                    <field name="tgl_ijin" />
+                    <!-- <field name="siswa_id"."nis"/> -->
+                    <field name="siswa_id" />
+                    <field name="kelas_id"/>
+                    <field name="keperluan" />
+                    <field name="lama_ijin" />
+                    <field name="state" string="Status"/>
+                    <field name="penjemput" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- Perijinan Check OUT form view -->
+        <record id="chekout_satpam_view_form" model="ir.ui.view">
+            <field name="name">CheckOut Satpam View Form</field>
+            <field name="model">cdn.perijinan</field>
+            <field name="type">form</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form string="Perijinan Santri Keluar" duplicate="0" edit="false"> 
+                    <header>
+                        <button string="Ajukan Ijin" type="object" name="action_confirm" groups="alhamra_akademik.group_sekolah_orangtua" state="Draft" attrs="{'invisible': [('state', 'in', ['Draft','Check','Approved','Rejected','Permission','Return'])]}" />
+                        <button string="Ijin Diperiksa" type="object" name="action_checked" groups="alhamra_kesantrian.group_kesantrian_musyrif" state="Check" attrs="{'invisible': [('state', 'not in', ['Draft'])]}" />
+                        <button string="Ijin Disetujui" type="object" name="action_approved" groups="alhamra_kesantrian.group_kesantrian_admin" state="Approved" attrs="{'invisible': [('state', 'not in', ['Check'])]}" />
+                        <button string="Ijin Ditolak" type="object" name="action_rejected" groups="alhamra_kesantrian.group_kesantrian_admin" state="Rejected" attrs="{'invisible': [('state', 'not in', ['Check'])]}" />
+                        <button string="Santri Status Ijin" type="object" name="action_permission" groups="alhamra_kesantrian.group_kesantrian_satpam" state="Permission" attrs="{'invisible': [('state', 'not in', ['Approved'])]}" />
+                        <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
+                        <!-- <button name="action_perijinan_draft" string="Ajukan Ijin" type="object" states="Draft" class="btn-primary"/>
+                        <button name="action_perijinan_tolak" id="action_tolak" string="Ijin Ditolak" class="btn-primary" type="object" attrs="{'invisible': [('state', 'not in', ['Rejected'])]}"/> -->
+                        <field name="state" widget="statusbar" statusbar_visible="Draft,Check,Approved,Permission" />
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <!--button type="object" name="action_view_detail" class="oe_stat_button" icon="fa-pencil-square-o"-->
+                                <!--field name="detail_count" widget="statinfo" string="Detail(s)"/-->
+                                <!--field name="detail_ids" invisible="1"/-->
+                            <!--/button-->
+                        </div>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only" string="No Referensi (Auto)"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <group string="Data Santri">
+                            <field name="tgl_ijin" />
+                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" />
+                            <field name="kelas_id"/>
+                        </group>
+                        <group string="Pengajuan Ijin" col="4" colspan="4" >
+                            <field name="tgl_hrs_kembali" />
+                            <field name="lama_ijin" />
+                            <field name="penjemput" /> 
+                            <field name="keperluan" />
+                        </group>
+                        <group>
+                            <field name="catatan" />
+                        </group>
+                        <group string="Akses Keamanan" col="4" colspan="4" >
+                            <field name="waktu_keluar"/>
+                            <field name="waktu_kembali"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter" groups="alhamra_kesantrian.group_kesantrian_musyrif">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
         <!-- search -->
-        <record id="view_satpam_search" model="ir.ui.view">
-            <field name="name">Satpam Search</field>
+        <record id="view_satpam_chekout_search" model="ir.ui.view">
+            <field name="name">Satpam ChekOut Search</field>
             <field name="model">cdn.perijinan</field>
             <field name="arch" type="xml">
                 <search string="Perijinan">
@@ -21,14 +99,29 @@
                 </search>
             </field>
         </record>   
-        <record model="ir.actions.act_window" id="action_satpam_form">
-			<field name="name">Petugas Keamanan</field>
+
+        <record model="ir.actions.act_window" id="action_satpam_chekout">
+			<field name="name">Perijinan Santri Keluar</field>
 			<field name="res_model">cdn.perijinan</field>
-			<field name="view_id" ref="view_cdn_perijinan_tree"/>
-			<!-- <field name="domain">[('siswa_id.orangtua_id.user_id', '=', uid)]</field> -->
-			<!-- <field name="context">{"default_student":1}</field> -->
-            <field name="context">{'search_default_state_approved': 1, 'form_no_edit':[('state','=','Approved')]}</field>
-			<field name="search_view_id" ref="alhamra_kesantrian.view_satpam_search"/>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_state_approved': 1}</field>
+			<field name="search_view_id" ref="alhamra_kesantrian.view_satpam_chekout_search"/>
+		</record>
+
+        <!-- Definisikan Tree View dan Form View Khusus untuk action_satpam_form -->
+        <record id="action_satpam_chekout_tree" model="ir.actions.act_window.view">
+			<field name="sequence" eval="1"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="chekout_satpam_view_tree"/>
+			<field name="act_window_id" ref="action_satpam_chekout"/>
+		</record>
+
+		<record id="action_satpam_chekout_form" model="ir.actions.act_window.view">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="chekout_satpam_view_form"/>
+			<field name="act_window_id" ref="action_satpam_chekout"/>
 		</record>
 
         <!-- Perijinan Check IN -->
@@ -147,7 +240,7 @@
 		</record>
     
         <menuitem id="menubar_satpam" name="Petugas Keamanan" groups="group_kesantrian_satpam"  web_icon="alhamra_kesantrian,static/description/security96.png"/>
-        <menuitem id="menuitem_satpam_perijinan" name="Perijinan" parent="menubar_satpam" action="action_satpam_form"/>
+        <menuitem id="menuitem_satpam_perijinan" name="Perijinan Keluar" parent="menubar_satpam" action="action_satpam_chekout"/>
         <menuitem id="menuitem_satpam_chekin" name="Check IN Santri" parent="menubar_satpam" action="action_satpam_chekin"/>
     </data>
 </odoo>
