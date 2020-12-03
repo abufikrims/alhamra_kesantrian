@@ -52,3 +52,5 @@ access_cdn_prestasi_siswa_group_orangtua,access_cdn_prestasi_siswa group orangtu
 
 access_absen_quran,access_absen_quran,model_cdn_absen_quran,group_kesantrian_musyrif,1,1,1,1
 access_quran_line,access_quran_line,model_absen_quran_line,group_kesantrian_musyrif,1,1,1,1
+
+access_musyrif_cdn_tahfidz_quran,access_musyrif_cdn_tahfidz_quran,model_cdn_tahfidz_quran,group_kesantrian_musyrif,1,1,1,0

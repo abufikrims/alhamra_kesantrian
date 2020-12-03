@@ -123,6 +123,7 @@
 		</record>
 
         <!-- ********** HALAQOH TAHFIDZ *********** -->
+        
         <!-- View Khusus Tahfidz Quran sesuai Halaqoh Musyrif -->
         <record model="ir.actions.act_window" id="action_musyrif_tahfidz">
 			<field name="name">Halaqoh Tahfidz Quran</field>
