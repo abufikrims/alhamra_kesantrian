@@ -4,7 +4,7 @@
         <!-- musyrif perijinan tree view -->
         <record id="musyrif_perijinan_view_tree" model="ir.ui.view">
             <field name="name">musyrif perijinan.view.tree</field>
-            <field name="model">cdn.perijinan<</field>
+            <field name="model">cdn.perijinan</field>
             <field name="type">tree</field>
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
