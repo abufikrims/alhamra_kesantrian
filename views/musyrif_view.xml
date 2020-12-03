@@ -123,8 +123,18 @@
 		</record>
 
         <menuitem id="menubar_musyrif" name="Musyrif" groups="group_kesantrian_musyrif"  web_icon="alhamra_kesantrian,static/description/musyrif.png"/>
+        <!-- Perijinan Santri -->
         <menuitem id="menuitem_musyrif_perijinan" name="Perijinan Santri" parent="menubar_musyrif" sequence="10"/>
-        <menuitem id="menuitem_musyrif_perijinan_chek" name="Periksa Ijin" parent="menuitem_musyrif_perijinan" action="action_musyrif_perijinan"/>
+        <menuitem id="menuitem_musyrif_perijinan_chek" name="Periksa Ijin" parent="menuitem_musyrif_perijinan" action="action_musyrif_perijinan" sequence="10"/>
+
+
+        <!-- Kepesantrenan -->
+        <menuitem id="menuitem_musyrif_kepesantrenan" name="Kepesantrenan" parent="menubar_musyrif" sequence="20"/>
+        <menuitem id="menuitem_musyrif_tahfidz_quran" name="Tahfidz Quran" parent="menuitem_musyrif_kepesantrenan" action="action_musyrif_perijinan" sequence="10"/>
+
+        <!-- Uang Saku dan Dompet Santri -->
+        <menuitem id="menuitem_musyrif_keuangan" name="Keuangan Santri" parent="menubar_musyrif" sequence="30"/>
+        <menuitem id="menuitem_musyrif_keuangan_dompet" name="Dompet Santri" parent="menuitem_musyrif_keuangan" action="action_musyrif_perijinan" sequence="10"/>
 
     </data>
 </odoo>
