@@ -125,7 +125,7 @@
 
         <menuitem id="menubar_musyrif" name="Musyrif" groups="group_kesantrian_musyrif"  web_icon="alhamra_kesantrian,static/description/musyrif.png"/>
         <menuitem id="menuitem_musyrif_perijinan" name="Perijinan Santri" parent="menubar_musyrif" sequence="10"/>
-        <menuitem id="menuitem_musyrif_perijinan_chek" name="Periksa Ijin" parent="menubar_musyrif" action="action_musyrif_perijinan"/>
+        <menuitem id="menuitem_musyrif_perijinan_chek" name="Periksa Ijin" parent="menuitem_musyrif_perijinan" action="action_musyrif_perijinan"/>
 
     </data>
 </odoo>
