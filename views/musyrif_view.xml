@@ -107,20 +107,48 @@
 			<field name="search_view_id" ref="alhamra_kesantrian.musyrif_perijinan_view_search"/>
 		</record>
 
-        <!-- Definisikan Tree View dan Form View Khusus untuk action_satpam_form -->
-        <record id="action_satpam_chekout_tree" model="ir.actions.act_window.view">
+        <!-- Definisikan Tree View dan Form View Khusus untuk action_musyrif_perijinan -->
+        <record id="action_musyrif_perijinan_tree" model="ir.actions.act_window.view">
 			<field name="sequence" eval="1"/>
 			<field name="view_mode">tree</field>
 			<field name="view_id" ref="musyrif_perijinan_view_tree"/>
 			<field name="act_window_id" ref="action_musyrif_perijinan"/>
 		</record>
 
-		<record id="action_satpam_chekout_form" model="ir.actions.act_window.view">
+		<record id="action_musyrif_perijinan_form" model="ir.actions.act_window.view">
 			<field name="sequence" eval="2"/>
 			<field name="view_mode">form</field>
 			<field name="view_id" ref="musyrif_perijinan_view_form"/>
 			<field name="act_window_id" ref="action_musyrif_perijinan"/>
 		</record>
+
+        <!-- ********** HALAQOH TAHFIDZ *********** -->
+        <!-- View Khusus Tahfidz Quran sesuai Halaqoh Musyrif -->
+        <record model="ir.actions.act_window" id="action_musyrif_tahfidz">
+			<field name="name">Halaqoh Tahfidz Quran</field>
+			<field name="res_model">cdn.tahfidz_quran</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('siswa_id.halaqoh_id.ustadz_halaqoh.user_id', '=', uid)]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_state_draft': 1}</field>
+			<field name="search_view_id" ref="alhamra_kesantrian.view_cdn_tahfidz_quran_search"/>
+		</record>
+
+        <!-- Definisikan Tree View dan Form View Khusus untuk action_musyrif_tahfidz -->
+        <record id="action_musyrif_tahfidz_tree" model="ir.actions.act_window.view">
+			<field name="sequence" eval="1"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_cdn_tahfidz_quran_tree"/>
+			<field name="act_window_id" ref="action_musyrif_tahfidz"/>
+		</record>
+
+		<record id="action_musyrif_tahfidz_form" model="ir.actions.act_window.view">
+			<field name="sequence" eval="2"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_cdn_tahfidz_quran_form"/>
+			<field name="act_window_id" ref="action_musyrif_tahfidz"/>
+		</record>
+
 
         <menuitem id="menubar_musyrif" name="Musyrif" groups="group_kesantrian_musyrif"  web_icon="alhamra_kesantrian,static/description/musyrif.png"/>
         <!-- Perijinan Santri -->
@@ -130,7 +158,7 @@
 
         <!-- Kepesantrenan -->
         <menuitem id="menuitem_musyrif_kepesantrenan" name="Kepesantrenan" parent="menubar_musyrif" sequence="20"/>
-        <menuitem id="menuitem_musyrif_tahfidz_quran" name="Tahfidz Quran" parent="menuitem_musyrif_kepesantrenan" action="action_musyrif_perijinan" sequence="10"/>
+        <menuitem id="menuitem_musyrif_tahfidz_quran" name="Tahfidz Quran" parent="menuitem_musyrif_kepesantrenan" action="action_musyrif_tahfidz" sequence="10"/>
 
         <!-- Uang Saku dan Dompet Santri -->
         <menuitem id="menuitem_musyrif_keuangan" name="Keuangan Santri" parent="menubar_musyrif" sequence="30"/>

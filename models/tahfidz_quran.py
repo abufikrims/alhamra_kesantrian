@@ -17,6 +17,7 @@ class tahfidz_quran(models.Model):
 
     siswa_id = fields.Many2one(comodel_name="res.partner",  string="Siswa", required=True, domain=[('student', '=', True)], help="")
     kelas_id = fields.Many2one('master.kelas', 'Kelas', related='siswa_id.class_id', readonly=True)
+    halaqoh_id = fields.Many2one('cdn.halaqoh', 'Halaqoh', related='siswa_id.halaqoh_id', readonly=True)
     last_tahfidz = fields.Char(string="Tahfidz Terakhir", related="siswa_id.tahfidz_surah")
     #class_id = fields.Char(string="Kelas", related="siswa_id.class_id")
     surah_id = fields.Many2one(comodel_name="cdn.quran",  string="Surah",  help="")
