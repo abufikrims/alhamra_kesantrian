@@ -12,7 +12,7 @@
                     <field name="name" />
                     <field name="tgl_ijin" />
                     <field name="siswa_id" />
-                    <field name="siswa_id.halaqoh_id"/>
+                    <field name="halaqoh_id"/>
                     <field name="keperluan" />
                     <field name="lama_ijin" />
                     <field name="state" string="Status"/>
