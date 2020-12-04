@@ -52,7 +52,7 @@
                         </div>
                         <group string="Data Santri">
                             <field name="tgl_ijin" attrs="{'readonly':[('state','not in',('Draft','Check'))]}" />
-                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" domain="[('halaqoh_id.ustadz_halaqoh.user_id','=',uid)]" attrs="{'readonly':[('state','not in',('Draft','Check')]}" />
+                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" domain="[('halaqoh_id.ustadz_halaqoh.user_id','=',uid)]" attrs="{'readonly':[('state','not in',('Draft','Check'))]}" />
                             <!-- <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" /> -->
                             <field name="kelas_id"/>
                         </group>
