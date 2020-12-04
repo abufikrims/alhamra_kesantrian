@@ -27,7 +27,7 @@
             <field name="model">cdn.perijinan</field>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <form string="Pemeriksaan Ijin Santri" duplicate="0" edit="false"> 
+                <form string="Pemeriksaan Ijin Santri" duplicate="0"> 
                     <header>
                         <button string="Ajukan Ijin" type="object" name="action_confirm" groups="alhamra_akademik.group_sekolah_orangtua" state="Draft" attrs="{'invisible': [('state', 'in', ['Draft','Check','Approved','Rejected','Permission','Return'])]}" />
                         <button string="Ijin Diperiksa" type="object" name="action_checked" groups="alhamra_kesantrian.group_kesantrian_musyrif" state="Check" attrs="{'invisible': [('state', 'not in', ['Draft'])]}" />
@@ -51,16 +51,16 @@
                             <h1><field name="name"/></h1>
                         </div>
                         <group string="Data Santri">
-                            <field name="tgl_ijin" />
-                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" domain="[('halaqoh_id.ustadz_halaqoh.user_id','=',uid)]"/>
+                            <field name="tgl_ijin" attrs="{'readonly':[('state','not in',('Draft','Check')]}" />
+                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" domain="[('halaqoh_id.ustadz_halaqoh.user_id','=',uid)]" attrs="{'readonly':[('state','not in',('Draft','Check')]}" />
                             <!-- <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" /> -->
                             <field name="kelas_id"/>
                         </group>
                         <group string="Pengajuan Ijin" col="4" colspan="4" >
-                            <field name="tgl_hrs_kembali" />
+                            <field name="tgl_hrs_kembali" attrs="{'readonly':[('state','not in',('Draft','Check')]}"  />
                             <field name="lama_ijin" />
                             <field name="penjemput" /> 
-                            <field name="keperluan" />
+                            <field name="keperluan" attrs="{'readonly':[('state','not in',('Draft','Check')]}"  />
                         </group>
                         <group>
                             <field name="catatan" />
