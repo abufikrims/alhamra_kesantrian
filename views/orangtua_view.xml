@@ -1,6 +1,27 @@
 <?xml version='1.0' encoding='utf-8'?>
 <odoo>
     <data>
+	    <!-- Orang Tua Perijinan tree view -->
+        <record id="orangtua_perijinan_view_tree" model="ir.ui.view">
+            <field name="name">Orang Tua perijinan.view.tree</field>
+            <field name="model">cdn.perijinan</field>
+            <field name="type">tree</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <tree string="Perijinan">
+                    <field name="name" />
+                    <field name="tgl_ijin" />
+                    <!-- <field name="siswa_id"."nis"/> -->
+                    <field name="siswa_id" />
+                    <field name="kelas_id"/>
+                    <field name="keperluan" />
+                    <field name="lama_ijin" />
+                    <field name="state" string="Status"/>
+                    <field name="penjemput" />
+                </tree>
+            </field>
+        </record>
+
        <!-- Orang Tua perijinan form view -->
         <record id="orangtua_perijinan_view_form" model="ir.ui.view">
             <field name="name">Orang Tua perijinan.view.form</field>
@@ -32,7 +53,7 @@
                         </div>
                         <group string="Data Santri">
                             <field name="tgl_ijin" attrs="{'readonly':[('state','not in',('Draft'))]}" />
-                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" domain="[('orangtua_id.user_id.id','=',uid)]" attrs="{'readonly':[('state','not in',('Draft'))]}"/>
+                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" domain="[('orangtua_id.user_id','=',uid)]" attrs="{'readonly':[('state','not in',('Draft'))]}"/>
                             <!-- <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" /> -->
                             <field name="kelas_id"/>
                         </group>
@@ -63,7 +84,7 @@
 		<record model="ir.actions.act_window" id="action_ortu_perijinan_form">
 			<field name="name">Perijinan Siswa</field>
 			<field name="res_model">cdn.perijinan</field>
-			<field name="view_id" ref="view_cdn_perijinan_tree"/>
+			<!-- <field name="view_id" ref="view_cdn_perijinan_tree"/> -->
 			<field name="domain">[('siswa_id.orangtua_id.user_id', '=', uid)]</field>
 			<!-- <field name="context">{"default_student":1}</field> -->
 			<field name="search_view_id" ref="alhamra_kesantrian.view_cdn_perijinan_search"/>
@@ -73,7 +94,7 @@
 		<record id="action_tree_view_portal_siswa" model="ir.actions.act_window.view">
 			<field name="sequence" eval="1"/>
 			<field name="view_mode">tree</field>
-			<field name="view_id" ref="view_cdn_perijinan_tree"/>
+			<field name="view_id" ref="orangtua_perijinan_view_tree"/>
 			<field name="act_window_id" ref="action_ortu_perijinan_form"/>
 		</record>
 
