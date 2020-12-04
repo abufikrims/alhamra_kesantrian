@@ -13,6 +13,7 @@
                     <field name="tgl_ijin" />
                     <!-- <field name="siswa_id"."nis"/> -->
                     <field name="siswa_id" />
+                    <field name="halaqoh_id"/>
                     <field name="kelas_id"/>
                     <field name="keperluan" />
                     <field name="lama_ijin" />
@@ -82,7 +83,7 @@
         <!-- Action Perijinan Siswa -->
 
 		<record model="ir.actions.act_window" id="action_ortu_perijinan_form">
-			<field name="name">Perijinan Siswa</field>
+			<field name="name">Pengajuan Ijin Siswa</field>
 			<field name="res_model">cdn.perijinan</field>
 			<!-- <field name="view_id" ref="view_cdn_perijinan_tree"/> -->
 			<field name="domain">[('siswa_id.orangtua_id.user_id', '=', uid)]</field>
