@@ -51,19 +51,19 @@
                             <h1><field name="name"/></h1>
                         </div>
                         <group string="Data Santri">
-                            <field name="tgl_ijin" attrs="{'readonly':[('state','not in',('Draft','Check'))]}" />
-                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" domain="[('halaqoh_id.ustadz_halaqoh.user_id','=',uid)]" attrs="{'readonly':[('state','not in',('Draft','Check'))]}" />
+                            <field name="tgl_ijin" attrs="{'readonly':'True'}" />
+                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" domain="[('halaqoh_id.ustadz_halaqoh.user_id','=',uid)]" attrs="{'readonly':'True'}"/>
                             <!-- <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" /> -->
                             <field name="kelas_id"/>
                         </group>
                         <group string="Pengajuan Ijin" col="4" colspan="4" >
                             <field name="tgl_hrs_kembali" attrs="{'readonly':[('state','not in',('Draft','Check'))]}"  />
                             <field name="lama_ijin" />
-                            <field name="penjemput" /> 
+                            <field name="penjemput" attrs="{'readonly':[('state','not in',('Draft','Check'))]}"  /> 
                             <field name="keperluan" attrs="{'readonly':[('state','not in',('Draft','Check'))]}"  />
                         </group>
                         <group>
-                            <field name="catatan" />
+                            <field name="catatan" attrs="{'readonly':[('state','not in',('Draft','Check'))]}" />
                         </group>
                         <group string="Akses Keamanan" col="4" colspan="4" >
                             <field name="waktu_keluar"/>
