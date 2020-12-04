@@ -14,7 +14,7 @@
                     <!-- <field name="siswa_id"."nis"/> -->
                     <field name="siswa_id" />
                     <field name="halaqoh_id"/>
-                    <field name="kelas_id"/>
+                    <!-- <field name="kelas_id"/> -->
                     <field name="keperluan" />
                     <field name="lama_ijin" />
                     <field name="state" string="Status"/>
@@ -108,11 +108,13 @@
             </field>
         </record>   
 
-        <!-- Action Perijinan Siswa -->
+        <!-- Action Perijinan Orang Tua -->
 
 		<record model="ir.actions.act_window" id="action_ortu_perijinan_form">
 			<field name="name">Pengajuan Ijin Siswa</field>
 			<field name="res_model">cdn.perijinan</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
 			<!-- <field name="view_id" ref="view_cdn_perijinan_tree"/> -->
 			<field name="domain">[('siswa_id.orangtua_id.user_id', '=', uid)]</field>
 			<!-- <field name="context">{"default_student":1}</field> -->
