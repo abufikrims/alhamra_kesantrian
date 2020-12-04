@@ -85,7 +85,7 @@
         <field name="perm_write" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_unlink" eval="False"/>
-        <field name="domain_force">[('siswa_id.halaqoh_id.ustadz_halaqoh.id','=',user.partner_id.id)]</field>
+        <field name="domain_force">[('halaqoh_id.ustadz_halaqoh.id','=',user.partner_id.id)]</field>
     </record> 
 
 
