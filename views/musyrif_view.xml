@@ -51,8 +51,8 @@
                             <h1><field name="name"/></h1>
                         </div>
                         <group string="Data Santri">
-                            <field name="tgl_ijin" attrs="{'readonly':'True'}" />
-                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" domain="[('halaqoh_id.ustadz_halaqoh.user_id','=',uid)]" attrs="{'readonly':'True'}"/>
+                            <field name="tgl_ijin" attrs="{'readonly':[('state','not in',('Draft'))]}" />
+                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" domain="[('halaqoh_id.ustadz_halaqoh.user_id','=',uid)]" attrs="{'readonly':[('state','not in',('Draft'))]}"/>
                             <!-- <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" /> -->
                             <field name="kelas_id"/>
                         </group>
