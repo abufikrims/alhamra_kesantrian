@@ -52,8 +52,8 @@
                         </div>
                         <group string="Data Santri">
                             <field name="tgl_ijin" />
-                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" domain="[('halaqoh_id.ustadz_halaqoh.user_id','=',user.partner_id.id)]"/>
-                            <!-- <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" /> -->
+                            <!-- <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" domain="[('halaqoh_id.ustadz_halaqoh.user_id','=',user.partner_id.id)]"/> -->
+                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" />
                             <field name="kelas_id"/>
                         </group>
                         <group string="Pengajuan Ijin" col="4" colspan="4" >
