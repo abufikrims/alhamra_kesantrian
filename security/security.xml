@@ -79,13 +79,13 @@
 
     <record id="perijinan_by_musyrif" model="ir.rule">
         <field name="name">Musyrif hanya bisa melihat data Perijinan halaqohnya</field>
-        <field name="model_id" ref="model_cdn_perijinan"/>
+        <field name="model_id" ref="model_res_partner"/>
         <field name="groups" eval="[(4, ref('alhamra_kesantrian.group_kesantrian_musyrif'))]"/>
         <field name="perm_read" eval="True"/>
         <field name="perm_write" eval="True"/>
         <field name="perm_create" eval="True"/>
         <field name="perm_unlink" eval="False"/>
-        <field name="domain_force">[('siswa_id.halaqoh_id.id','=',user.partner_id.id)]</field>
+        <field name="domain_force">[('siswa_id.halaqoh_id.ustadz_halaqoh.id','=',user.partner_id.id)]</field>
     </record> 
 
 
