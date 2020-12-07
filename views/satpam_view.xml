@@ -52,7 +52,7 @@
                             <label for="name" class="oe_edit_only" string="No Referensi (Auto)"/>
                             <h1><field name="name"/></h1>
                         </div>
-                        <group string="Data Santri">
+                        <group string="Data Santri (Satpam Chek)">
                             <field name="tgl_ijin" />
                             <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" />
                             <field name="kelas_id"/>

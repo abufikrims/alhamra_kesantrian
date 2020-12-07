@@ -22,7 +22,7 @@
             <field name="name">cdn_perijinan_tree</field>
             <field name="model">cdn.perijinan</field>
             <field name="type">tree</field>
-            <field name="priority" eval="8"/>
+            <field name="priority" eval="12"/>
             <field name="arch" type="xml">
                 <tree string="Perijinan">
                     <field name="name" />

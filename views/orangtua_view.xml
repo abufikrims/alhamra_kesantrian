@@ -6,7 +6,7 @@
             <field name="name">Orang Tua perijinan.view.tree</field>
             <field name="model">cdn.perijinan</field>
             <field name="type">tree</field>
-            <field name="priority" eval="8"/>
+            <field name="priority" eval="7"/>
             <field name="arch" type="xml">
                 <tree string="Perijinan">
                     <field name="name" />
@@ -28,6 +28,7 @@
             <field name="name">Orang Tua perijinan.view.form</field>
             <field name="model">cdn.perijinan</field>
             <field name="type">form</field>
+			<field name="priority" eval="7"/>
             <field name="arch" type="xml">
                 <form string="Permohonan Ijin Santri" duplicate="0"> 
                     <header>
@@ -52,13 +53,13 @@
                             <label for="name" class="oe_edit_only" string="No Referensi (Auto)"/>
                             <h1><field name="name"/></h1>
                         </div>
-                        <group string="Data Santri">
+                        <group string="Data Ijin Santri">
                             <field name="tgl_ijin" attrs="{'readonly':[('state','not in',('Draft'))]}" />
                             <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" domain="[('orangtua_id.user_id','=',uid)]" attrs="{'readonly':[('state','not in',('Draft'))]}"/>
                             <!-- <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" /> -->
                             <field name="kelas_id"/>
                         </group>
-                        <group string="Pengajuan Ijin" col="4" colspan="4" >
+                        <group string="Pengajuan Ijin Santri" col="4" colspan="4" >
                             <field name="tgl_hrs_kembali" attrs="{'readonly':[('state','not in',('Draft','Check'))]}"  />
                             <field name="lama_ijin" />
                             <field name="penjemput" attrs="{'readonly':[('state','not in',('Draft','Check'))]}"  /> 
@@ -115,22 +116,21 @@
 			<field name="res_model">cdn.perijinan</field>
 			<field name="view_type">form</field>
 			<field name="view_mode">tree,form</field>
-			<!-- <field name="view_id" ref="view_cdn_perijinan_tree"/> -->
 			<field name="domain">[('siswa_id.orangtua_id.user_id', '=', uid)]</field>
-			<!-- <field name="context">{"default_student":1}</field> -->
+			<field name="context">{"default_student":1}</field>
 			<field name="search_view_id" ref="alhamra_kesantrian.orangtua_perijinan_view_search"/>
 		</record>
 
 
 		<record id="action_tree_view_portal_siswa" model="ir.actions.act_window.view">
-			<field name="sequence" eval="1"/>
+			<field name="sequence" eval="4"/>
 			<field name="view_mode">tree</field>
 			<field name="view_id" ref="orangtua_perijinan_view_tree"/>
 			<field name="act_window_id" ref="action_ortu_perijinan_form"/>
 		</record>
 
 		<record id="action_form_view_portal_siswa" model="ir.actions.act_window.view">
-			<field name="sequence" eval="2"/>
+			<field name="sequence" eval="5"/>
 			<field name="view_mode">form</field>
 			<field name="view_id" ref="orangtua_perijinan_view_form"/>
 			<field name="act_window_id" ref="action_ortu_perijinan_form"/>
@@ -285,7 +285,7 @@
 		</record>
 
         <menuitem id="menubar_portal_kesantrian" name="Kesantrian" parent="alhamra_akademik.menubar_portal" sequence="20"/> 
-        <menuitem id="menuitem_portal_perijinan" name="Perijinan" parent="menubar_portal_kesantrian" action="action_ortu_perijinan_form" sequence="10"/>
+        <menuitem id="menuitem_portal_perijinan" name="Ajukan Ijin" parent="menubar_portal_kesantrian" action="action_ortu_perijinan_form" sequence="10"/>
         <menuitem id="menuitem_portal_tahfidz" name="Tahfidz" parent="menubar_portal_kesantrian" sequence="20"/>
         <menuitem id="menuitem_portal_tahfidz_quran" name="Tahfidz Al Quran" parent="menuitem_portal_tahfidz" action="action_ortu_tahfidz_quran_form" sequence="10"/>
         <menuitem id="menuitem_portal_tahfidz_hadits" name="Tahfidz Hadits" parent="menuitem_portal_tahfidz" action="action_ortu_tahfidz_hadits_form" sequence="20"/>
