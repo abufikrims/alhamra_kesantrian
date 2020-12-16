@@ -10,15 +10,18 @@
             <field name="arch" type="xml">
                 <tree string="Tahfidz quran">
                     <field name="tanggal" />
+                    <field name="sesi_tahfidz_id"/>
                     <field name="siswa_id" />
-                    <field name="kelas_id"/>
+                    <field name="halaqoh_id"/>
                     <field name="surah_id" />
                     <field name="ayat_awal"/>
                     <field name="ayat_akhir"/>
                     <field name="jml_baris"/>
                     <!-- <field name="nilai" /> -->
                     <field name="nilai_id" />
-                    <field name="guru_id" />
+                    <!-- <field name="guru_id" /> -->
+                    <field name="ustadz_id"/>
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -31,9 +34,9 @@
             <field name="arch" type="xml">
                 <form string="Tahfidz quran">
                     <header>
-                        <!--button string="Confirm" type="object" name="action_confirm" states="draft" /-->
+                        <button string="Confirm" type="object" name="action_confirm" states="draft" />
                         <!--button string="Mark as Done" type="object" name="action_done" states="confirmed" /-->
-                        <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
+                        <button string="Reset to Draft" type="object" name="action_draft" states="done" />
                         <field name="state" widget="statusbar" />
                     </header>
                     <sheet>
@@ -49,12 +52,12 @@
                         </div>
                         
                         <group string="Data Santri" col="4" colspan="4">
-                            <field name="tanggal" />
-                            <field name="guru_id" options="{'no_create_edit':True, 'no_create':True, 'no_open':True}"/>
-                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}"/>
-                            <field name="kelas_id"/>
+                            <field name="tanggal" attrs="{'readonly':[('state','in',('draft','done'))]}"  />
+                            <field name="ustadz_id" options="{'no_create_edit':True, 'no_create':True, 'no_open':True}" attrs="{'readonly':[('state','in',('draft','done'))]}" />
+                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" attrs="{'readonly':[('state','in',('draft','done'))]}" />
+                            <field name="halaqoh_id"/>
                             <field name="last_tahfidz"/>
-                            <field name="sesi_tahfidz_id" options="{'no_create_edit':True, 'no_create':True, 'no_open':True}"/>
+                            <field name="sesi_tahfidz_id" options="{'no_create_edit':True, 'no_create':True, 'no_open':True}" attrs="{'readonly':[('state','in',('draft','done'))]}" />
                             <field name="surah_id" options="{'no_create_edit':True, 'no_create':True}"/>
                             <field name="jml_ayat"/>
                         </group>
@@ -82,31 +85,16 @@
             <field name="model">cdn.tahfidz_quran</field>
             <field name="arch" type="xml">
                 <search string="Tahfidz quran">
-
-                    <!-- <filter string="Name" name="filter_by_name" domain="[('name','=','')]" /> -->
                     <filter string="Tahfidz Hari ini" name="filter_by_tgl_aktivitas" 
                         domain="[('tanggal','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('tanggal','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]" />
                     <filter string="Kategori Mumtaz" name="filter_by_kategori" domain="[('nilai_id','=','Mumtaz')]" />
-                    <!-- <filter string="Nilai" name="filter_by_nilai" domain="[('nilai','=','')]" />
-                    <filter string="Keterangan" name="filter_by_keterangan" domain="[('keterangan','=','')]" />
-                    <filter string="State" name="filter_by_state" domain="[('state','=','')]" /> -->
-
                     <field name="siswa_id" select="True"/>
-                    <field name="surah_id" select="True"/>
                     
-                    <!-- <field name="name" select="True"/>
-                    <field name="tanggal" select="True"/>
-                    <field name="nilai" select="True"/>
-                    <field name="keterangan" select="True"/>
-                    <field name="state" select="True"/>
-                    <field name="siswa_id" select="True"/>
-                    <field name="surah_id" select="True"/>
-                    <field name="guru_id" select="True"/>
-                    <field name="nilai_id" select="True"/> -->
                     <group string="Group By..">
+                        <filter string="Tanggal" domain="[]" name="group_by_tanggal_sesi" context="{'group_by': 'tanggal'}"/>
                         <filter string="Siswa" domain="[]" name="group_by_siswa_id" context="{'group_by':'siswa_id'}"/>
                         <filter string="Surah" domain="[]" name="group_by_surah_id" context="{'group_by':'surah_id'}"/>
-                        <filter string="Guru" domain="[]" name="group_by_guru_id" context="{'group_by':'guru_id'}"/>
+                        <filter string="Guru" domain="[]" name="group_by_ustadz_id" context="{'group_by':'ustadz_id'}"/>
                         <filter string="Nilai" domain="[]" name="group_by_nilai_id" context="{'group_by':'nilai_id'}"/>
                     </group>
                 </search>
@@ -329,6 +317,8 @@
 					<field name="name"/>
 					<field name="sesi_id"/>
 					<field name="halaqoh_id"/>
+                    <field name="ustadz_halaqoh"/>
+                    <field name="state"/>
 				</tree>
 			</field>
 		</record>
@@ -337,13 +327,20 @@
 			<field name="name">absen.quran.form</field>
 			<field name="model">cdn.absen_quran</field>
 			<field name="arch" type="xml">
-				<form string="Absensi Kehadiran Halaqoh">
+				<form string="Absensi Kehadiran Halaqoh" duplicate="0" edit="false">
+                    <header>
+                        <button string="Proses" name="action_proses" type="object" class="oe_highlight" state="proses" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                        <button string="Selesai" name="action_confirm" type="object" class="oe_highlight" state="done" attrs="{'invisible': [('state', 'not in', ['proses'])]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,proses,done" />
+                    </header>
+                    
 					<sheet>
 						<group col="4" colspan="4">
 							<field name="name"/>
 							<field name="fiscalyear_id"/>
 							<field name="sesi_id"/>
-							<field name="halaqoh_id" colspan="4"/>
+							<field name="halaqoh_id"/>
+                            <field name="ustadz_halaqoh"/>
 						</group>
 						<notebook colspan="5">
 							<page string="Daftar Halaqoh">
@@ -360,6 +357,23 @@
 				</form>
 			</field>
 		</record>
+        <!-- cdn.absen_quran search view -->
+        <record id="view_cdn_absen_quran_search" model="ir.ui.view">
+            <field name="name">cdn.absen_quran.view.search</field>
+            <field name="model">cdn.absen_quran</field>
+            <field name="arch" type="xml">
+                <search string="Search Description">
+                    <!-- Add your fields here -->
+                    <filter string="Name" name="filter_by_name" domain="[('name','=','')]" />
+                    <filter string="Halaqoh" name="filter_by_halaqoh" domain="[('halaqoh_id','=','')]" />
+                    <filter string="Musyrif" name="filter_by_ustadz" domain="[('ustadz_halaqoh','like','')]" />
+                    <field name="name" select="True"/>
+                    <field name="ustadz_halaqoh" select="True"/>
+                    <group string="Group By..">
+                    </group>
+                </search>
+            </field>
+        </record>
 
 		<record model="ir.actions.act_window" id="action_absen_quran_form">
 			<field name="name">Absensi Halaqoh</field>

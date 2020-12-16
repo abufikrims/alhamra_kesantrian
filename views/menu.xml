@@ -16,10 +16,20 @@
 
         <!-- Menu Tahfidz -->
         <menuitem id="cdn_pesantren_menu_tahfidz" name="Tahfidz" parent="cdn_pesantren_sub_kepesantrenan" sequence="20" />
-        <menuitem id="menu_cdn_tahfidz_quran" name="Tahfidz Al Quran" parent="cdn_pesantren_menu_tahfidz" action="action_cdn_tahfidz_quran" sequence="10"/>
-        <menuitem id="menu_cdn_tahfidz_hadits" name="Tahfidz Hadits" parent="cdn_pesantren_menu_tahfidz" action="action_cdn_tahfidz_hadits" sequence="20"/>
-        <menuitem id="menu_cdn_tahsin" name="Tahsin Al Quran" parent="cdn_pesantren_menu_tahfidz" action="action_cdn_tahsin" sequence="30"/>
-        <menuitem id="menu_absen_quran" name="Absen Al Quran" parent="cdn_pesantren_menu_tahfidz" action="action_absen_quran_form" sequence="40"/>
+        <menuitem id="menu_absen_quran" name="Absen Tahfidz" parent="cdn_pesantren_menu_tahfidz" action="action_absen_quran_form" sequence="10"/>
+        <menuitem id="menu_cdn_tahfidz_quran" name="Tahfidz Al Quran" parent="cdn_pesantren_menu_tahfidz" action="action_cdn_tahfidz_quran" sequence="20"/>
+        
+
+        <!-- Menu Tahsin -->
+        <menuitem id="cdn_pesantren_menu_tahsin" name="Tahsin" parent="cdn_pesantren_sub_kepesantrenan" sequence="22" />
+        <menuitem id="menu_absen_tahsin" name="Absen Tahsin" parent="cdn_pesantren_menu_tahsin" action="action_absen_tahsin_form" sequence="10"/>
+        <menuitem id="menu_cdn_tahsin" name="Tahsin Al Quran" parent="cdn_pesantren_menu_tahsin" action="action_cdn_tahsin" sequence="20"/>
+
+        <!-- Menu Hadits -->
+        <menuitem id="cdn_pesantren_menu_hadits" name="Hadits" parent="cdn_pesantren_sub_kepesantrenan" sequence="25" />
+        <menuitem id="menu_cdn_tahfidz_hadits" name="Tahfidz Hadits" parent="cdn_pesantren_menu_hadits" action="action_cdn_tahfidz_hadits" sequence="10"/>
+        
+        
         
          <!-- Menu Kepengasuhan -->
         <menuitem id="cdn_pesantren_menu_kepengasuhan" name="Kepengasuhan" parent="cdn_pesantren_sub_kepesantrenan" sequence="30" />

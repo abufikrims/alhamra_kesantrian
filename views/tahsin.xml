@@ -9,13 +9,16 @@
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <tree string="Tahsin">
-                    <field name="name" />
                     <field name="tanggal" />
-                    <field name="nilai" />
-                    <field name="keterangan" />
                     <field name="siswa_id" />
-                    <field name="guru_id" />
-                    <field name="level_id" />
+                    <field name="halaqoh_id"/>
+                    <field name="level_id"/>
+                    <field name="nilai" />
+                    <field name="nilai2" />
+                    <field name="nilai3" />
+                    <field name="ustadz_id" />
+                    <!-- <field name="keterangan" /> -->
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -26,11 +29,12 @@
             <field name="type">form</field>
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
-                <form string="Tahsin">
+                <form string="Tahsin" duplicate="0">
                     <header>
-                        <!--button string="Confirm" type="object" name="action_confirm" states="draft" /-->
+                        <button string="Confirm" type="object" name="action_confirm" states="draft" />
                         <!--button string="Mark as Done" type="object" name="action_done" states="confirmed" /-->
-                        <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
+                        <button string="Reset to Draft" type="object" name="action_draft" states="done" />
+                        <field name="state" widget="statusbar" />
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
@@ -43,17 +47,24 @@
                             <label for="name" class="oe_edit_only" string="No Referensi"/>
                             <h1><field name="name"/></h1>
                         </div>
-                        <group string="Data Santri">
-                            <field name="tanggal" />
-                            <field name="guru_id" options="{'no_create_edit':True, 'no_create':True, 'no_open':True}"/>
-                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}"/>
+                        <group string="Data Santri Tahsin" col="4" colspan="4">
+                            <field name="tanggal" attrs="{'readonly':[('state','in',('draft','done'))]}"  />
+                            <field name="ustadz_id" options="{'no_create_edit':True, 'no_create':True, 'no_open':True}" attrs="{'readonly':[('state','in',('draft','done'))]}" />
+                            <field name="siswa_id" options="{'no_create_edit':True, 'no_create':True}" attrs="{'readonly':[('state','in',('draft','done'))]}" />
+                            <field name="halaqoh_id"/>
                             <field name="kelas_id"/>
                         </group>
-                        <group string="Penilaian Tahfidz" >
+                        <group string="Penilaian Tahsin" col="4" colspan="4" >
                             <field name="level_id" string="Tahsin Jilid"/>
                             <field name="nilai" />
+                            <field name="nilai2" />
+                            <field name="nilai3" />
+                        </group>
+                        <group string="Catatan Ustadz/Musyrif"> 
                             <field name="keterangan" />
                         </group>
+                        
+                        
                         <notebook>
                         </notebook>
                     </sheet>
@@ -67,20 +78,13 @@
             <field name="arch" type="xml">
                 <search string="Tahsin">
 
-                    <filter string="Name" name="filter_by_name" domain="[('name','=','')]" />
-                    <filter string="Tanggal" name="filter_by_tanggal" domain="[('tanggal','=','')]" />
-                    <filter string="Nilai" name="filter_by_nilai" domain="[('nilai','=','')]" />
-                    <filter string="Keterangan" name="filter_by_keterangan" domain="[('keterangan','=','')]" />
-                    <field name="name" select="True"/>
-                    <field name="tanggal" select="True"/>
-                    <field name="nilai" select="True"/>
-                    <field name="keterangan" select="True"/>
+                    <filter string="Siswa" name="filter_by_siswa" domain="[('siswa_id','=','')]" />
+                    <filter string="Halaqoh" name="filter_by_halaqoh" domain="[('halaqoh_id','=','')]" />
+                    <filter string="Ustads" name="filter_by_ustadz" domain="[('ustadz_id','=','')]" />
                     <field name="siswa_id" select="True"/>
-                    <field name="guru_id" select="True"/>
-                    <field name="level_id" select="True"/>
                     <group string="Group By..">
                         <filter string="Siswa" domain="[]" name="group_by_siswa_id" context="{'group_by':'siswa_id'}"/>
-                        <filter string="Guru" domain="[]" name="group_by_guru_id" context="{'group_by':'guru_id'}"/>
+                        <filter string="Ustadz" domain="[]" name="group_by_ustadz_id" context="{'group_by':'ustadz_id'}"/>
                         <filter string="Level" domain="[]" name="group_by_level_id" context="{'group_by':'level_id'}"/>
                     </group>
                 </search>
@@ -130,6 +134,87 @@
             <field name="padding">4</field>
         </record>
 
-        
+        <!-- Penilaian Kehadiran TAHSIN Quran -->
+
+		<record id="view_absen_tahsin_tree" model="ir.ui.view">
+			<field name="name">absen.tahsin.tree</field>
+			<field name="model">cdn.absen_tahsin</field>
+			<field name="arch" type="xml">
+				<tree string="Absensi Kehadiran Tahsin">
+					<field name="name"/>
+					<field name="halaqoh_id"/>
+                    <field name="ustadz_halaqoh"/>
+                    <field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_absen_tahsin_form" model="ir.ui.view">
+			<field name="name">absen.tahsin.form</field>
+			<field name="model">cdn.absen_tahsin</field>
+			<field name="arch" type="xml">
+				<form string="Absensi Kehadiran Tahsin" duplicate="0" edit="false">
+                    <header>
+                        <button string="Proses" name="action_proses" type="object" class="oe_highlight" state="proses" attrs="{'invisible': [('state', 'not in', ['draft'])]}"/>
+                        <button string="Selesai" name="action_confirm" type="object" class="oe_highlight" state="done" attrs="{'invisible': [('state', 'not in', ['proses'])]}"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,proses,done" />
+                    </header>
+                    
+					<sheet>
+						<group col="4" colspan="4">
+							<field name="name"/>
+							<field name="fiscalyear_id" attrs="{'readonly': 1}"/>
+							<field name="halaqoh_id" domain="[('ustadz_halaqoh.user_id','=',uid)]"/>
+                            <field name="ustadz_halaqoh"/>
+						</group>
+						<notebook colspan="5">
+							<page string="Daftar Halaqoh">
+								<field colspan="4" name="absen_tahsin_line" nolabel="1" widget="one2many_list">
+									<tree string="" editable="top">
+										<field name="name"/>
+                                        <field name="nis"/>
+                                        <field name="kehadiran"/>
+									</tree>
+								</field>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+        <!-- cdn.absen_tahsinsearch view -->
+        <record id="view_cdn_absen_tahsin_search" model="ir.ui.view">
+            <field name="name">cdn.absen_tahsin.view.search</field>
+            <field name="model">cdn.absen_tahsin</field>
+            <field name="arch" type="xml">
+                <search string="Search Description">
+                    <!-- Add your fields here -->
+                    <filter string="Name" name="filter_by_name" domain="[('name','=','')]" />
+                    <filter string="Halaqoh" name="filter_by_halaqoh" domain="[('halaqoh_id','=','')]" />
+                    <filter string="Musyrif" name="filter_by_ustadz" domain="[('ustadz_halaqoh','like','')]" />
+                    <field name="name" select="True"/>
+                    <field name="ustadz_halaqoh" select="True"/>
+                    <group string="Group By..">
+                    </group>
+                </search>
+            </field>
+        </record>
+
+		<record model="ir.actions.act_window" id="action_absen_tahsin_form">
+			<field name="name">Absensi Tahsin</field>
+            <field name="type">ir.actions.act_window</field>
+			<field name="res_model">cdn.absen_tahsin</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{"search_default_filter_by_halaqoh":1}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                Click to add a Absen Tahsin
+                </p><p>
+                Click the Create button to add a Absen Tahsin
+                </p>
+            </field>
+		</record>
+
     </data>
 </odoo>
