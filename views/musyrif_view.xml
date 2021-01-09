@@ -269,7 +269,7 @@
 
         <!-- Uang Saku dan Dompet Santri -->
         <menuitem id="menuitem_musyrif_keuangan" name="Keuangan Santri" parent="menubar_musyrif" sequence="30"/>
-        <menuitem id="menuitem_musyrif_keuangan_dompet" name="Dompet Santri" parent="menuitem_musyrif_keuangan" action="action_musyrif_perijinan" sequence="10"/>
+        <menuitem id="menuitem_musyrif_keuangan_dompet" name="Uang Saku Santri" parent="menuitem_musyrif_keuangan" action="action_musyrif_perijinan" sequence="10"/>
 
     </data>
 </odoo>
