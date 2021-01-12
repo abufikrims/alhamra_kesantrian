@@ -248,7 +248,9 @@
 			<field name="view_mode">form</field>
 			<field name="view_id" ref="view_cdn_tahsin_form"/>
 			<field name="act_window_id" ref="action_musyrif_tahsin"/>
-		</record>        
+		</record>  
+
+
 
 
         <menuitem id="menubar_musyrif" name="Musyrif" groups="group_kesantrian_musyrif"  web_icon="alhamra_kesantrian,static/description/musyrif.png"/>
@@ -267,9 +269,6 @@
         <menuitem id="menuitem_musyrif_tahsin_quran" name="Tahsin Al Quran" parent="menuitem_musyrif_tahsin" action="action_musyrif_tahsin" sequence="20"/>
         
 
-        <!-- Uang Saku dan Dompet Santri -->
-        <menuitem id="menuitem_musyrif_keuangan" name="Keuangan Santri" parent="menubar_musyrif" sequence="30"/>
-        <menuitem id="menuitem_musyrif_keuangan_dompet" name="Uang Saku Santri" parent="menuitem_musyrif_keuangan" action="action_musyrif_perijinan" sequence="10"/>
-
+        
     </data>
 </odoo>
