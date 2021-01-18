@@ -22,7 +22,7 @@ class mutabaah_harian(models.Model):
     kategori = fields.Selection(selection=[('disiplin','Kedisiplinan'),('adab','Adab'),('ibadah','Ibadah')],  string="Kategori",  help="")
 
     siswa_id = fields.Many2one(comodel_name="res.partner",  string="Siswa", required=True, domain=[('student', '=', True)], help="")
-    guru_id = fields.Many2one(comodel_name="res.users",  string="Guru", required=True,  default=lambda self: self.env.user,  help="")
+    halaqoh_id = fields.Many2one('cdn.halaqoh', 'Halaqoh', related='siswa_id.halaqoh_id', readonly=True)
     mutabaah_lines = fields.One2many(comodel_name="cdn.mutabaah_line",  inverse_name="mutabaah_id",  string="Mutabaah lines",  help="")
 
     _sql_constraints = [('mutabaah_harian_uniq', 'unique(tanggal, siswa_id, kategori)', 'Data Mutabaah Harian untuk Siswa tersebut sudah ada di tanggal tersebut !')]

@@ -90,14 +90,14 @@
             <field name="name">cdn_mutabaah_harian_tree</field>
             <field name="model">cdn.mutabaah_harian</field>
             <field name="type">tree</field>
-            <field name="priority" eval="8"/>
+            <field name="priority" eval="16"/>
             <field name="arch" type="xml">
-                <tree string="Mutabaah harian">
+                <tree string="Mutabaah Harian Semua Santri">
                     <field name="name" string="No Referensi"/>
                     <field name="tanggal" />
                     <field name="siswa_id" />
                     <field name="kategori"/>
-                    <field name="guru_id" />
+                    <field name="halaqoh_id" />
                 </tree>
             </field>
         </record>
@@ -106,7 +106,7 @@
             <field name="name">cdn_mutabaah_harian_form</field>
             <field name="model">cdn.mutabaah_harian</field>
             <field name="type">form</field>
-            <field name="priority" eval="8"/>
+            <field name="priority" eval="16"/>
             <field name="arch" type="xml">
                 <form string="Mutabaah harian">
                     <header>
@@ -128,7 +128,7 @@
                         <group>
                             <field name="tanggal" />
                             <field name="siswa_id" />
-                            <field name="guru_id" />
+                            <field name="halaqoh_id" />
                             <field name="kategori"/>
                         </group>
                         <notebook>
@@ -159,10 +159,9 @@
                     <field name="name" select="True"/>
                     <field name="tanggal" select="True"/>
                     <field name="siswa_id" select="True"/>
-                    <field name="guru_id" select="True"/>
                     <group string="Group By..">
                         <filter string="Siswa" domain="[]" name="group_by_siswa_id" context="{'group_by':'siswa_id'}"/>
-                        <filter string="Guru" domain="[]" name="group_by_guru_id" context="{'group_by':'guru_id'}"/>
+                        <filter string="Halaqoh" domain="[]" name="group_by_halaqoh_id" context="{'group_by':'halaqoh_id'}"/>
                     </group>
                 </search>
             </field>
@@ -184,6 +183,21 @@
                 </p>
             </field>
         </record>
+
+        <!-- Definisikan Tree View dan Form View Default -->
+        <!-- <record id="action_cdn_mutabaah_tree" model="ir.actions.act_window.view">
+			<field name="sequence" eval="16"/>
+			<field name="view_mode">tree</field>
+			<field name="view_id" ref="view_cdn_mutabaah_harian_tree"/>
+			<field name="act_window_id" ref="action_cdn_mutabaah_harian"/>
+		</record> -->
+
+		<!-- <record id="action_cdn_mutabaah_form" model="ir.actions.act_window.view">
+			<field name="sequence" eval="16"/>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="view_cdn_mutabaah_harian_form"/>
+			<field name="act_window_id" ref="action_cdn_mutabaah_harian"/>
+		</record> -->
         
         <record id="seq_mutabaah_harian_new" model="ir.sequence">
             <field name="name">No Referensi</field>

@@ -80,7 +80,7 @@ class absen_tahsin(models.Model):
             for x in self.halaqoh_id.siswa_ids:
                 siswa.append({'name': x.id, 'kehadiran': 'hadir'})
 
-            #data = {'absen_tahsin_line': siswa}
+            data = {'absen_tahsin_line': siswa}
             self.update(data)
 
     @api.model
