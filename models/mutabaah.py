@@ -31,17 +31,44 @@ class mutabaah_harian(models.Model):
     def onchange_kategori(self):
         if self.kategori:
             nilai = []
+            self.mutabaah_lines = [(5,0,0)]
             obj_mutabaah = self.env['cdn.mutabaah'].search([('kategori','=',self.kategori),('is_tampil','=',True)])
             for x in obj_mutabaah:
-                nilai.append({'name': x.id, 'is_sudah': False, 'keterangan':'-'})
+                nilai.append({'name': x.id, 'is_sudah': True, 'keterangan':'-'})
 
             data = {'mutabaah_lines': nilai}
             self.update(data)
 
+    def btn_uncheckall(self):
+        nilai = []
+        self.mutabaah_lines = [(5,0,0)]
+        obj_mutabaah = self.env['cdn.mutabaah'].search([('kategori','=',self.kategori),('is_tampil','=',True)])
+        for x in obj_mutabaah:
+            nilai.append({'name': x.id, 'is_sudah': False, 'keterangan':'-'})
+
+        data = {'mutabaah_lines': nilai}
+        self.update(data)
+    
+    def btn_checkall(self):
+        nilai = []
+        self.mutabaah_lines = [(5,0,0)]
+        obj_mutabaah = self.env['cdn.mutabaah'].search([('kategori','=',self.kategori),('is_tampil','=',True)])
+        for x in obj_mutabaah:
+            nilai.append({'name': x.id, 'is_sudah': True, 'keterangan':'-'})
+
+        data = {'mutabaah_lines': nilai}
+        self.update(data)
+        
+        
+
+    
     @api.model
     def create(self, vals):
         vals['name'] = self.env['ir.sequence'].next_by_code('cdn.mutabaah_harian')
         return super(mutabaah_harian, self).create(vals)
+    
+   
+
 
 class mutabaah_line(models.Model):
 

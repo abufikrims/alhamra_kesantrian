@@ -110,7 +110,6 @@
             <field name="arch" type="xml">
                 <form string="Mutabaah harian">
                     <header>
-                        <!--button string="Confirm" type="object" name="action_confirm" states="draft" /-->
                         <!--button string="Mark as Done" type="object" name="action_done" states="confirmed" /-->
                         <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
                     </header>
@@ -140,6 +139,11 @@
                                         <field name="keterangan"/>
 									</tree>
                                 </field>
+                                <group>
+                                    <div>
+                                        <button string="Uncheck All" type="object" name="btn_uncheckall" />
+                                    </div>
+                                </group>
                             </page>
                         </notebook>
                     </sheet>

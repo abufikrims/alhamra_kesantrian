@@ -307,7 +307,16 @@
                                         <field name="keterangan"/>
 									</tree>
                                 </field>
+                                <group>
+                                    <div>
+                                        <button string="Uncheck All" type="object" class="btn-link oe_edit_only" name="btn_uncheckall" confirm="Apakah Anda yakin akan menghilangkan tanda Check (V) untuk semua isian tersebut (UN-CHECK ALL) ?" />
+                                    </div>
+                                    <div>
+                                        <button string="Check All" type="object" class="btn-link oe_edit_only" name="btn_checkall" confirm="Apakah Anda yakin akan memberikan tanda Check (V) untuk semua isian tersebut (CHECK ALL) ?" />
+                                    </div>
+                                </group>
                             </page>
+                            
                         </notebook>
                     </sheet>
                 </form>
