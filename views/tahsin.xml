@@ -31,9 +31,9 @@
             <field name="arch" type="xml">
                 <form string="Tahsin" duplicate="0">
                     <header>
-                        <button string="Confirm" type="object" name="action_confirm" states="draft" />
+                        <button string="Confirm" type="object" name="action_confirm" states="draft" groups="alhamra_kesantrian.group_tahfidz_admin,alhamra_kesantrian.group_kesantrian_musyrif"/>
                         <!--button string="Mark as Done" type="object" name="action_done" states="confirmed" /-->
-                        <button string="Reset to Draft" type="object" name="action_draft" states="done" />
+                        <button string="Reset to Draft" type="object" name="action_draft" states="done"  groups="alhamra_kesantrian.group_tahfidz_admin,alhamra_kesantrian.group_kesantrian_musyrif"/>
                         <field name="state" widget="statusbar" />
                     </header>
                     <sheet>

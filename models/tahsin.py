@@ -76,7 +76,7 @@ class absen_tahsin(models.Model):
         if self.halaqoh_id:
 
             siswa = []
-            
+            self.absen_tahsin_line = [(5,0,0)]
             for x in self.halaqoh_id.siswa_ids:
                 siswa.append({'name': x.id, 'kehadiran': 'hadir'})
 

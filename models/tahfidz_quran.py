@@ -129,6 +129,7 @@ class absen_quran(models.Model):
         if self.halaqoh_id:
 
             siswa = []
+            self.absen_quran_line = [(5,0,0)]
             for x in self.halaqoh_id.siswa_ids:
                 siswa.append({'name': x.id, 'kehadiran': 'hadir'})
 
