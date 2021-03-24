@@ -66,6 +66,11 @@
         <menuitem id="menu_cdn_mutabaah" name="Mutabaah" parent="cdn_pesantren_sub_konfigurasi" action="action_cdn_mutabaah" groups="group_kesantrian_admin" sequence="20"/>
         <menuitem id="menu_cdn_tindakan_hukuman" name="Tindakan Hukuman" parent="cdn_pesantren_sub_konfigurasi" action="action_cdn_tindakan_hukuman" groups="group_kesantrian_admin" sequence="40"/>
         <menuitem id="menu_cdn_pembagian_halaqoh" name="Pembagian Halaqoh" parent="cdn_pesantren_sub_konfigurasi" action="action_cdn_halaqoh" groups="group_kesantrian_admin" sequence="50"/>
+        
+        <menuitem id="menu_kategori_pelanggaran" name="Pelanggaran" parent="cdn_pesantren_sub_konfigurasi" groups="group_kesantrian_admin" sequence="60"/>
+        <menuitem id="menu_ref_pelanggaran" name="Data Pelanggaran" parent="menu_kategori_pelanggaran" action="ref_pelanggaran_action" groups="group_kesantrian_admin" sequence="10"/>
+        <menuitem id="menu_ref_jns_pelanggaran" name="Kelompok Pelanggaran" parent="menu_kategori_pelanggaran"  action="ref_jns_pelanggaran_action" groups="group_kesantrian_admin" sequence="20"/>
+
 
     </data>
 </odoo>

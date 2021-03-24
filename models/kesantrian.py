@@ -78,28 +78,68 @@ class pelanggaran(models.Model):
     _name = "cdn.pelanggaran"
     _description = 'Model untuk Mencatat Aktivitas Pelanggaran'
     name = fields.Char(string="No. Referensi",  help="", readonly=True, default='Auto')
-    tgl_pelanggaran = fields.Date( string="Tanggal pelanggaran", default=fields.Date.context_today, help="")
+    tgl_pelanggaran = fields.Date( string="Tanggal pelanggaran", default=fields.Date.context_today, readonly=True, states={"draft" : [("readonly",False)]},  help="")
     #diperiksa_oleh = fields.Char( string="Diperiksa oleh",  help="")
-    diperiksa_oleh = fields.Many2one('res.users', 'Diperiksa oleh', required=True, default=lambda self: self.env.user)
-    poin = fields.Integer( string="Poin",  help="")
-    deskripsi = fields.Text( string="Deskripsi",  help="")
+    diperiksa_oleh = fields.Many2one('res.users', 'Diperiksa oleh', required=True, readonly=True, states={"draft" : [("readonly",False)]},  default=lambda self: self.env.user)
+    pelanggaran_id = fields.Many2one(comodel_name='ref.pelanggaran', string='Nama Pelanggaran', required=True, readonly=True, states={"draft" : [("readonly",False)]})
+    kategori       = fields.Selection(string='Kategori', selection=[('Ringan', 'Ringan'), ('Sedang', 'Sedang'),('Berat', 'Berat'), ('Dikeluarkan', 'Sangat Berat'),])
+    state          = fields.Selection(string='Status', selection=[('draft', 'Draft'), ('confirmed', 'Konfirmasi'),('approved', 'Disetujui'),], default='draft')
+    
+
+    poin = fields.Integer( string="Poin", help="")
+    deskripsi = fields.Text( string="Deskripsi Pelanggaran", readonly=True, states={"draft" : [("readonly",False)]},   help="")
+    deskripsi_tindakan = fields.Text( string="Deskripsi Tindakan Hukuman",  help="")
+
+    catatan_ka_asrama   = fields.Text( string="Catatan Ustadz / Kepala Asrama",  help="")
+    tgl_disetujui       = fields.Date(string='Tanggal Disetujui')
+    user_disetujui      = fields.Many2one('res.users', 'Disetujui oleh', readonly=True, states={"draft" : [("readonly",False)]})
+    
 
 
-    tindakan_id = fields.Many2one(comodel_name="cdn.tindakan_hukuman",  string="Tindakan",  help="")
-    siswa_id = fields.Many2one(comodel_name="res.partner", required=True, string="Siswa", domain=[('student', '=', True)], help="")
+    tindakan_id = fields.Many2one(comodel_name="cdn.tindakan_hukuman",  string="Tindakan", readonly=True, states={"draft" : [("readonly",False)]},  help="")
+    siswa_id = fields.Many2one(comodel_name="res.partner", required=True, string="Siswa", domain=[('student', '=', True)], readonly=True, states={"draft" : [("readonly",False)]},  help="")
     kelas_id = fields.Many2one('master.kelas', 'Kelas', related='siswa_id.class_id', readonly=True)
 
     @api.model
     def create(self, vals):
         vals['name'] = self.env['ir.sequence'].next_by_code('cdn.pelanggaran')
         return super(pelanggaran, self).create(vals)
+    
+    @api.onchange('pelanggaran_id')
+    def onchange_pelanggaran_id(self):
+        for rec in self:
+            rec.poin        = rec.pelanggaran_id.poin
+            rec.kategori    = rec.pelanggaran_id.kategori
+    
+    @api.multi
+    def action_confirmed(self):
+        if not self.tindakan_id :
+            raise UserError('Deskripsi Pelanggaran dan Tindakan Hukuman harus diisi')
+        else:
+            return self.write({'state': 'confirmed'})
+
+    def action_approved(self):
+        if not self.tgl_disetujui:
+            raise UserError("Tanggal Persetujuan harus diisi !")
+        else:
+            vals = {'state': 'approved', 'user_disetujui': self.env.user.id}
+            return self.write(vals)
+    
+    def action_set_to_draft(self):
+        return self.write({'state': 'draft'})
+
+    def unlink(self):
+        for me_id in self :
+            if me_id.state != 'draft':
+                raise UserError("Tidak dapat menghapus data yang sudah divalidasi dan sudah disetujui!")
+            else:
+                return super(pelanggaran,self).unlink()
 
 class tindakan_hukuman(models.Model):
 
     _name = "cdn.tindakan_hukuman"
     _description = 'Model untuk Jenis Tindakan Hukuman'
     name = fields.Char( required=True, string="Name",  help="")
-    poin = fields.Integer( string="Poin",  help="")
     level_pelanggaran = fields.Selection(selection=[('Ringan','Ringan'),('Sedang','Sedang'),('Berat','Berat'),('Dikeluarkan','Dikeluarkan')],  string="Level pelanggaran",  help="")
     deskripsi = fields.Text( string="Deskripsi",  help="")
 
@@ -270,7 +310,7 @@ class siswa_kamar(models.Model):
     def open_pelanggaran(self):
         return {
             'name'  : _('Pelanggaran'),
-            'domain' : [('siswa_id','=',self.id)],
+            'domain' : [('siswa_id','=',self.id),('state','not in',['draft'])],
             'view_type' : 'form',
             'res_model' : 'cdn.pelanggaran',
             'view_id' : False,
@@ -282,11 +322,15 @@ class siswa_kamar(models.Model):
         count = self.env['cdn.pelanggaran'].search_count([('siswa_id','=', self.id)])
         self.pelanggaran_count = count  
 
-    perijinan_count = fields.Integer(string='Perijinan', compute='get_perijinan_count')
-    kesehatan_count = fields.Integer(string='Kesehatan', compute='get_kesehatan_count')
-    pelanggaran_count = fields.Integer(string='Pelanggaran', compute='get_pelanggaran_count')
+    def get_pelanggaran_total(self):
+        total_pelanggaran       = self.env['cdn.pelanggaran'].search([('siswa_id','=',self.id),('state','not in',['draft'])])
+        self.pelanggaran_total  = sum(item.poin for item in total_pelanggaran)
 
-    
+    perijinan_count             = fields.Integer(string='Perijinan', compute='get_perijinan_count')
+    kesehatan_count             = fields.Integer(string='Kesehatan', compute='get_kesehatan_count')
+    pelanggaran_count           = fields.Integer(string='Pelanggaran', compute='get_pelanggaran_count')
+    pelanggaran_total           = fields.Integer(string='Pelanggaran', compute='get_pelanggaran_total')
+
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
         args = args or []

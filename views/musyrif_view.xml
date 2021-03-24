@@ -369,6 +369,8 @@
 			<field name="act_window_id" ref="action_musyrif_mutabaah"/>
 		</record>
 
+        
+
 
 
         <menuitem id="menubar_musyrif" name="Musyrif" groups="group_kesantrian_musyrif"  web_icon="alhamra_kesantrian,static/description/musyrif.png"/>
@@ -390,6 +392,14 @@
 
         <menuitem id="menuitem_musyrif_kepengasuhan" name="Kepengasuhan" parent="menuitem_musyrif_kepesantrenan" sequence="30"/>
         <menuitem id="menuitem_musyrif_mutabaah" name="Mutabaah Harian" parent="menuitem_musyrif_kepengasuhan" action="action_cdn_mutabaah_harian" sequence="10"/>
+
+        <!-- Aktivitas Santri -->
+        <menuitem id="menuitem_musyrif_aktivitas" name="Aktivitas" parent="menubar_musyrif" sequence="22"/>
+        <menuitem id="menuitem_musyrif_aktivitas_detail1" name="Kesantrian" sequence="10" parent="menuitem_musyrif_aktivitas" web_icon="cdn_pesantren,static/description/icon.png" />
+        <menuitem id="menuitem_musyrif_pelanggaran" name="Pelanggaran" parent="menuitem_musyrif_aktivitas_detail1" action="action_cdn_pelanggaran" sequence="20"/>
+        <menuitem id="menuitem_musyrif_kesehatan" name="Kondisi Kesehatan" parent="menuitem_musyrif_aktivitas_detail1" action="action_cdn_kesehatan" sequence="30"/>
+        <menuitem id="menuitem_musyrif_prestasi_siswa" name="Prestasi siswa" parent="menuitem_musyrif_aktivitas_detail1" action="action_cdn_prestasi_siswa" sequence="40"/>
+
 
         
     </data>

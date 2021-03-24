@@ -40,6 +40,7 @@
         'views/orangtua_view.xml',
         'views/satpam_view.xml',
         'views/musyrif_view.xml',
+        'views/pelanggaran.xml',
         'views/menu.xml',
     ],
     'css': ['static/src/css/my_css.css'],

@@ -170,14 +170,15 @@
             <field name="priority" eval="8"/>
             <field name="arch" type="xml">
                 <tree string="Pelanggaran">
-                    <field name="name" />
+                    <!-- <field name="name" /> -->
                     <field name="tgl_pelanggaran" />
                     <field name="siswa_id" />
                     <field name="kelas_id"/>
-                    <field name="deskripsi" />
-                    <field name="diperiksa_oleh" />
+                    <field name="pelanggaran_id" />
+                    <field name="kategori" />
                     <field name="poin" />
                     <field name="tindakan_id" />
+                    <field name="state"/>
                 </tree>
             </field>
         </record>
@@ -193,6 +194,10 @@
                         <!--button string="Confirm" type="object" name="action_confirm" states="draft" /-->
                         <!--button string="Mark as Done" type="object" name="action_done" states="confirmed" /-->
                         <!--button string="Reset to Draft" type="object" name="action_draft" states="confirmed,done" /-->
+                        <button string="Konfirmasi" type="object" name="action_confirmed" states="draft" />
+                        <button string="Disetujui" type="object" name="action_approved" states="confirmed" groups="alhamra_kesantrian.group_kesantrian_admin" />
+                        <button string="Reset to Draft" type="object" name="action_set_to_draft" states="confirmed,approved" />
+                        <field name="state" widget="statusbar" />
                     </header>
                     <sheet>
                         <div class="oe_button_box" name="button_box">
@@ -211,12 +216,24 @@
                             <field name="kelas_id"/>
                         </group>
                         <group string="Data Pelanggaran">
-                            <field name="tindakan_id" />
-                            <field name="diperiksa_oleh" options="{'no_create_edit':True, 'no_create':True}"/>
-                            <field name="poin" />
+                            <field name="pelanggaran_id" options="{'no_create_edit':True, 'no_create':True}"/>
+                            <field name="kategori" readonly="1" force_save="1"/>
+                            <field name="poin"  readonly="1" force_save="1" />
+                            <field name="deskripsi" />                                                     
                         </group>
-                        <group>
-                                <field name="deskripsi" />
+                        <group string="Tindakan / Hukuman">
+                            <field name="tindakan_id" domain="[('level_pelanggaran','=',kategori)]"/>
+                            <field name="deskripsi_tindakan"/>
+                        </group>
+                        <group string="Dicatat dan Diperiksa">
+                            <field name="diperiksa_oleh" options="{'no_create_edit':True, 'no_create':True}"/>
+                        </group>
+                        <group string="Mengetahui / Disetujui" groups="alhamra_kesantrian.group_kesantrian_admin">
+                            <field name="catatan_ka_asrama"/>
+                        </group>
+                        <group col="4" colspan="4" groups="alhamra_kesantrian.group_kesantrian_admin">
+                            <field name="tgl_disetujui"/>
+                            <field name="user_disetujui"/>
                         </group>
                         
                         <notebook>
@@ -247,6 +264,7 @@
                     <group string="Group By..">
                         <filter string="Tindakan" domain="[]" name="group_by_tindakan_id" context="{'group_by':'tindakan_id'}"/>
                         <filter string="Siswa" domain="[]" name="group_by_siswa_id" context="{'group_by':'siswa_id'}"/>
+                        <filter string="Kategori Pelanggaran" domain="[]" name="group_by_kategori" context="{'group_by':'kategori'}"/>
                     </group>
                 </search>
             </field>
@@ -293,7 +311,6 @@
                 <tree>
                     <field name="name"/>
                     <field name="level_pelanggaran"/>
-                    <field name="poin"/>
                     <field name="deskripsi"/>
                     
                 </tree>
@@ -310,7 +327,6 @@
                             <!-- Add your fields here -->
                             <field name="name"/>
                             <field name="level_pelanggaran"/>
-                            <field name="poin"/>
                             <field name="deskripsi"/>
                         </group>
                     </sheet>
@@ -783,7 +799,7 @@
                         <field name="kesehatan_count" widget="statinfo" string="Kesehatan"/>
                     </button>
                     <button type="object" name="open_pelanggaran" attrs="{'invisible': [('student', '=', False)]}" class="oe_stat_button" icon="fa-gavel">
-                        <field name="pelanggaran_count" widget="statinfo" string="Pelanggaran"/>
+                        <field name="pelanggaran_total" widget="statinfo" string="Pelanggaran"/>
                     </button>
                 </xpath>
             </field>
