@@ -3,7 +3,7 @@
     <data>
         <!-- Menu Utama - Top Menu -->
 
-		<menuitem id="cdn_pesantren_top_menu" name="Kesantrian" web_icon="alhamra_kesantrian,static/description/icon.png" />
+		<menuitem id="cdn_pesantren_top_menu" name="Kesantrian"  groups="alhamra_akademik.group_sekolah_admin" web_icon="alhamra_kesantrian,static/description/icon.png" />
         
         <!-- Menu Master Data -->
         <menuitem id="menu_pendidikan_sekolah" parent="cdn_pesantren_top_menu" name="Master Data" sequence="10" groups="alhamra_akademik.group_sekolah_admin"/>
