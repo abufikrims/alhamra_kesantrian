@@ -85,7 +85,7 @@
             <field name="model">cdn.tahfidz_quran</field>
             <field name="arch" type="xml">
                 <search string="Tahfidz quran">
-                    <filter string="Tahfidz Hari ini" name="filter_by_tgl_aktivitas" 
+                    <filter string="Tahfidz Hari ini" name="tahfidz_today" 
                         domain="[('tanggal','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('tanggal','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]" />
                     <filter string="Kategori Mumtaz" name="filter_by_kategori" domain="[('nilai_id','=','Mumtaz')]" />
                     <field name="siswa_id" select="True"/>
@@ -128,7 +128,7 @@
             <field name="res_model">cdn.tahfidz_quran</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,calendar,graph</field>
-            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="context">{"search_default_tahfidz_today":1}</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                 Click to add a new Tahfidz quran

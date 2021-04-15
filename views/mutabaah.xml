@@ -156,6 +156,8 @@
             <field name="model">cdn.mutabaah_harian</field>
             <field name="arch" type="xml">
                 <search string="Mutabaah harian">
+                    <filter string="Mutabaah Hari ini" name="mutabaah_today"    
+                        domain="[('tanggal','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('tanggal','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]" />
 
                     <filter string="Kedisiplinan" name="filter_by_kategori" domain="[('kategori','=','disiplin')]" />
                     <filter string="Pembiasaan Adab dan Karakter" name="filter_by_kategori" domain="[('kategori','=','adab')]" />
@@ -178,7 +180,7 @@
             <field name="res_model">cdn.mutabaah_harian</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{"search_default_fieldname":1}</field>
+            <field name="context">{"search_default_mutabaah_today":1}</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
                 Click to add a new Mutabaah harian

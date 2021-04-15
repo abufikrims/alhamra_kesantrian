@@ -176,7 +176,7 @@
             <field name="view_type">form</field>
             <field name="domain">[('ustadz_id.user_id', '=', uid)]</field>
             <field name="view_mode">tree,form</field>
-            <field name="context">{'search_default_state_draft': 1}</field>
+            <field name="context">{'search_default_tahfidz_today': 1}</field>
 			<field name="search_view_id" ref="alhamra_kesantrian.view_cdn_tahfidz_quran_search"/>
 		</record>
 
