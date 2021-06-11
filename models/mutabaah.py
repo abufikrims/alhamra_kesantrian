@@ -81,3 +81,16 @@ class mutabaah_line(models.Model):
     keterangan = fields.Char( string="Keterangan",  help="")
 
 
+class mutabaah_batch(models.TransientModel):
+    _name = 'cdn.mutabaah_batch'
+    _description = 'Batch Input untuk mutabaah harian'
+
+    name = fields.Char(string='Nama Halaqoh')
+    tanggal = fields.Date(string='Tanggal')
+    state = fields.Selection(selection=[('draft','Draft'),('proses','Proses'),('done','Selesai')],  string="Status",  help="Klik Done - untuk membuat daftar Mutabaah Harian nya") 
+    _sql_constraints = [('mutabaah_batch_uniq', 'unique(name, tanggal)', 'Data Mutabaah Harian untuk Halaqoh sudah ada di tanggal tersebut !')]
+
+
+
+    
+

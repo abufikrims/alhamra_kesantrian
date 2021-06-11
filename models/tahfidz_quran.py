@@ -121,6 +121,7 @@ class absen_quran(models.Model):
      
     sesi_id = fields.Many2one('cdn.sesi_tahfidz', 'Sesi Tahfidz', required=True)
     absen_quran_line = fields.One2many('absen_quran.line', 'absen_line_id', 'Daftar Kehadiran')
+    keterangan = fields.Text(string='Keterangan')
 
     _sql_constraints = [('absen_quran_uniq', 'unique(name, sesi_id, halaqoh_id, fiscalyear_id)', 'Data harus unik !')]
 
@@ -134,6 +135,7 @@ class absen_quran(models.Model):
                 siswa.append({'name': x.id, 'kehadiran': 'hadir'})
 
             data = {'absen_quran_line': siswa}
+            #self.keterangan = data
             self.update(data)
 
     @api.model

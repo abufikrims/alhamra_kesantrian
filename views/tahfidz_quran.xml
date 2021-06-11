@@ -342,6 +342,9 @@
 							<field name="halaqoh_id"/>
                             <field name="ustadz_halaqoh"/>
 						</group>
+                        <group>
+                            <field name="keterangan"/>
+                        </group>
 						<notebook colspan="5">
 							<page string="Daftar Halaqoh">
 								<field colspan="4" name="absen_quran_line" nolabel="1" widget="one2many_list">

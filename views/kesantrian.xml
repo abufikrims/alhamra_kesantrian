@@ -712,7 +712,7 @@
                 </xpath>
                 <xpath expr="//field[@name='student']" position="after">
                     <!-- Add your fields here -->
-                    <field name="tahfidz_surah" />
+                    <field name="tahfidz_surah" attrs="{'invisible':[('parent', '=', True)]}" />
                 </xpath>
             </field>
         </record>
