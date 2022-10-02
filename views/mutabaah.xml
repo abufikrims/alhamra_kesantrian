@@ -56,11 +56,8 @@
                 <search string="Mutabaah">
 
                     <filter string="Name" name="filter_by_name" domain="[('name','=','')]" />
-                    <filter string="Kedisiplinan" name="filter_by_kategori" domain="[('kategori','=','disiplin')]" />
-                    <filter string="Pembiasaan Adab dan Karakter" name="filter_by_kategori" domain="[('kategori','=','adab')]" />
-                    <filter string="Pembiasaan Ibadah" name="filter_by_kategori" domain="[('kategori','=','ibadah')]" />
+                    
                     <field name="name" select="True"/>
-                    <field name="kategori" select="True"/>
                     <group string="Group By..">
                     </group>
                 </search>
@@ -96,8 +93,9 @@
                     <field name="name" string="No Referensi"/>
                     <field name="tanggal" />
                     <field name="siswa_id" />
-                    <field name="kategori"/>
+                    <!-- <field name="kategori"/> -->
                     <field name="halaqoh_id" />
+                    <field name="total_skor"/>
                 </tree>
             </field>
         </record>
@@ -128,21 +126,29 @@
                             <field name="tanggal" />
                             <field name="siswa_id" />
                             <field name="halaqoh_id" />
-                            <field name="kategori"/>
+                            <!-- <field name="kategori"/> -->
                         </group>
                         <notebook>
                             <page string="Mutabaah Harian">
                                 <field colspan="4" name="mutabaah_lines">
-                                    <tree string="" editable="top" class="my_class"> 
+                                    <tree string="" editable="bottom" class="my_class"> 
 										<field name="name" string="Aktivitas / Perbuatan" options="{'no_create_edit':True, 'no_create':True, 'no_open':True, 'readonly':True}" />
+                                        <field name="kategori"/>
                                         <field name="is_sudah"/>
                                         <field name="keterangan"/>
 									</tree>
                                 </field>
                                 <group>
+                                    <button string="Uncheck All" name="btn_uncheckall" type="object" class="btn-link oe_edit_only" confirm="Apakah Anda yakin akan menghilangkan tanda Centang untuk semua isian tersebut (UN-CHECK ALL) ?"/>
+                                    <button string="Check All" name="btn_checkall" type="object" class="btn-link oe_edit_only" confirm="Apakah Anda yakin akan memberikan tanda Centang untuk semua isian tersebut (CHECK ALL) ?"/>
+                                </group>
+                                <!-- <group>
                                     <div>
                                         <button string="Uncheck All" type="object" name="btn_uncheckall" />
                                     </div>
+                                </group> -->
+                                <group>
+                                    <field name="total_skor"/>
                                 </group>
                             </page>
                         </notebook>
@@ -159,9 +165,8 @@
                     <filter string="Mutabaah Hari ini" name="mutabaah_today"    
                         domain="[('tanggal','&gt;=', datetime.datetime.combine(context_today(), datetime.time(0,0,0))), ('tanggal','&lt;=', datetime.datetime.combine(context_today(), datetime.time(23,59,59)))]" />
 
-                    <filter string="Kedisiplinan" name="filter_by_kategori" domain="[('kategori','=','disiplin')]" />
-                    <filter string="Pembiasaan Adab dan Karakter" name="filter_by_kategori" domain="[('kategori','=','adab')]" />
-                    <filter string="Pembiasaan Ibadah" name="filter_by_kategori" domain="[('kategori','=','ibadah')]" />
+                    <filter string="Mutabaah Bulan ini" name="mutabaah_month"
+                        domain="[('tanggal','&gt;=', datetime.datetime.combine(datetime.date.today().replace(day=1), datetime.time(0,0,0))), ('tanggal','&lt;=', datetime.datetime.combine(datetime.date.today().replace(day=1) + relativedelta(months=1, days=-1), datetime.time(23,59,59)))]" />  
                     <field name="name" select="True"/>
                     <field name="tanggal" select="True"/>
                     <field name="siswa_id" select="True"/>

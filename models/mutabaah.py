@@ -1,4 +1,5 @@
 from odoo import models, fields, api, _
+from odoo.exceptions import UserError, ValidationError
 
 class mutabaah(models.Model):
 
@@ -19,45 +20,95 @@ class mutabaah_harian(models.Model):
 
     name = fields.Char( readonly=True, default='Auto', string="No Referensi",  help="")
     tanggal = fields.Date( string="Tanggal", default=fields.Date.context_today, required=True, help="")
-    kategori = fields.Selection(selection=[('disiplin','Kedisiplinan'),('adab','Adab'),('ibadah','Ibadah')],  string="Kategori",  help="")
+    # kategori = fields.Selection(selection=[('disiplin','Kedisiplinan'),('adab','Adab'),('ibadah','Ibadah')],  string="Kategori",  help="")
 
     siswa_id = fields.Many2one(comodel_name="res.partner",  string="Siswa", required=True, domain=[('student', '=', True)], help="")
-    halaqoh_id = fields.Many2one('cdn.halaqoh', 'Halaqoh', related='siswa_id.halaqoh_id', readonly=True)
+    halaqoh_id = fields.Many2one('cdn.halaqoh', 'Halaqoh', related='siswa_id.halaqoh_id', readonly=True, store=True)
     mutabaah_lines = fields.One2many(comodel_name="cdn.mutabaah_line",  inverse_name="mutabaah_id",  string="Mutabaah lines",  help="")
+    total_skor = fields.Integer(string='Skor Aktivitas', compute='_compute_total_skor', store=True)
 
-    _sql_constraints = [('mutabaah_harian_uniq', 'unique(tanggal, siswa_id, kategori)', 'Data Mutabaah Harian untuk Siswa tersebut sudah ada di tanggal tersebut !')]
+    @api.depends('mutabaah_lines')
+    def _compute_total_skor(self):
+        for rec in self:
+            total = 0
+            for x in rec.mutabaah_lines:
+                if x.is_sudah:
+                    total += x.name.skor
+            rec.total_skor = total
 
-    @api.onchange('kategori')
-    def onchange_kategori(self):
-        if self.kategori:
-            nilai = []
-            self.mutabaah_lines = [(5,0,0)]
-            obj_mutabaah = self.env['cdn.mutabaah'].search([('kategori','=',self.kategori),('is_tampil','=',True)])
+
+    # _sql_constraints = [('mutabaah_harian_uniq', 'unique(tanggal, siswa_id, kategori)', 'Data Mutabaah Harian untuk Siswa tersebut sudah ada di tanggal tersebut !')]
+
+    # @api.onchange('kategori')
+    # def onchange_kategori(self):
+    #     if self.kategori:
+    #         nilai = []
+    #         self.mutabaah_lines = [(5,0,0)]
+    #         obj_mutabaah = self.env['cdn.mutabaah'].search([('kategori','=',self.kategori),('is_tampil','=',True)])
+    #         for x in obj_mutabaah:
+    #             nilai.append({'name': x.id, 'is_sudah': True, 'keterangan':'-'})
+
+    #         data = {'mutabaah_lines': nilai}
+    #         self.update(data)
+
+    @api.onchange('siswa_id')
+    def _onchange_siswa_id(self):
+        if self.siswa_id:
+            nilai = [(5,0,0)]
+            obj_mutabaah = self.env['cdn.mutabaah'].search([('is_tampil','=',True)], order='kategori asc')
             for x in obj_mutabaah:
-                nilai.append({'name': x.id, 'is_sudah': True, 'keterangan':'-'})
-
+                nilai.append(
+                    (0,0,{'name': x.id, 'is_sudah': True, 'keterangan':'-'})
+                )
             data = {'mutabaah_lines': nilai}
             self.update(data)
 
-    def btn_uncheckall(self):
-        nilai = []
-        self.mutabaah_lines = [(5,0,0)]
-        obj_mutabaah = self.env['cdn.mutabaah'].search([('kategori','=',self.kategori),('is_tampil','=',True)])
-        for x in obj_mutabaah:
-            nilai.append({'name': x.id, 'is_sudah': False, 'keterangan':'-'})
+    @api.onchange('siswa_id')
+    def _onchange_siswa(self):
+        for rec in self:
+            cek_data = self.env['cdn.mutabaah_harian'].search([('siswa_id','=',rec.siswa_id.id),('tanggal','=',rec.tanggal)])
+            if cek_data:
+                return {
+                    'warning' : {
+                        'title' : "Harap diperhatikan!",
+                        'message' : "Santri yang sudah di catat tidak boleh di catat lagi dalam sehari"
+                    },
+                    'value' : {
+                        'mutabaah_lines' : False,
+                        'siswa_id' : False
+                    }
 
-        data = {'mutabaah_lines': nilai}
-        self.update(data)
+                }
+
+    def btn_uncheckall(self):
+        for rec in self:
+            for x in rec.mutabaah_lines:
+                x.is_sudah = False
+                x.keterangan = '-'
+
+        # nilai = []
+        # self.mutabaah_lines = [(5,0,0)]
+        # obj_mutabaah = self.env['cdn.mutabaah'].search([('is_tampil','=',True)], order='kategori asc')
+        # for x in obj_mutabaah:
+        #     nilai.append({'name': x.id, 'is_sudah': False, 'keterangan':'-'})
+
+        # data = {'mutabaah_lines': nilai}
+        # self.update(data)
     
     def btn_checkall(self):
-        nilai = []
-        self.mutabaah_lines = [(5,0,0)]
-        obj_mutabaah = self.env['cdn.mutabaah'].search([('kategori','=',self.kategori),('is_tampil','=',True)])
-        for x in obj_mutabaah:
-            nilai.append({'name': x.id, 'is_sudah': True, 'keterangan':'-'})
+        for rec in self:
+            for x in rec.mutabaah_lines:
+                x.is_sudah = True
+                x.keterangan = '-'
+        
+        # nilai = []
+        # self.mutabaah_lines = [(5,0,0)]
+        # obj_mutabaah = self.env['cdn.mutabaah'].search([('is_tampil','=',True)], order='kategori asc')
+        # for x in obj_mutabaah:
+        #     nilai.append({'name': x.id, 'is_sudah': True, 'keterangan':'-'})
 
-        data = {'mutabaah_lines': nilai}
-        self.update(data)
+        # data = {'mutabaah_lines': nilai}
+        # self.update(data)
         
         
 
@@ -77,6 +128,8 @@ class mutabaah_line(models.Model):
 
     mutabaah_id = fields.Many2one('cdn.mutabaah_harian', 'Mutabaah Harian', required=True, ondelete='cascade')
     name = fields.Many2one(comodel_name="cdn.mutabaah",  string="Mutabaah",  help="")
+    siswa_id = fields.Many2one(comodel_name="res.partner",  string="Siswa", related='mutabaah_id.siswa_id', readonly=True, help="")
+    kategori = fields.Selection(selection=[('disiplin','Kedisiplinan'),('adab','Adab'),('ibadah','Ibadah')],  string="Kategori", related='name.kategori')
     is_sudah = fields.Boolean( string="Dilakukan",  default=False, help="")
     keterangan = fields.Char( string="Keterangan",  help="")
 
